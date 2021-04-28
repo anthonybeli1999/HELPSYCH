@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/ArticleFragment"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="Articulos">
+    </item>
+    <item android:id="@+id/ChatFragment"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="Chats">
+    </item>
+    <item android:id="@+id/HelpFragment"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="Ayuda">
+    </item>
+    <item android:id="@+id/ReportFragment"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="Reportes">
+    </item>
+    <item android:id="@+id/PerfilFragment"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="Perfil">
+    </item>
+</menu>
