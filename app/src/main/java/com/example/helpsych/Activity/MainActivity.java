@@ -18,6 +18,8 @@ import com.example.helpsych.Fragments.ChatFragment;
 import com.example.helpsych.Fragments.HelpFragment;
 import com.example.helpsych.Fragments.PerfilFragment;
 import com.example.helpsych.Fragments.ReportFragment;
+import com.example.helpsych.Fragments.FindUsersFragment;
+
 import com.example.helpsych.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     HelpFragment helpFragment = new HelpFragment();
     ReportFragment reportFragment = new ReportFragment();
     PerfilFragment perfilFragment = new PerfilFragment();
-
+    FindUsersFragment findUsersFragment = new FindUsersFragment();
 
     //Thats what im doing
     private FirebaseUser currentUser;
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(helpFragment);
                     return true;
                 case R.id.ReportFragment:
-                    loadFragment(reportFragment);
+                    loadFragment(findUsersFragment);
                     return true;
                 case R.id.PerfilFragment:
                     loadFragment(perfilFragment);

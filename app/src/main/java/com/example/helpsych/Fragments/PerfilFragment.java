@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.helpsych.Activity.EditProfileActivity;
+import com.example.helpsych.Activity.LoginActivity;
 import com.example.helpsych.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +22,8 @@ import com.example.helpsych.R;
  * create an instance of this fragment.
  */
 public class PerfilFragment extends Fragment {
+
+    private FirebaseAuth mAuth;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,7 +64,21 @@ public class PerfilFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        mAuth = FirebaseAuth.getInstance();
+
+
+        Button btnLogout = v.findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                SendUserToLoginActivity();
+            }
+        });
+
+
         TextView txtEditarPerfil = v.findViewById(R.id.user_textbutton_edit);
+
         txtEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,5 +88,17 @@ public class PerfilFragment extends Fragment {
         });
 
         return v;
+    }
+
+    public void Logout(View view) {
+
+    }
+
+    private void SendUserToLoginActivity()
+    {
+        Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+        //finish();
     }
 }
