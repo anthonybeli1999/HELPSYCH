@@ -1,10 +1,5 @@
 package com.example.helpsych.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.helpsych.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,8 +34,6 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -69,9 +67,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         InitializeFields();
 
-
-        userName.setVisibility(View.INVISIBLE);
-
+        //userName.setVisibility(View.INVISIBLE);
 
         UpdateAccountSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,7 +273,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
                             String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
                             String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
-                            String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
+                            //String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
 
 
                             userName.setText(retrieveUserName);
