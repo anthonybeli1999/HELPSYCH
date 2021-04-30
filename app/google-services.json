@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "529615864029",
+    "firebase_url": "https://helpsych-66739-default-rtdb.firebaseio.com",
+    "project_id": "helpsych-66739",
+    "storage_bucket": "helpsych-66739.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529615864029:android:51cb8548bf026d44a3db34",
+        "android_client_info": {
+          "package_name": "com.example.helpsych"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529615864029-c4daq79bn9teuoiqscpvoo8mqs4minet.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.helpsych",
+            "certificate_hash": "cce419cbad4ad954d824645f2160585af841fcfb"
+          }
+        },
+        {
+          "client_id": "529615864029-2ivqloj2d868113jhajgto7s4od22d7a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdEivzerxztZvLXrPweXmVIZHGtAvaIpI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "529615864029-2ivqloj2d868113jhajgto7s4od22d7a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

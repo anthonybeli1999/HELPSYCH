@@ -11,6 +11,7 @@
     <color name="red">#d62839</color>
     <color name="shadow_red">#ba324f</color>
     <color name="dark_blue">#175676</color>
+    <color name="dark_blue2">#0e394f</color>
     <color name="sky">#4ba3c3</color>
     <color name="light">#cce6f4</color>
 </resources>
