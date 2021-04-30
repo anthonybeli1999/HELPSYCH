@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.HelPsych" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/shadow_red</item>
+        <item name="colorPrimary">@color/sky</item>
         <item name="colorPrimaryVariant">@color/dark_blue2</item>
         <item name="colorOnPrimary">@color/dark_blue</item>
         <!-- Secondary brand color. -->

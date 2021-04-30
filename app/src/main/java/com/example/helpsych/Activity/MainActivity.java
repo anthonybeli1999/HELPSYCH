@@ -7,8 +7,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.helpsych.Fragments.ArticleFragment;
 import com.example.helpsych.Fragments.ChatFragment;
@@ -17,6 +20,14 @@ import com.example.helpsych.Fragments.PerfilFragment;
 import com.example.helpsych.Fragments.ReportFragment;
 import com.example.helpsych.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +36,14 @@ public class MainActivity extends AppCompatActivity {
     HelpFragment helpFragment = new HelpFragment();
     ReportFragment reportFragment = new ReportFragment();
     PerfilFragment perfilFragment = new PerfilFragment();
+
+
+    //Thats what im doing
+    private FirebaseUser currentUser;
+    private FirebaseAuth mAuth;
+    private DatabaseReference RootRef;
+    private String currentUserID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        //Thats what Im doing
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        //currentUserID = mAuth.getCurrentUser().getUid();
+        RootRef = FirebaseDatabase.getInstance().getReference();
+
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,4 +98,66 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_container, fragment);
         transaction.commit();
     }
+
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+        if (currentUser == null)
+        {
+            SendUserToLoginActivity();
+        }
+        else
+        {
+            //updateUserStatus("online");
+
+            VerifyUserExistance();
+        }
+    }
+
+    private void VerifyUserExistance()
+    {
+        String currentUserID = mAuth.getCurrentUser().getUid();
+
+        RootRef.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                if ((dataSnapshot.child("name").exists()))
+                {
+                    Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    SendUserToSettingsActivity();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    private void SendUserToLoginActivity()
+    {
+        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+        //finish();
+    }
+
+
+    private void SendUserToSettingsActivity()
+    {
+        Intent settingsIntent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(settingsIntent);
+    }
+
+
+
 }

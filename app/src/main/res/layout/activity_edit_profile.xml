@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.PerfilFragment">
+    tools:context=".Activity.EditProfileActivity">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,6 +66,18 @@
                     android:text="Paciente"
                     android:textSize="14sp"
                     android:textColor="#7E7E7E"/>
+
+                <Button
+                    android:id="@+id/btn_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/sky"
+                    android:fontFamily="sans-serif"
+                    android:text="Subir foto"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -91,14 +103,20 @@
                             android:textSize="15sp"
                             android:textColor="@color/dark_blue"
                             android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/txt_name"
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Jhon"
-                            android:textSize="14sp"
-                            android:textColor="@color/sky"
-                            android:textStyle="bold"/>
+                            android:layout_marginRight="10dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:textSize="14sp"
+                                android:padding="5dp"/>
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -113,14 +131,20 @@
                             android:textSize="15sp"
                             android:textColor="@color/dark_blue"
                             android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/txt_lastname"
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Doe"
-                            android:textSize="14sp"
-                            android:textColor="@color/sky"
-                            android:textStyle="bold"/>
+                            android:layout_marginRight="10dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_lastname"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:textSize="14sp"
+                                android:padding="5dp"/>
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -144,14 +168,20 @@
                             android:textSize="15sp"
                             android:textColor="@color/dark_blue"
                             android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/txt_email"
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="jhondoe@gmail.com"
-                            android:textSize="14sp"
-                            android:textColor="@color/sky"
-                            android:textStyle="bold"/>
+                            android:layout_marginRight="10dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_email"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textEmailAddress"
+                                android:textSize="14sp"
+                                android:padding="5dp"/>
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -175,14 +205,20 @@
                             android:textSize="15sp"
                             android:textColor="@color/dark_blue"
                             android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/txt_date"
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="22-08-1992"
-                            android:textSize="14sp"
-                            android:textColor="@color/sky"
-                            android:textStyle="bold"/>
+                            android:layout_marginRight="10dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="datetime"
+                                android:textSize="14sp"
+                                android:padding="5dp"/>
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -206,14 +242,20 @@
                             android:textSize="15sp"
                             android:textColor="@color/dark_blue"
                             android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/txt_sex"
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Masculino"
-                            android:textSize="14sp"
-                            android:textColor="@color/sky"
-                            android:textStyle="bold"/>
+                            android:layout_marginRight="10dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_sex"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:textSize="14sp"
+                                android:padding="5dp"/>
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -227,13 +269,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/shadow_red"
+            android:backgroundTint="@color/dark_blue"
             android:fontFamily="sans-serif"
-            android:text="CERRAR SESIÓN"
+            android:text="GUARDAR CAMBIOS"
             android:padding="10dp"
             android:textColor="@color/white"
             android:textSize="15sp" />
-
 
     </LinearLayout>
 
