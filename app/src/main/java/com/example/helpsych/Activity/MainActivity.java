@@ -20,6 +20,7 @@ import com.example.helpsych.Fragments.PerfilFragment;
 import com.example.helpsych.Fragments.ReportFragment;
 import com.example.helpsych.Fragments.FindUsersFragment;
 
+import com.example.helpsych.Fragments.RequestFragment;
 import com.example.helpsych.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     ReportFragment reportFragment = new ReportFragment();
     PerfilFragment perfilFragment = new PerfilFragment();
     FindUsersFragment findUsersFragment = new FindUsersFragment();
+    RequestFragment requestFragment = new RequestFragment();
 
     //Thats what im doing
     private FirebaseUser currentUser;
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()){
                 case R.id.ArticleFragment:
-                    loadFragment(articleFragment);
+                    loadFragment(requestFragment);
                     return true;
                 case R.id.ChatFragment:
                     loadFragment(chatFragment);

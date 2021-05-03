@@ -255,7 +255,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name") && (dataSnapshot.hasChild("image"))))
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
-                            String retrievesUserLastName = dataSnapshot.child("lastname").getValue().toString();
+                            String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
                             String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
                             String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
                             String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();

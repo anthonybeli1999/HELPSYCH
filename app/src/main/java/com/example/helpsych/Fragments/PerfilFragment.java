@@ -1,5 +1,6 @@
 package com.example.helpsych.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,21 +10,41 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.helpsych.Activity.EditProfileActivity;
 import com.example.helpsych.Activity.LoginActivity;
 import com.example.helpsych.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link PerfilFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+
+
 public class PerfilFragment extends Fragment {
 
+    private DatabaseReference RootRef;
+
+    private String currentUserID, currentUserType;
+
     private FirebaseAuth mAuth;
+
+    private Button UpdateAccountSettings;
+    private TextView userNameP, userLastNameP, userEmailP, userSexP, userBirthDateP, userDescriptionP;
+    private ImageView userProfileImage;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,8 +85,21 @@ public class PerfilFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        mAuth = FirebaseAuth.getInstance();
 
+        RootRef = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        currentUserID = mAuth.getCurrentUser().getUid();
+
+
+        userNameP = (TextView) v.findViewById(R.id.txt_name_p);
+        userLastNameP = (TextView) v.findViewById(R.id.txt_lastname_p);
+        userEmailP =  (TextView)v.findViewById(R.id.txt_email_p);
+        userSexP =  (TextView) v.findViewById(R.id.txt_sex_p);
+        userBirthDateP = (TextView)v.findViewById(R.id.txt_date_p);
+        userDescriptionP = (TextView) v.findViewById(R.id.txt_description_p);
+        userProfileImage = (ImageView) v.findViewById(R.id.img_userphoto_p);
+
+        RetrieveUserInfo();
 
         Button btnLogout = v.findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +121,11 @@ public class PerfilFragment extends Fragment {
             }
         });
 
+
+
         return v;
+
+
     }
 
     public void Logout(View view) {
@@ -101,4 +139,68 @@ public class PerfilFragment extends Fragment {
         startActivity(loginIntent);
         //finish();
     }
+
+
+    private void RetrieveUserInfo()
+    {
+        RootRef.child("Users").child(currentUserID)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name") && (dataSnapshot.hasChild("image"))))
+                        {
+                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
+                            String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
+                            String retrievesEmail = mAuth.getCurrentUser().getEmail();
+                            String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
+                            String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
+                            //String retrievesUserDescription = dataSnapshot.child("birthdate").getValue().toString();
+                            String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
+
+
+
+
+                            userNameP.setText(retrieveUserName);
+                            userLastNameP.setText(retrievesUserLastName);
+                            userEmailP.setText(retrievesEmail);
+                            userSexP.setText(retrievesUserSex);
+                            userLastNameP.setText(retrievesUserLastName);
+                            userBirthDateP.setText(retrievesUserBirthDate);
+                            Picasso.get().load(retrieveProfileImage).into(userProfileImage);
+                        }
+                        else if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")))
+                        {
+                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
+                            String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
+                            String retrievesEmail = mAuth.getCurrentUser().getEmail();
+                            String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
+                            String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
+                            //String retrievesUserDescription = dataSnapshot.child("birthdate").getValue().toString();
+                            //String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
+
+
+
+
+                            userNameP.setText(retrieveUserName);
+                            userLastNameP.setText(retrievesUserLastName);
+                            userEmailP.setText(retrievesEmail);
+                            userSexP.setText(retrievesUserSex);
+                            userLastNameP.setText(retrievesUserLastName);
+                            userBirthDateP.setText(retrievesUserBirthDate);
+                        }
+                        else
+                        {
+                            //userName.setVisibility(View.VISIBLE);
+                            Toast.makeText(getContext(), "Please set & update your profile information...", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
 }
