@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,7 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
-public class ProfileActivity extends AppCompatActivity {
+public class PopupDetailUser extends AppCompatActivity {
 
     private String receiverUserID, senderUserID, Current_State;
 
@@ -33,13 +34,18 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference UserRef, ChatRequestRef, ContactsRef, NotificationRef;
     private FirebaseAuth mAuth;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_popup_detail_user);
 
+        DisplayMetrics medidasVentana = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(medidasVentana);
+
+        int width = medidasVentana.widthPixels;
+        int height = medidasVentana.heightPixels;
+
+        getWindow().setLayout((int)(width*0.85), (int)(height*0.8));
 
         mAuth = FirebaseAuth.getInstance();
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -62,8 +68,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         RetrieveUserInfo();
     }
-
-
 
     private void RetrieveUserInfo()
     {

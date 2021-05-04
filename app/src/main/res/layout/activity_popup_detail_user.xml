@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.PopupDetailUser">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="50dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Detalle usuario"
+            android:layout_below="@+id/visit_user_name"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_blue2"
+            android:gravity="center"/>
+
+        <ImageView
+            android:id="@+id/visit_profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/profile_image"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/visit_user_name"
+            android:text="user name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/visit_profile_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:layout_below="@+id/visit_user_name"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_marginVertical="15dp"/>
+
+        <Button
+            android:id="@+id/send_message_request_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/visit_profile_status"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="Send Message"
+            android:backgroundTint="@color/dark_blue"
+            android:textAllCaps="false"
+            android:layout_marginHorizontal="20dp"/>
+
+        <Button
+            android:id="@+id/decline_message_request_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/send_message_request_button"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="Cancel Chat Request"
+            android:backgroundTint="@color/shadow_red"
+            android:textAllCaps="false"
+            android:visibility="invisible"
+            android:layout_marginHorizontal="20dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

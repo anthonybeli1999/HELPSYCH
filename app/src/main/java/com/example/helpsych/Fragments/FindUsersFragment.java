@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.helpsych.Activity.PopupDetailUser;
 import com.example.helpsych.Activity.ProfileActivity;
 import com.example.helpsych.Model.User;
 import com.example.helpsych.R;
@@ -120,7 +121,11 @@ public class FindUsersFragment extends Fragment {
                             {
                                 String visit_user_id = getRef(position).getKey();
 
-                                Intent profileIntent = new Intent(getContext(), ProfileActivity.class);
+                                //Intent profileIntent = new Intent(getContext(), ProfileActivity.class);
+                                //profileIntent.putExtra("visit_user_id", visit_user_id);
+                                //startActivity(profileIntent);
+
+                                Intent profileIntent = new Intent(getContext(), PopupDetailUser.class);
                                 profileIntent.putExtra("visit_user_id", visit_user_id);
                                 startActivity(profileIntent);
                             }
@@ -149,7 +154,6 @@ public class FindUsersFragment extends Fragment {
     {
         TextView userName, userStatus;
         ImageView profileImage;
-
 
         public FindFriendViewHolder(@NonNull View itemView)
         {

@@ -122,8 +122,8 @@ public class RequestFragment extends Fragment {
                     @Override
                     protected void onBindViewHolder(@NonNull final RequestsViewHolder holder, int position, @NonNull User model)
                     {
-                        holder.itemView.findViewById(R.id.request_accept_btn).setVisibility(View.VISIBLE);
-                        holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.VISIBLE);
+                        //holder.itemView.findViewById(R.id.request_accept_btn).setVisibility(View.VISIBLE);
+                        //holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.VISIBLE);
 
 
                         final String list_user_id = getRef(position).getKey();
@@ -263,10 +263,10 @@ public class RequestFragment extends Fragment {
                                     }
                                     else if (type.equals("sent"))
                                     {
-                                        Button request_sent_btn = holder.itemView.findViewById(R.id.request_accept_btn);
-                                        request_sent_btn.setText("Req Sent");
+                                        //Button request_sent_btn = holder.itemView.findViewById(R.id.request_accept_btn);
+                                        //request_sent_btn.setText("Req Sent");
 
-                                        holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.INVISIBLE);
+                                        //holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.INVISIBLE);
 
                                         UsersRef.child(list_user_id).addValueEventListener(new ValueEventListener() {
                                             @Override
@@ -373,19 +373,17 @@ public class RequestFragment extends Fragment {
     {
         TextView userName, userStatus;
         CircleImageView profileImage;
-        Button AcceptButton, CancelButton;
-
+        //Button AcceptButton, CancelButton;
 
         public RequestsViewHolder(@NonNull View itemView)
         {
             super(itemView);
 
-
             userName = itemView.findViewById(R.id.user_profile_name);
             userStatus = itemView.findViewById(R.id.user_status);
             profileImage = itemView.findViewById(R.id.users_profile_image);
-            AcceptButton = itemView.findViewById(R.id.request_accept_btn);
-            CancelButton = itemView.findViewById(R.id.request_cancel_btn);
+            //AcceptButton = itemView.findViewById(R.id.request_accept_btn);
+            //CancelButton = itemView.findViewById(R.id.request_cancel_btn);
         }
     }
 }
