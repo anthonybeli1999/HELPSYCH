@@ -1,6 +1,7 @@
 package com.example.helpsych.Fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,6 +114,8 @@ public class FindUsersFragment extends Fragment {
                         holder.userName.setText(model.getName());
                         holder.userStatus.setText(model.getLastName());
                         Picasso.get().load(model.getImage()).placeholder(R.drawable.profile_image).into(holder.profileImage);
+                        holder.userType.setText("Oyente");
+                        holder.userType.setTextColor(Color.rgb(186,50,79));
 
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +155,7 @@ public class FindUsersFragment extends Fragment {
 
     public static class FindFriendViewHolder extends RecyclerView.ViewHolder
     {
-        TextView userName, userStatus;
+        TextView userName, userStatus, userType;
         ImageView profileImage;
 
         public FindFriendViewHolder(@NonNull View itemView)
@@ -162,6 +165,7 @@ public class FindUsersFragment extends Fragment {
             userName = itemView.findViewById(R.id.user_profile_name);
             userStatus = itemView.findViewById(R.id.user_status);
             profileImage = itemView.findViewById(R.id.users_profile_image);
+            userType = itemView.findViewById(R.id.user_status_chat);
         }
     }
 }

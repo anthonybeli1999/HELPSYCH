@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()){
                 case R.id.ArticleFragment:
-                    loadFragment(requestFragment);
+                    loadFragment(articleFragment);
                     return true;
                 case R.id.ChatFragment:
                     loadFragment(chatFragment);
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 if ((dataSnapshot.child("name").exists()))
                 {
-                    Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {

@@ -7,10 +7,63 @@ tools:context=".Fragments.ChatFragment">
 
 <!-- TODO: Update blank fragment layout -->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/contacts_list"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_centerInParent="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CONVERSACIONES ACTIVAS"
+                android:gravity="center"
+                android:background="@color/dark_blue"
+                android:textColor="@color/white"
+                android:paddingVertical="5dp"
+                android:layout_marginVertical="5dp"
+                android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/contacts_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SOLICITUDES DE CONVERSACIONES"
+                android:gravity="center"
+                android:background="@color/shadow_red"
+                android:textColor="@color/white"
+                android:paddingVertical="5dp"
+                android:layout_marginVertical="5dp"
+                android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/chat_requests_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="5dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>

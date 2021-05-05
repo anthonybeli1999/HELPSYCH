@@ -60,7 +60,7 @@
             android:textColor="@android:color/background_light"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:text="Send Message"
+            android:text="Enviar solicitud"
             android:backgroundTint="@color/dark_blue"
             android:textAllCaps="false"
             android:layout_marginHorizontal="20dp"/>
@@ -73,7 +73,7 @@
             android:textColor="@android:color/background_light"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:text="Cancel Chat Request"
+            android:text="Cancelar solicitud"
             android:backgroundTint="@color/shadow_red"
             android:textAllCaps="false"
             android:visibility="invisible"

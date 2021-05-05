@@ -73,8 +73,8 @@
                     android:id="@+id/user_time_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="18:20 pm"
-                    android:textColor="@color/shadow_red"
+                    android:text="Pendiente"
+                    android:textColor="@android:color/holo_orange_light"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:gravity="center"/>

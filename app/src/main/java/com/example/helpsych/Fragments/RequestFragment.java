@@ -41,7 +41,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RequestFragment extends Fragment {
 
 
-
     private View RequestsFragmentView;
     private RecyclerView myRequestsList;
 
@@ -63,14 +62,6 @@ public class RequestFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RequestFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static RequestFragment newInstance(String param1, String param2) {
         RequestFragment fragment = new RequestFragment();
@@ -371,9 +362,8 @@ public class RequestFragment extends Fragment {
 
     public static class RequestsViewHolder extends RecyclerView.ViewHolder
     {
-        TextView userName, userStatus;
+        TextView userName, userStatus, userStatusChat;
         CircleImageView profileImage;
-        //Button AcceptButton, CancelButton;
 
         public RequestsViewHolder(@NonNull View itemView)
         {
@@ -382,8 +372,7 @@ public class RequestFragment extends Fragment {
             userName = itemView.findViewById(R.id.user_profile_name);
             userStatus = itemView.findViewById(R.id.user_status);
             profileImage = itemView.findViewById(R.id.users_profile_image);
-            //AcceptButton = itemView.findViewById(R.id.request_accept_btn);
-            //CancelButton = itemView.findViewById(R.id.request_cancel_btn);
+            userStatusChat = itemView.findViewById(R.id.user_status_chat);
         }
     }
 }

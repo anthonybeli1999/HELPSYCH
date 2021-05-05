@@ -37,7 +37,7 @@ import java.util.HashMap;
 
 public class EditProfileActivity extends AppCompatActivity {
 
-    private Button UpdateAccountSettings;
+    private Button UpdateAccountSettings, ButtonUploadPhoto;
     private EditText userName, userLastName, userEmail, userSex, userBirthDate, userDescription;
     //private CircleImageView ;
     private ImageView userProfileImage;
@@ -76,8 +76,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 UpdateSettings();
             }
         });
-
-
         RetrieveUserInfo();
 
 
@@ -85,12 +83,21 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
+
+            }
+        });
+
+        ButtonUploadPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent galleryIntent = new Intent();
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, GalleryPick);
             }
         });
+
+
 
     }
 
@@ -108,6 +115,7 @@ public class EditProfileActivity extends AppCompatActivity {
         //userDescription = (EditText) findViewById(R.id.edt_description);
         userProfileImage = (ImageView) findViewById(R.id.userProfilePhotoEdit);
         loadingBar = new ProgressDialog(this);
+        ButtonUploadPhoto = (Button) findViewById(R.id.btn_upload_photo);
 
         /*SettingsToolBar = (Toolbar) findViewById(R.id.settings_toolbar);
         setSupportActionBar(SettingsToolBar);
