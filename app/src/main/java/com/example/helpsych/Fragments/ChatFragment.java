@@ -1,5 +1,6 @@
 package com.example.helpsych.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.helpsych.Activity.ChatActivity;
 import com.example.helpsych.Model.User;
 import com.example.helpsych.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -36,12 +38,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChatFragment extends Fragment {
 
 
-    private View ContactsView;
-    private RecyclerView myContactsList;
+    private View PrivateChatsView;
+    private RecyclerView chatsList;
 
-    private DatabaseReference ContacsRef, UsersRef;
+    private DatabaseReference ChatsRef, UsersRef;
     private FirebaseAuth mAuth;
-    private String currentUserID;
+    private String currentUserID="";
 
 
     public void ContactsFragment() {
@@ -94,22 +96,22 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        ContactsView = inflater.inflate(R.layout.fragment_chat, container, false);
-
-
-        myContactsList = (RecyclerView) ContactsView.findViewById(R.id.contacts_list);
-        //myContactsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        // Inflate the layout for this fragment
+        PrivateChatsView = inflater.inflate(R.layout.fragment_chat, container, false);
 
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
-
-
-        ContacsRef = FirebaseDatabase.getInstance().getReference().child("Contacts").child(currentUserID);
+        ChatsRef = FirebaseDatabase.getInstance().getReference().child("Contacts").child(currentUserID);
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
 
-        return ContactsView;
+        chatsList = (RecyclerView) PrivateChatsView.findViewById(R.id.contacts_list);
+        chatsList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        return PrivateChatsView;
+
 
         //return inflater.inflate(R.layout.fragment_chat, container, false);
 
@@ -119,107 +121,111 @@ public class ChatFragment extends Fragment {
     public void onStart()
     {
         super.onStart();
+        //myContactsList.setLayoutManager(new GridLayoutManager(getContext(),1));
 
-        FirebaseRecyclerOptions options =
+        FirebaseRecyclerOptions<User> options =
                 new FirebaseRecyclerOptions.Builder<User>()
-                        .setQuery(ContacsRef, User.class)
+                        .setQuery(ChatsRef, User.class)
                         .build();
 
 
-        final FirebaseRecyclerAdapter<User, ContactsViewHolder> adapter
-                = new FirebaseRecyclerAdapter<User, ContactsViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull final ContactsViewHolder holder, int position, @NonNull User model)
-            {
-                final String userIDs = getRef(position).getKey();
-
-                UsersRef.child(userIDs).addValueEventListener(new ValueEventListener() {
+        FirebaseRecyclerAdapter<User, ChatsViewHolder> adapter =
+                new FirebaseRecyclerAdapter<User, ChatsViewHolder>(options) {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot)
+                    protected void onBindViewHolder(@NonNull final ChatsViewHolder holder, int position, @NonNull User model)
                     {
-                        if (dataSnapshot.exists())
-                        {
-                            if (dataSnapshot.child("userState").hasChild("state"))
-                            {
-                                String state = dataSnapshot.child("userState").child("state").getValue().toString();
-                                String date = dataSnapshot.child("userState").child("date").getValue().toString();
-                                String time = dataSnapshot.child("userState").child("time").getValue().toString();
+                        final String usersIDs = getRef(position).getKey();
+                        final String[] retImage = {"default_image"};
 
-                                if (state.equals("online"))
+                        UsersRef.child(usersIDs).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot)
+                            {
+                                if (dataSnapshot.exists())
                                 {
-                                    holder.onlineIcon.setVisibility(View.VISIBLE);
+                                    if (dataSnapshot.hasChild("image"))
+                                    {
+                                        retImage[0] = dataSnapshot.child("image").getValue().toString();
+                                        Picasso.get().load(retImage[0]).into(holder.profileImage);
+                                    }
+
+                                    final String retName = dataSnapshot.child("name").getValue().toString();
+                                    final String retStatus = dataSnapshot.child("lastName").getValue().toString();
+
+                                    holder.userName.setText(retName);
+
+
+                                    if (dataSnapshot.child("userState").hasChild("state"))
+                                    {
+                                        String state = dataSnapshot.child("userState").child("state").getValue().toString();
+                                        String date = dataSnapshot.child("userState").child("date").getValue().toString();
+                                        String time = dataSnapshot.child("userState").child("time").getValue().toString();
+
+                                        if (state.equals("online"))
+                                        {
+                                            holder.userStatus.setText("online");
+                                        }
+                                        else if (state.equals("offline"))
+                                        {
+                                            holder.userStatus.setText("Last Seen: " + date + " " + time);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        holder.userStatus.setText("offline");
+                                    }
+
+                                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Intent chatIntent = new Intent(getContext(), ChatActivity.class);
+                                            chatIntent.putExtra("visit_user_id", usersIDs);
+                                            chatIntent.putExtra("visit_user_name", retName);
+                                            chatIntent.putExtra("visit_image", retImage[0]);
+                                            startActivity(chatIntent);
+                                        }
+                                    });
                                 }
-                                else if (state.equals("offline"))
-                                {
-                                    holder.onlineIcon.setVisibility(View.INVISIBLE);
-                                }
-                            }
-                            else
-                            {
-                                holder.onlineIcon.setVisibility(View.INVISIBLE);
                             }
 
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                            if (dataSnapshot.hasChild("image"))
-                            {
-                                String userImage = dataSnapshot.child("image").getValue().toString();
-                                String profileName = dataSnapshot.child("name").getValue().toString();
-                                String profileStatus = dataSnapshot.child("lastName").getValue().toString();
-
-                                holder.userName.setText(profileName);
-                                holder.userStatus.setText(profileStatus);
-                                Picasso.get().load(userImage).placeholder(R.drawable.profile_image).into(holder.profileImage);
                             }
-                            else
-                            {
-                                String profileName = dataSnapshot.child("name").getValue().toString();
-                                String profileStatus = dataSnapshot.child("lastName").getValue().toString();
-
-                                holder.userName.setText(profileName);
-                                holder.userStatus.setText(profileStatus);
-                            }
-                        }
+                        });
                     }
 
+                    @NonNull
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
+                    public ChatsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+                    {
+                        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.users_display_layout, viewGroup, false);
+                        return new ChatsViewHolder(view);
                     }
-                });
-            }
+                };
 
-            @NonNull
-            @Override
-            public ContactsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
-            {
-                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.users_displays_layout, viewGroup, false);
-                ContactsViewHolder viewHolder = new ContactsViewHolder(view);
-                return viewHolder;
-            }
-        };
-        myContactsList.setLayoutManager(new GridLayoutManager(getContext(),1));
-        myContactsList.setAdapter(adapter);
+        chatsList.setLayoutManager(new GridLayoutManager(getContext(),1));
+        chatsList.setAdapter(adapter);
         adapter.startListening();
     }
 
 
 
 
-    public static class ContactsViewHolder extends RecyclerView.ViewHolder
+    public static class  ChatsViewHolder extends RecyclerView.ViewHolder
     {
-        TextView userName, userStatus;
         CircleImageView profileImage;
-        ImageView onlineIcon;
+        TextView userStatus, userName;
 
 
-        public ContactsViewHolder(@NonNull View itemView)
+        public ChatsViewHolder(@NonNull View itemView)
         {
             super(itemView);
 
-            userName = itemView.findViewById(R.id.user_profile_name);
-            userStatus = itemView.findViewById(R.id.user_status);
             profileImage = itemView.findViewById(R.id.users_profile_image);
-            onlineIcon = (ImageView) itemView.findViewById(R.id.user_online_status);
+            userStatus = itemView.findViewById(R.id.user_status);
+            userName = itemView.findViewById(R.id.user_profile_name);
         }
     }
 }

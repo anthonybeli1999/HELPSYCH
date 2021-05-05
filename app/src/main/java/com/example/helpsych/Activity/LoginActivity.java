@@ -22,6 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -120,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                                 SendUserToMainActivity();
                                 Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
-                                /*
+
                                 String currentUserId = mAuth.getCurrentUser().getUid();
                                 String deviceToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -137,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     loadingBar.dismiss();
                                                 }
                                             }
-                                        });*/
+                                        });
                             }
                             else
                             {
