@@ -24,11 +24,15 @@ public class User {
     public String sex;
     public String birthdate;
     public String image;
+    public String description;
 
     public String getImage() {
         return image;
     }
 
+    public String getDescription() {
+        return description;
+    }
 
     public String getUid() {
         return uid;

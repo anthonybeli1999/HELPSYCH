@@ -4,8 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 import com.example.helpsych.Activity.EditProfileActivity;
 import com.example.helpsych.Activity.LoginActivity;
 import com.example.helpsych.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +60,7 @@ public class PerfilFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -102,6 +109,7 @@ public class PerfilFragment extends Fragment {
         RetrieveUserInfo();
 
         Button btnLogout = v.findViewById(R.id.btnLogout);
+
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +118,14 @@ public class PerfilFragment extends Fragment {
             }
         });
 
+        Button btnTurnIntoListener = v.findViewById(R.id.btnTurnIntoListener);
+        btnTurnIntoListener.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //mAuth.signOut();
+                ChangeUserType();
+            }
+        });
 
         TextView txtEditarPerfil = v.findViewById(R.id.user_textbutton_edit);
 
@@ -128,6 +144,30 @@ public class PerfilFragment extends Fragment {
 
     }
 
+    public void ChangeUserType()
+    {
+            HashMap<String, Object> profileMap = new HashMap<>();
+            profileMap.put("uid", currentUserID);
+            profileMap.put("usertype", "2");
+            RootRef.child("Users").child(currentUserID).updateChildren(profileMap)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task)
+                        {
+                            if (task.isSuccessful())
+                            {
+
+                                Toast.makeText(getContext(), "Tipo de usuario actualizado...", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                String message = task.getException().toString();
+                                Toast.makeText(getContext(), "Error: " + message, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+    }
     public void Logout(View view) {
 
     }

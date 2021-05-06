@@ -108,9 +108,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 RootRef.child("Users").child(currentUserID).setValue("");
 
 
-
-
-
                                 RootRef.child("Users").child(currentUserID).child("device_token")
                                         .setValue(deviceToken);
 
@@ -125,6 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 RootRef.child("Users").child(currentUserID).child("birthdate")
                                         .setValue(userBirthDay);
+
 
                                 //Tipo de paciente
                                 //Administrator = 0

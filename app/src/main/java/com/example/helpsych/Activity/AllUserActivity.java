@@ -23,10 +23,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class AllUserActivity extends AppCompatActivity {
 
     private RecyclerView FindFriendsRecyclerList;
     private DatabaseReference UsersRef;
+    List<User> UserList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,22 +39,25 @@ public class AllUserActivity extends AppCompatActivity {
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         FindFriendsRecyclerList = findViewById(R.id.find_friends_recycler_list);
 
+
         FirebaseRecyclerOptions<User> options =
                 new FirebaseRecyclerOptions.Builder<User>()
-                        .setQuery(UsersRef, User.class)
+                        .setQuery(UsersRef.orderByChild("usertype").equalTo("2"), User.class)
                         .build();
 
+        //orderByChild("ownerID").equalTo(user.getUid()
 
         FirebaseRecyclerAdapter<User, FindFriendViewHolder> adapter =
                 new FirebaseRecyclerAdapter<User, FindFriendViewHolder>(options) {
+
                     @Override
                     protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, final int position, @NonNull User model)
                     {
-                        holder.userName.setText(model.getName());
-                        holder.userStatus.setText(model.getLastName());
-                        Picasso.get().load(model.getImage()).placeholder(R.drawable.profile_image).into(holder.profileImage);
-                        holder.userType.setText("Oyente");
-                        holder.userType.setTextColor(Color.rgb(186,50,79));
+                            holder.userName.setText(model.getName());
+                            holder.userStatus.setText(model.getLastName());
+                            Picasso.get().load(model.getImage()).placeholder(R.drawable.profile_image).into(holder.profileImage);
+                            holder.userType.setText("Oyente");
+                            holder.userType.setTextColor(Color.rgb(186, 50, 79));
 
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -59,11 +65,6 @@ public class AllUserActivity extends AppCompatActivity {
                             public void onClick(View view)
                             {
                                 String visit_user_id = getRef(position).getKey();
-
-                                //Intent profileIntent = new Intent(getContext(), ProfileActivity.class);
-                                //profileIntent.putExtra("visit_user_id", visit_user_id);
-                                //startActivity(profileIntent);
-
                                 Intent profileIntent = new Intent(getApplicationContext(), PopupDetailUser.class);
                                 profileIntent.putExtra("visit_user_id", visit_user_id);
                                 startActivity(profileIntent);
