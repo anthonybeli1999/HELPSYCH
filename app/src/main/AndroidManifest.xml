@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HelPsych">
-        <activity android:name=".Activity.AllUserActivity"></activity>
+        <activity android:name=".Activity.MainAdminActivity"></activity>
+        <activity android:name=".Activity.AllUserActivity" />
         <activity android:name=".Activity.ChatActivity" />
         <activity
             android:name=".Activity.PopupDetailUser"
