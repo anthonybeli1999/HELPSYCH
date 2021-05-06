@@ -131,7 +131,7 @@
                     android:id="@+id/txt_registro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Registrate"
+                    android:text="Registrate Ahora"
                     android:textSize="18sp"
                     android:textColor="@color/shadow_red"
                     android:textStyle="bold"
