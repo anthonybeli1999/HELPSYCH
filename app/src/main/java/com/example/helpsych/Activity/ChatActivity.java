@@ -32,6 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,7 +47,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private String messageReceiverID, messageReceiverName, messageReceiverImage, messageSenderID;
 
-    private TextView userName, userLastSeen;
+    private TextView userName, userLastSeen, btnCancel;
     private CircleImageView userImage;
 
     private Toolbar ChatToolBar;
@@ -87,6 +89,7 @@ public class ChatActivity extends AppCompatActivity {
         IntializeControllers();
 
 
+
         //.setText(messageReceiverName);
         //Picasso.get().load(messageReceiverImage).placeholder(R.drawable.profile_image).into(userImage);
 
@@ -102,7 +105,6 @@ public class ChatActivity extends AppCompatActivity {
 
         DisplayLastSeen();
     }
-
 
 
 

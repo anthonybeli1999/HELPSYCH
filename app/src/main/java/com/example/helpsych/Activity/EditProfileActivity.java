@@ -9,13 +9,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.helpsych.Fragments.PerfilFragment;
 import com.example.helpsych.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,6 +46,7 @@ public class EditProfileActivity extends AppCompatActivity {
     //private CircleImageView ;
     private ImageView userProfileImage;
 
+    private TextView btnCancel;
     private String currentUserID, currentUserType;
     private FirebaseAuth mAuth;
     private DatabaseReference RootRef;
@@ -64,6 +69,16 @@ public class EditProfileActivity extends AppCompatActivity {
         RootRef = FirebaseDatabase.getInstance().getReference();
         UserProfileImagesRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
 
+
+        btnCancel = (TextView) findViewById(R.id.user_textbutton_cancel);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                SendUserToPerfilFragment();
+            }
+        });
 
         InitializeFields();
 
@@ -101,6 +116,14 @@ public class EditProfileActivity extends AppCompatActivity {
 
     }
 
+    private void SendUserToPerfilFragment()
+    {
+        Intent mainIntent = new Intent(EditProfileActivity.this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
+    }
+
     private void InitializeFields()
     {
         //NOmbre, apellido, mail, fn, sexo, botones de upload y upload photo
@@ -112,7 +135,7 @@ public class EditProfileActivity extends AppCompatActivity {
         userEmail = (EditText) findViewById(R.id.edt_email);
         userSex = (EditText) findViewById(R.id.edt_sex);
         userBirthDate = (EditText) findViewById(R.id.edt_date);
-        //userDescription = (EditText) findViewById(R.id.edt_description);
+        userDescription = (EditText) findViewById(R.id.edt_description);
         userProfileImage = (ImageView) findViewById(R.id.userProfilePhotoEdit);
         loadingBar = new ProgressDialog(this);
         ButtonUploadPhoto = (Button) findViewById(R.id.btn_upload_photo);
@@ -219,6 +242,7 @@ public class EditProfileActivity extends AppCompatActivity {
         String setUserLastName = userLastName.getText().toString();
         String setUserSex = userSex.getText().toString();
         String setUserBirthDate = userBirthDate.getText().toString();
+        String setUserDescription = userDescription.getText().toString();
 
         if (TextUtils.isEmpty(setUserName) || TextUtils.isEmpty(setUserLastName) | TextUtils.isEmpty(setUserSex) || TextUtils.isEmpty(setUserBirthDate))
         {
@@ -232,6 +256,7 @@ public class EditProfileActivity extends AppCompatActivity {
             profileMap.put("lastname", setUserLastName);
             profileMap.put("sex", setUserSex);
             profileMap.put("birthdate", setUserBirthDate);
+            profileMap.put("description", setUserDescription);
             RootRef.child("Users").child(currentUserID).updateChildren(profileMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -260,18 +285,57 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot)
                     {
-                        if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name") && (dataSnapshot.hasChild("image"))))
+                        if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name") && (dataSnapshot.hasChild("image") && (dataSnapshot.hasChild("description")))))
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
+                            String retrievesEmail = mAuth.getCurrentUser().getEmail();
+                            String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
+                            String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
+                            String retrievesUserDescription = dataSnapshot.child("description").getValue().toString();
+                            String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
+
+                            userName.setText(retrieveUserName);
+                            userLastName.setText(retrievesUserLastName);
+                            userEmail.setText(retrievesEmail);
+                            userSex.setText(retrievesUserSex);
+                            userLastName.setText(retrievesUserLastName);
+                            userBirthDate.setText(retrievesUserBirthDate);
+                            userDescription.setText(retrievesUserDescription);
+                            Picasso.get().load(retrieveProfileImage).into(userProfileImage);
+
+                        }
+                        else if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")&& (dataSnapshot.hasChild("description"))))
+                        {
+                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
+                            String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
+                            String retrievesEmail = mAuth.getCurrentUser().getEmail();
+                            String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
+                            String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
+                            String retrievesUserDescription = dataSnapshot.child("description").getValue().toString();
+
+                            userName.setText(retrieveUserName);
+                            userLastName.setText(retrievesUserLastName);
+                            userEmail.setText(retrievesEmail);
+                            userSex.setText(retrievesUserSex);
+                            userLastName.setText(retrievesUserLastName);
+                            userBirthDate.setText(retrievesUserBirthDate);
+                            userDescription.setText(retrievesUserDescription);
+                        }
+                        else if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")&& (dataSnapshot.hasChild("image"))))
+                        {
+                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
+                            String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
+                            String retrievesEmail = mAuth.getCurrentUser().getEmail();
                             String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
                             String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
                             String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
 
-
                             userName.setText(retrieveUserName);
                             userLastName.setText(retrievesUserLastName);
+                            userEmail.setText(retrievesEmail);
                             userSex.setText(retrievesUserSex);
+                            userLastName.setText(retrievesUserLastName);
                             userBirthDate.setText(retrievesUserBirthDate);
                             Picasso.get().load(retrieveProfileImage).into(userProfileImage);
                         }
@@ -279,14 +343,15 @@ public class EditProfileActivity extends AppCompatActivity {
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
+                            String retrievesEmail = mAuth.getCurrentUser().getEmail();
                             String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
                             String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
-                            //String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
-
 
                             userName.setText(retrieveUserName);
                             userLastName.setText(retrievesUserLastName);
+                            userEmail.setText(retrievesEmail);
                             userSex.setText(retrievesUserSex);
+                            userLastName.setText(retrievesUserLastName);
                             userBirthDate.setText(retrievesUserBirthDate);
                         }
                         else

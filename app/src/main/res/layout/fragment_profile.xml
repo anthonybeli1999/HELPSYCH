@@ -245,7 +245,7 @@
                             android:id="@+id/txt_description_p"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum, felis et accumsan dictum, lectus dui consectetur dui, in rutrum metus urna et eros. "
+                            android:text=""
                             android:textSize="14sp"
                             android:textColor="@color/sky"
                             android:textStyle="bold"/>

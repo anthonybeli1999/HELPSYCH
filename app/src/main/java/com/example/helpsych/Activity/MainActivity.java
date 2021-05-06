@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(helpFragment);
                     return true;
                 case R.id.ReportFragment:
-                    loadFragment(findUsersFragment);
+                    loadFragment(reportFragment);
                     return true;
                 case R.id.PerfilFragment:
                     loadFragment(perfilFragment);

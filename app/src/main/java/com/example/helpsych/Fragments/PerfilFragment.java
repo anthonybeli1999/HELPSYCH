@@ -148,18 +148,51 @@ public class PerfilFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot)
                     {
-                        if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name") && (dataSnapshot.hasChild("image"))))
+                        if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name") && (dataSnapshot.hasChild("image") && (dataSnapshot.hasChild("description")))))
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
                             String retrievesEmail = mAuth.getCurrentUser().getEmail();
                             String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
                             String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
-                            //String retrievesUserDescription = dataSnapshot.child("birthdate").getValue().toString();
+                            String retrievesUserDescription = dataSnapshot.child("description").getValue().toString();
                             String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
 
+                            userNameP.setText(retrieveUserName);
+                            userLastNameP.setText(retrievesUserLastName);
+                            userEmailP.setText(retrievesEmail);
+                            userSexP.setText(retrievesUserSex);
+                            userLastNameP.setText(retrievesUserLastName);
+                            userBirthDateP.setText(retrievesUserBirthDate);
+                            userDescriptionP.setText(retrievesUserDescription);
+                            Picasso.get().load(retrieveProfileImage).into(userProfileImage);
 
+                        }
+                        else if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")&& (dataSnapshot.hasChild("description"))))
+                        {
+                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
+                            String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
+                            String retrievesEmail = mAuth.getCurrentUser().getEmail();
+                            String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
+                            String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
+                            String retrievesUserDescription = dataSnapshot.child("description").getValue().toString();
 
+                            userNameP.setText(retrieveUserName);
+                            userLastNameP.setText(retrievesUserLastName);
+                            userEmailP.setText(retrievesEmail);
+                            userSexP.setText(retrievesUserSex);
+                            userLastNameP.setText(retrievesUserLastName);
+                            userBirthDateP.setText(retrievesUserBirthDate);
+                            userDescriptionP.setText(retrievesUserDescription);
+                        }
+                        else if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")&& (dataSnapshot.hasChild("image"))))
+                        {
+                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
+                            String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
+                            String retrievesEmail = mAuth.getCurrentUser().getEmail();
+                            String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
+                            String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
+                            String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
 
                             userNameP.setText(retrieveUserName);
                             userLastNameP.setText(retrievesUserLastName);
@@ -176,11 +209,6 @@ public class PerfilFragment extends Fragment {
                             String retrievesEmail = mAuth.getCurrentUser().getEmail();
                             String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
                             String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
-                            //String retrievesUserDescription = dataSnapshot.child("birthdate").getValue().toString();
-                            //String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
-
-
-
 
                             userNameP.setText(retrieveUserName);
                             userLastNameP.setText(retrievesUserLastName);
