@@ -90,8 +90,8 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-        //.setText(messageReceiverName);
-        //Picasso.get().load(messageReceiverImage).placeholder(R.drawable.profile_image).into(userImage);
+        userName.setText(messageReceiverName);
+        Picasso.get().load(messageReceiverImage).placeholder(R.drawable.profile_image).into(userImage);
 
 
         SendMessageButton.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +110,18 @@ public class ChatActivity extends AppCompatActivity {
 
     private void IntializeControllers()
     {
+
+        ChatToolBar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(ChatToolBar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(true);
+
+        LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View actionBarView = layoutInflater.inflate(R.layout.custom_chat_bar, null);
+        actionBar.setCustomView(actionBarView);
+
 
         userName = (TextView) findViewById(R.id.custom_profile_name);
         userLastSeen = (TextView) findViewById(R.id.custom_user_last_seen);
@@ -161,7 +173,7 @@ public class ChatActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            //userLastSeen.setText("offline");
+                            userLastSeen.setText("offline");
                         }
                     }
 

@@ -44,7 +44,7 @@ public class PerfilFragment extends Fragment {
 
     private DatabaseReference RootRef;
 
-    private String currentUserID, currentUserType;
+    private String currentUserID, currentUserType, currentEmal;
 
     private FirebaseAuth mAuth;
 
@@ -96,6 +96,7 @@ public class PerfilFragment extends Fragment {
         RootRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
+        currentEmal = mAuth.getCurrentUser().getEmail();
 
 
         userNameP = (TextView) v.findViewById(R.id.txt_name_p);
@@ -106,7 +107,14 @@ public class PerfilFragment extends Fragment {
         userDescriptionP = (TextView) v.findViewById(R.id.txt_description_p);
         userProfileImage = (ImageView) v.findViewById(R.id.img_userphoto_p);
 
-        RetrieveUserInfo();
+        try{
+            RetrieveUserInfo();
+        }
+        catch (Exception e)
+        {
+
+        }
+
 
         Button btnLogout = v.findViewById(R.id.btnLogout);
 
@@ -192,7 +200,7 @@ public class PerfilFragment extends Fragment {
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
-                            String retrievesEmail = mAuth.getCurrentUser().getEmail();
+                            String retrievesEmail = currentEmal;
                             String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
                             String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
                             String retrievesUserDescription = dataSnapshot.child("description").getValue().toString();
@@ -212,7 +220,7 @@ public class PerfilFragment extends Fragment {
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
-                            String retrievesEmail = mAuth.getCurrentUser().getEmail();
+                            String retrievesEmail = currentEmal;
                             String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
                             String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
                             String retrievesUserDescription = dataSnapshot.child("description").getValue().toString();
@@ -246,7 +254,7 @@ public class PerfilFragment extends Fragment {
                         {
                             String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                             String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
-                            String retrievesEmail = mAuth.getCurrentUser().getEmail();
+                            String retrievesEmail = currentEmal;
                             String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
                             String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
 
