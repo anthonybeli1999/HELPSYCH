@@ -4,19 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.helpsych.Fragments.ArticleFragment;
 import com.example.helpsych.Fragments.ChatFragment;
 import com.example.helpsych.Fragments.HelpFragment;
-import com.example.helpsych.Fragments.PerfilFragment;
+import com.example.helpsych.Fragments.ProfileFragment;
 import com.example.helpsych.Fragments.ReportFragment;
 import com.example.helpsych.Fragments.FindUsersFragment;
 
@@ -42,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     ChatFragment chatFragment = new ChatFragment();
     HelpFragment helpFragment = new HelpFragment();
     ReportFragment reportFragment = new ReportFragment();
-    PerfilFragment perfilFragment = new PerfilFragment();
+    ProfileFragment perfilFragment = new ProfileFragment();
     FindUsersFragment findUsersFragment = new FindUsersFragment();
     RequestFragment requestFragment = new RequestFragment();
 

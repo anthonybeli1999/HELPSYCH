@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.PerfilFragment">
+    tools:context=".Fragments.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -264,7 +264,7 @@
             android:layout_marginVertical="5dp"
             android:backgroundTint="@color/dark_blue"
             android:fontFamily="sans-serif"
-            android:text="CONVERTIRSE EN OYENTE"
+            android:text="CAMBIAR DE CONTRASEÑA"
             android:textColor="@color/white"
             android:textSize="15sp" />
         <Button

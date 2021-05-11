@@ -11,12 +11,7 @@ import android.view.MenuItem;
 
 import com.example.helpsych.Fragments.ApproachAdminFragment;
 import com.example.helpsych.Fragments.ArticleAdminFragment;
-import com.example.helpsych.Fragments.ArticleFragment;
-import com.example.helpsych.Fragments.ChatFragment;
-import com.example.helpsych.Fragments.HelpFragment;
-import com.example.helpsych.Fragments.PerfilFragment;
 import com.example.helpsych.Fragments.ReportAdminFragment;
-import com.example.helpsych.Fragments.ReportFragment;
 import com.example.helpsych.Fragments.UsersAdminFragment;
 import com.example.helpsych.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
