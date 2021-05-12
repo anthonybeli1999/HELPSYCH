@@ -21,8 +21,11 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,6 +40,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private DatabaseReference UsersRef;
 
+    String currentUserType;
+    String currentUserId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +50,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
+
         mAuth = FirebaseAuth.getInstance();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
 
 
         InitializeFields();
@@ -66,15 +74,6 @@ public class LoginActivity extends AppCompatActivity {
                 AllowUserToLogin();
             }
         });
-/*
-        PhoneLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                //Intent phoneLoginIntent = new Intent(LoginActivity.this, PhoneLoginActivity.class);
-                //startActivity(phoneLoginIntent);
-            }
-        });*/
     }
 
 
@@ -84,9 +83,57 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
         if (currentUser != null)
         {
-            SendUserToMainActivity();
+                 //SendUserToMainActivity();
+            String currentUserId = mAuth.getCurrentUser().getUid();
+            String deviceToken = FirebaseInstanceId.getInstance().getToken();
+            UsersRef.child(currentUserId).child("usertype")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            currentUserType = snapshot.getValue().toString();
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+            UsersRef.child(currentUserId).child("device_token")
+                    .setValue(deviceToken)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task)
+                        {
+                            if (task.isSuccessful())
+                            {
+                                switch (currentUserType)
+                                {
+                                    case "0":
+                                        SendUserToMainActivity_a();
+                                        Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
+                                        loadingBar.dismiss();
+                                        break;
+                                    case "1":
+                                        SendUserToMainActivity_s();
+                                        Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
+                                        loadingBar.dismiss();
+                                        break;
+                                    case "2":
+                                        SendUserToMainActivity();
+                                        Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
+                                        loadingBar.dismiss();
+                                        break;
+                                    default:
+                                        break;
+
+                                }
+
+                            }
+                        }
+                    });
+
         }
     }
 
@@ -126,6 +173,19 @@ public class LoginActivity extends AppCompatActivity {
                                 String currentUserId = mAuth.getCurrentUser().getUid();
                                 String deviceToken = FirebaseInstanceId.getInstance().getToken();
 
+
+                                UsersRef.child(currentUserId).child("usertype")
+                                        .addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                currentUserType = snapshot.getValue().toString();
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                 UsersRef.child(currentUserId).child("device_token")
                                         .setValue(deviceToken)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -134,9 +194,28 @@ public class LoginActivity extends AppCompatActivity {
                                             {
                                                 if (task.isSuccessful())
                                                 {
-                                                    SendUserToMainActivity();
-                                                    Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
-                                                    loadingBar.dismiss();
+                                                    switch (currentUserType)
+                                                    {
+                                                        case "0":
+                                                            SendUserToMainActivity_a();
+                                                            Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
+                                                            loadingBar.dismiss();
+                                                            break;
+                                                        case "1":
+                                                            SendUserToMainActivity_s();
+                                                            Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
+                                                            loadingBar.dismiss();
+                                                            break;
+                                                        case "2":
+                                                            SendUserToMainActivity();
+                                                            Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
+                                                            loadingBar.dismiss();
+                                                            break;
+                                                        default:
+                                                            break;
+
+                                                    }
+
                                                 }
                                             }
                                         });
@@ -158,6 +237,25 @@ public class LoginActivity extends AppCompatActivity {
     {
         //Intent mainIntent = new Intent(LoginActivity.this, MainAdminActivity.class);
         Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+        //Intent mainIntent = new Intent(LoginActivity.this, MainSpecialistActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
+    }
+    private void SendUserToMainActivity_s()
+    {
+        //Intent mainIntent = new Intent(LoginActivity.this, MainAdminActivity.class);
+        //Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent mainIntent = new Intent(LoginActivity.this, MainSpecialistActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
+    }
+    private void SendUserToMainActivity_a()
+    {
+        Intent mainIntent = new Intent(LoginActivity.this, MainAdminActivity.class);
+        //Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+        //Intent mainIntent = new Intent(LoginActivity.this, MainSpecialistActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();

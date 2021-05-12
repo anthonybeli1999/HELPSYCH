@@ -42,7 +42,7 @@ public class AllUserActivity extends AppCompatActivity {
 
         FirebaseRecyclerOptions<User> options =
                 new FirebaseRecyclerOptions.Builder<User>()
-                        .setQuery(UsersRef.orderByChild("usertype").equalTo("2"), User.class)
+                        .setQuery(UsersRef.orderByChild("usertype").equalTo("1"), User.class)
                         .build();
 
         //orderByChild("ownerID").equalTo(user.getUid()

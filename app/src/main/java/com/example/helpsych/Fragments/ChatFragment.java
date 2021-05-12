@@ -136,9 +136,10 @@ public class ChatFragment extends Fragment {
 
         FirebaseRecyclerOptions<User> optionsRequest =
                 new FirebaseRecyclerOptions.Builder<User>()
-                        .setQuery(ChatRequestsRef.child(currentUserID), User.class)
+                        .setQuery(ChatRequestsRef.child(currentUserID).orderByChild("request_type").equalTo("sent"), User.class)
                         .build();
 
+        //.setQuery(UsersRef.orderByChild("usertype").equalTo("2"), User.class)
 
         FirebaseRecyclerAdapter<User, ChatsViewHolder> adapter =
                 new FirebaseRecyclerAdapter<User, ChatsViewHolder>(options) {

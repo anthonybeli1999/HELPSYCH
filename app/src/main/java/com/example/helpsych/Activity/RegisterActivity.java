@@ -130,7 +130,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 //Listener = 2
                                 //Patient = 3
                                 RootRef.child("Users").child(currentUserID).child("usertype")
-                                        .setValue("3");
+                                        .setValue("2");
 
                                 SendUserToMainActivity();
                                 Toast.makeText(RegisterActivity.this, "Account Created Successfully...", Toast.LENGTH_SHORT).show();
