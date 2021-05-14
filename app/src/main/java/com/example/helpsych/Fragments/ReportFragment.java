@@ -2,13 +2,23 @@ package com.example.helpsych.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.helpsych.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +27,18 @@ import com.example.helpsych.R;
  */
 public class ReportFragment extends Fragment {
 
+    private DatabaseReference RootRef, ContactsRef;
+    private int countFriends;
+
+    private String currentUserID, currentUserType, currentEmal;
+
+    private FirebaseAuth mAuth;
+
+    private Button UpdateAccountSettings;
+    private TextView userNameP, userLastNameP, userEmailP, userSexP, userBirthDateP, userDescriptionP;
+    private ImageView userProfileImage;
+
+    TextView txtAllChats;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,6 +83,43 @@ public class ReportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_report, container, false);
+
+        View v = inflater.inflate(R.layout.fragment_report, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        currentUserID = mAuth.getCurrentUser().getUid();
+        currentEmal = mAuth.getCurrentUser().getEmail();
+        RootRef = FirebaseDatabase.getInstance().getReference();
+        ContactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts");
+
+        txtAllChats = (TextView) v.findViewById(R.id.txt_all_chats);
+
+        RetrieveInformation();
+        return v;
+
     }
+
+    private void RetrieveInformation() {
+        ContactsRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    countFriends = (int) snapshot.getChildrenCount();
+                    txtAllChats.setText(countFriends);
+                }
+                else
+                {
+                    txtAllChats.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+
 }
