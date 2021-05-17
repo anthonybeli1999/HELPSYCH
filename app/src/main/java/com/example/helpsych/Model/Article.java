@@ -2,43 +2,47 @@ package com.example.helpsych.Model;
 
 public class Article {
 
-    private String article_Id, article_title, article_body, image;
+    private String Id, title, subtitle, body, date, author, label, image;
 
     public Article()
     {
 
     }
 
-    public Article(String article_Id, String article_title, String article_body, String image) {
+    public Article(String article_Id, String article_title, String article_subtitle, String article_body, String article_date, String article_author, String article_label, String image) {
 
-        this.article_Id = article_Id;
-        this.article_title = article_title;
-        this.article_body = article_body;
+        this.Id = article_Id;
+        this.title = article_title;
+        this.subtitle = article_subtitle;
+        this.body = article_body;
+        this.date = article_date;
+        this.author = article_author;
+        this.label = article_label;
         this.image = image;
     }
 
-    public String getArticle_Id() {
-        return article_Id;
+    public String getId() {
+        return Id;
     }
 
-    public void setArticle_Id(String article_Id) {
-        this.article_Id = article_Id;
+    public void setId(String id) {
+        this.Id = id;
     }
 
-    public String getArticle_title() {
-        return article_title;
+    public String getTitle() {
+        return title;
     }
 
-    public void setArticle_title(String article_title) {
-        this.article_title = article_title;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getArticle_body() {
-        return article_body;
+    public String getBody() {
+        return body;
     }
 
-    public void setArticle_body(String article_body) {
-        this.article_body = article_body;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public String getImage() {
@@ -47,5 +51,37 @@ public class Article {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

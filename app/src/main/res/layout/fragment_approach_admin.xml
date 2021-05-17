@@ -1,83 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.ApproachAdminFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="ENFOQUE PSICOLOGICO"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/shadow_red"
-        android:textSize="40sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingTop="150dp">
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:hint="Enfoque psicológico">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtPsyApproach"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <Button
-            android:id="@+id/btnAdd_PsyApproach"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/dark_blue"
-            android:fontFamily="sans-serif"
-            android:text="AGREGAR ENFOQUE PSICOLÓGICO"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="10dp"
+            android:gravity="center">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="LISTA DE ENFOQUES PSICOLÓGICOS"
-                android:gravity="center"
-                android:background="@color/shadow_red"
+                android:text="Enfoque psicológico"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:paddingVertical="10dp"
                 android:textColor="@color/white"
-                android:paddingVertical="5dp"
-                android:layout_marginVertical="5dp"
-                android:textStyle="bold">
-            </TextView>
+                android:background="@color/shadow_red"
+                android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/psy_approach_list"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginVertical="5dp"/>
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:hint="Enfoque psicológico">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtPsyApproach"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/btnAdd_PsyApproach"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:backgroundTint="@color/dark_blue"
+                android:fontFamily="sans-serif"
+                android:text="AGREGAR ENFOQUE PSICOLÓGICO"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LISTA DE ENFOQUES PSICOLÓGICOS"
+                    android:gravity="center"
+                    android:background="@color/sky"
+                    android:textColor="@color/white"
+                    android:paddingVertical="5dp"
+                    android:layout_marginVertical="5dp"
+                    android:textStyle="bold">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/psy_approach_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="5dp"/>
+            </LinearLayout>
         </LinearLayout>
+
+
+
     </LinearLayout>
 
 
-</FrameLayout>
+
+
+
+</RelativeLayout>

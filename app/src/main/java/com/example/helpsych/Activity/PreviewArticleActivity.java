@@ -40,7 +40,7 @@ public class PreviewArticleActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private Button UpdateAccountSettings;
-    private TextView ArticleTitle, ArticleBody;
+    private TextView ArticleTitle, ArticleSubtitle, ArticleBody, ArticleDate, ArticleAuthor, ArticleLabel;
     private static final int GalleryPick = 1;
     private ImageView ArticleProfileImage;
     private Button AddImageArticle, SaveArticle;
@@ -64,8 +64,12 @@ public class PreviewArticleActivity extends AppCompatActivity {
 
         ArticleProfileImage = findViewById(R.id.image_articleImage);
 
-        ArticleTitle = (TextView) findViewById(R.id.txv_article_title);
-        ArticleBody = (TextView) findViewById(R.id.txv_article_body);
+        ArticleTitle = (TextView) findViewById(R.id.txt_article_title_l);
+        ArticleSubtitle = (TextView) findViewById(R.id.txt_article_subtitle_l);
+        ArticleBody = (TextView) findViewById(R.id.txt_article_body_l);
+        ArticleDate = (TextView) findViewById(R.id.txt_article_date_l);
+        ArticleAuthor = (TextView) findViewById(R.id.txt_article_author_l);
+        ArticleLabel = (TextView) findViewById(R.id.txt_article_label_l);
 
         loadingBar = new ProgressDialog(this);
         AddImageArticle = (Button) findViewById(R.id.btn_add_articleImage);

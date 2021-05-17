@@ -28,7 +28,7 @@ public class PopupDetailUser extends AppCompatActivity {
     private String receiverUserID, senderUserID, Current_State;
 
     private ImageView userProfileImage;
-    private TextView userProfileName, userProfileStatus;
+    private TextView userProfileName, userProfileLastname, userProfileEmail, userProfileCity, userProfileCountry, userProfileLinkedin;
     private Button SendMessageRequestButton, DeclineMessageRequestButton;
 
     private DatabaseReference UserRef, ChatRequestRef, ContactsRef, NotificationRef;
@@ -59,8 +59,13 @@ public class PopupDetailUser extends AppCompatActivity {
 
 
         userProfileImage = (ImageView) findViewById(R.id.visit_profile_image);
-        userProfileName = (TextView) findViewById(R.id.visit_user_name);
-        userProfileStatus = (TextView) findViewById(R.id.visit_profile_status);
+        userProfileName = (TextView) findViewById(R.id.txt_pop_user_name);
+        userProfileLastname = (TextView) findViewById(R.id.txt_pop_user_lastname);
+        //userProfileEmail = (TextView) findViewById(R.id.txt_pop_user_email);
+        userProfileCity = (TextView) findViewById(R.id.txt_pop_user_city);
+        userProfileCountry = (TextView) findViewById(R.id.txt_pop_user_country);
+        userProfileLinkedin = (TextView) findViewById(R.id.txt_pop_user_linkedin);
+
         SendMessageRequestButton = (Button) findViewById(R.id.send_message_request_button);
         DeclineMessageRequestButton = (Button) findViewById(R.id.decline_message_request_button);
         Current_State = "new";
@@ -79,23 +84,38 @@ public class PopupDetailUser extends AppCompatActivity {
                 {
                     String userImage = dataSnapshot.child("image").getValue().toString();
                     String userName = dataSnapshot.child("name").getValue().toString();
-                    String userstatus = dataSnapshot.child("lastName").getValue().toString();
+                    String userLastname = dataSnapshot.child("lastname").getValue().toString();
+                    String userEmail = dataSnapshot.child("email").getValue().toString();
+                    String userCity = dataSnapshot.child("city").getValue().toString();
+                    String userCountry = dataSnapshot.child("country").getValue().toString();
+                    String userLinkedin = dataSnapshot.child("linkedin").getValue().toString();
 
                     Picasso.get().load(userImage).placeholder(R.drawable.profile_image).into(userProfileImage);
                     userProfileName.setText(userName);
-                    userProfileStatus.setText(userstatus);
-
+                    userProfileLastname.setText(userLastname);
+                    //userProfileEmail.setText(userEmail);
+                    userProfileCity.setText(userCity);
+                    userProfileCountry.setText(userCountry);
+                    userProfileLinkedin.setText(userLinkedin);
 
                     ManageChatRequests();
                 }
                 else
                 {
+                    //String userImage = dataSnapshot.child("image").getValue().toString();
                     String userName = dataSnapshot.child("name").getValue().toString();
-                    String userstatus = dataSnapshot.child("lastName").getValue().toString();
+                    String userLastname = dataSnapshot.child("lastname").getValue().toString();
+                    //String userEmail = dataSnapshot.child("email").getValue().toString();
+                    String userCity = dataSnapshot.child("city").getValue().toString();
+                    String userCountry = dataSnapshot.child("country").getValue().toString();
+                    String userLinkedin = dataSnapshot.child("linkedin").getValue().toString();
 
                     userProfileName.setText(userName);
-                    userProfileStatus.setText(userstatus);
-
+                    userProfileLastname.setText(userLastname);
+                    //userProfileEmail.setText(userEmail);
+                    userProfileCity.setText(userCity);
+                    userProfileCountry.setText(userCountry);
+                    userProfileLinkedin.setText(userLinkedin);
 
                     ManageChatRequests();
                 }

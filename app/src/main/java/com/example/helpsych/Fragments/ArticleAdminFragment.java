@@ -2,13 +2,9 @@ package com.example.helpsych.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -19,25 +15,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.helpsych.Activity.EditProfileActivity;
 import com.example.helpsych.Activity.PreviewArticleActivity;
 import com.example.helpsych.Model.Article;
-import com.example.helpsych.Model.Psychological_approach;
 import com.example.helpsych.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.UUID;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,7 +31,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class ArticleAdminFragment extends Fragment {
 
-    private EditText Article_title, Article_body;
+    private EditText Article_title, Article_subtitle ,Article_body, Article_date, Article_author, Article_label;
 
     ImageView ArticleImage;
     private Button AddNewArticle, AddNewImageArticle;
@@ -71,14 +56,6 @@ public class ArticleAdminFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ArticleAdminFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static ArticleAdminFragment newInstance(String param1, String param2) {
         ArticleAdminFragment fragment = new ArticleAdminFragment();
@@ -109,9 +86,12 @@ public class ArticleAdminFragment extends Fragment {
 
         ArticleRef = FirebaseDatabase.getInstance().getReference().child("Article");
 
-        Article_title = (EditText) v.findViewById(R.id.txt_article_title_c);
-        Article_body = (EditText) v.findViewById(R.id.txt_article_c);
-
+        Article_title = (EditText) v.findViewById(R.id.edt_article_title);
+        Article_subtitle = (EditText) v.findViewById(R.id.edt_article_subtitle);
+        Article_body = (EditText) v.findViewById(R.id.edt_article_body);
+        Article_date = (EditText) v.findViewById(R.id.edt_article_date);
+        Article_author = (EditText) v.findViewById(R.id.edt_article_author);
+        Article_label = (EditText) v.findViewById(R.id.edt_article_label);
 
         loadingBar = new ProgressDialog(this.getActivity());
         AddNewArticle = (Button) v.findViewById(R.id.btnNewArticle);
@@ -130,7 +110,11 @@ public class ArticleAdminFragment extends Fragment {
 
     private void AddNewArticle_m() {
         String ArticleTitle = Article_title.getText().toString();
+        String ArticleSubtitle = Article_subtitle.getText().toString();
         String ArticleBody = Article_body.getText().toString();
+        String ArticleDate = Article_date.getText().toString();
+        String ArticleAuthor = Article_author.getText().toString();
+        String ArticleLabel = Article_label.getText().toString();
 
         String UID = UUID.randomUUID().toString();
 
@@ -138,11 +122,14 @@ public class ArticleAdminFragment extends Fragment {
             Toast.makeText(getContext(), "Por favor ingrese un título...", Toast.LENGTH_SHORT).show();
         } else {
             Article ar = new Article();
-            ar.setArticle_Id(UID);
-            ar.setArticle_title(ArticleTitle);
-            ar.setArticle_body(ArticleBody);
-            RootRef.child("Article").child(ar.getArticle_Id()).setValue(ar);
-
+            ar.setId(UID);
+            ar.setTitle(ArticleTitle);
+            ar.setSubtitle(ArticleSubtitle);
+            ar.setBody(ArticleBody);
+            ar.setDate(ArticleDate);
+            ar.setAuthor(ArticleAuthor);
+            ar.setLabel(ArticleLabel);
+            RootRef.child("Article").child(ar.getId()).setValue(ar);
 
             Toast.makeText(getContext(), "Artículo creado satisfactoriamente...", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getContext(), PreviewArticleActivity.class);

@@ -53,11 +53,11 @@ public class AllUserActivity extends AppCompatActivity {
                     @Override
                     protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, final int position, @NonNull User model)
                     {
-                            holder.userName.setText(model.getName());
-                            holder.userStatus.setText(model.getLastName());
-                            Picasso.get().load(model.getImage()).placeholder(R.drawable.profile_image).into(holder.profileImage);
-                            holder.userType.setText("Oyente");
-                            holder.userType.setTextColor(Color.rgb(186, 50, 79));
+                        holder.userName.setText(model.getName());
+                        holder.userStatus.setText(model.getLastName());
+                        Picasso.get().load(model.getImage()).placeholder(R.drawable.profile_image).into(holder.profileImage);
+                        holder.userType.setText("Oyente");
+                        holder.userType.setTextColor(Color.rgb(186, 50, 79));
 
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {

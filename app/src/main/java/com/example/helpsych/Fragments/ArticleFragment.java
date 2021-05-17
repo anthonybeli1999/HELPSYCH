@@ -1,7 +1,6 @@
 package com.example.helpsych.Fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,9 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.helpsych.Activity.AllUserActivity;
 import com.example.helpsych.Activity.ArticleDetails;
-import com.example.helpsych.Activity.PopupDetailUser;
 import com.example.helpsych.Model.Article;
 import com.example.helpsych.Model.User;
 import com.example.helpsych.R;
@@ -53,14 +50,6 @@ public class ArticleFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ArticleFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static ArticleFragment newInstance(String param1, String param2) {
         ArticleFragment fragment = new ArticleFragment();
@@ -79,6 +68,7 @@ public class ArticleFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,9 +91,9 @@ public class ArticleFragment extends Fragment {
                     @Override
                     protected void onBindViewHolder(@NonNull ArticlesViewHolder holder, final int position, @NonNull Article model)
                     {
-                        holder.article_title.setText(model.getArticle_title());
                         Picasso.get().load(model.getImage()).placeholder(R.drawable.online).into(holder.article_image);
-
+                        holder.article_title.setText(model.getTitle());
+                        holder.article_date.setText(model.getDate());
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -140,14 +130,16 @@ public class ArticleFragment extends Fragment {
     public static class ArticlesViewHolder extends RecyclerView.ViewHolder
     {
         TextView article_title;
+        TextView article_date;
         ImageView article_image;
 
         public ArticlesViewHolder(@NonNull View itemView)
         {
             super(itemView);
 
-            article_title = itemView.findViewById(R.id.article_title_rv);
-            article_image = itemView.findViewById(R.id.article_image_rv);
+            article_title = itemView.findViewById(R.id.txt_article_title);
+            article_date = itemView.findViewById(R.id.txt_article_date);
+            article_image = itemView.findViewById(R.id.img_article_image);
         }
     }
 }
