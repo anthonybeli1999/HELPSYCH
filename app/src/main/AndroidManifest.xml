@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HelPsych">
-        <activity android:name=".Activity.ArticleDetails"></activity>
+        <activity android:name=".Activity.PasswordChangeActivity"></activity>
+        <activity android:name=".Activity.ArticleDetails" />
         <activity android:name=".Activity.PreviewArticleActivity" />
         <activity android:name=".Activity.MainSpecialistActivity" />
         <activity android:name=".Activity.MainAdminActivity" />

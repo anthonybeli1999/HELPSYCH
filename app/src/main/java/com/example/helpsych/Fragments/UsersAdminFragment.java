@@ -32,6 +32,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -50,6 +53,8 @@ public class UsersAdminFragment extends Fragment {
     private DatabaseReference RootRef;
 
     private ProgressDialog loadingBar;
+
+    String formattedDate ="";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -141,6 +146,11 @@ public class UsersAdminFragment extends Fragment {
             }
         });
 
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        formattedDate = df.format(c);
+
+
         return v;
     }
 
@@ -216,7 +226,8 @@ public class UsersAdminFragment extends Fragment {
                                 RootRef.child("Users").child(currentUserID).child("linkedin")
                                         .setValue(userLinkedin);
 
-
+                                RootRef.child("Users").child(currentUserID).child("registrationDay")
+                                        .setValue(formattedDate);
 
                                 RootRef.child("Users").child(currentUserID).child("usertype")
                                         .setValue("1");

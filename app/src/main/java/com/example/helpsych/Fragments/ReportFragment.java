@@ -27,8 +27,9 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class ReportFragment extends Fragment {
 
-    private DatabaseReference RootRef, ContactsRef;
+    private DatabaseReference RootRef, ContactsRef,UsersRef;
     private int countFriends;
+    private String registrationDay;
 
     private String currentUserID, currentUserType, currentEmal;
 
@@ -38,7 +39,7 @@ public class ReportFragment extends Fragment {
     private TextView userNameP, userLastNameP, userEmailP, userSexP, userBirthDateP, userDescriptionP;
     private ImageView userProfileImage;
 
-    TextView txtAllChats;
+    TextView txtAllChats, txtRegistrationDay, txtRankingQuantity;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -89,23 +90,55 @@ public class ReportFragment extends Fragment {
         currentUserID = mAuth.getCurrentUser().getUid();
         currentEmal = mAuth.getCurrentUser().getEmail();
         RootRef = FirebaseDatabase.getInstance().getReference();
-        ContactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts");
+        ContactsRef = FirebaseDatabase.getInstance().getReference();
+        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         txtAllChats = (TextView) v.findViewById(R.id.txt_all_chats);
+        txtRegistrationDay = (TextView) v.findViewById(R.id.txt_date_registration);
+        txtRankingQuantity = (TextView) v.findViewById(R.id.txt_ranking_quantity);
 
-        RetrieveInformation();
+        RetrieveInformationFriends();
+        SetInformation();
+        RetrieveInformationRegistrationDate();
+
+
         return v;
 
     }
 
-    private void RetrieveInformation() {
-        ContactsRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+    private void SetInformation() {
+    }
+
+    private void RetrieveInformationRegistrationDate() {
+        UsersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists())
                 {
-                    countFriends = (int) snapshot.getChildrenCount();
-                    txtAllChats.setText(countFriends);
+                    registrationDay = snapshot.child("registrationDay").getValue().toString();
+                    txtRegistrationDay.setText(registrationDay);
+                }
+                else
+                {
+                    txtRegistrationDay.setText("20/05/2021");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void RetrieveInformationFriends() {
+        ContactsRef.child("Contacts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    countFriends = (int) snapshot.child(currentUserID).getChildrenCount();
+                    txtAllChats.setText(String.valueOf(countFriends));
                 }
                 else
                 {

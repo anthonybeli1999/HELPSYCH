@@ -2,14 +2,14 @@ package com.example.helpsych.Model;
 
 public class Article {
 
-    private String Id, title, subtitle, body, date, author, label, image;
+    private String Id, title, subtitle, body, date, author, label, image, creationdate;
 
     public Article()
     {
 
     }
 
-    public Article(String article_Id, String article_title, String article_subtitle, String article_body, String article_date, String article_author, String article_label, String image) {
+    public Article(String article_Id, String article_title, String article_subtitle, String article_body, String article_date, String article_author, String article_label, String image, String article_creationdate) {
 
         this.Id = article_Id;
         this.title = article_title;
@@ -19,6 +19,7 @@ public class Article {
         this.author = article_author;
         this.label = article_label;
         this.image = image;
+        this.creationdate = article_creationdate;
     }
 
     public String getId() {
@@ -83,5 +84,13 @@ public class Article {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getCreationdate() {
+        return creationdate;
+    }
+
+    public void setCreationdate(String creationdate) {
+        this.creationdate = creationdate;
     }
 }

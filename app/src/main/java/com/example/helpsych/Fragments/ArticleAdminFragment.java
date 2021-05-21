@@ -22,6 +22,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -42,6 +45,8 @@ public class ArticleAdminFragment extends Fragment {
     private DatabaseReference ArticleRef;
 
     private static final int GalleryPick = 1;
+
+    String formattedDate ="";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -105,6 +110,10 @@ public class ArticleAdminFragment extends Fragment {
             }
         });
 
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        formattedDate = df.format(c);
+
         return v;
     }
 
@@ -129,6 +138,7 @@ public class ArticleAdminFragment extends Fragment {
             ar.setDate(ArticleDate);
             ar.setAuthor(ArticleAuthor);
             ar.setLabel(ArticleLabel);
+            ar.setCreationdate(formattedDate);
             RootRef.child("Article").child(ar.getId()).setValue(ar);
 
             Toast.makeText(getContext(), "Artículo creado satisfactoriamente...", Toast.LENGTH_SHORT).show();

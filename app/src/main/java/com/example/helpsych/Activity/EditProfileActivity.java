@@ -250,7 +250,7 @@ public class EditProfileActivity extends AppCompatActivity {
             HashMap<String, Object> profileMap = new HashMap<>();
             profileMap.put("uid", currentUserID);
             profileMap.put("name", setUserName);
-            profileMap.put("lastname", setUserLastName);
+            profileMap.put("lastName", setUserLastName);
             profileMap.put("sex", setUserSex);
             profileMap.put("birthdate", setUserBirthDate);
             profileMap.put("description", setUserDescription);

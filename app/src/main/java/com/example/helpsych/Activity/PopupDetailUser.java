@@ -8,6 +8,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.helpsych.R;
@@ -30,6 +31,7 @@ public class PopupDetailUser extends AppCompatActivity {
     private ImageView userProfileImage;
     private TextView userProfileName, userProfileLastname, userProfileEmail, userProfileCity, userProfileCountry, userProfileLinkedin;
     private Button SendMessageRequestButton, DeclineMessageRequestButton;
+    private RatingBar RatingBarSpecialist;
 
     private DatabaseReference UserRef, ChatRequestRef, ContactsRef, NotificationRef;
     private FirebaseAuth mAuth;
@@ -65,6 +67,14 @@ public class PopupDetailUser extends AppCompatActivity {
         userProfileCity = (TextView) findViewById(R.id.txt_pop_user_city);
         userProfileCountry = (TextView) findViewById(R.id.txt_pop_user_country);
         userProfileLinkedin = (TextView) findViewById(R.id.txt_pop_user_linkedin);
+        
+        RatingBarSpecialist = (RatingBar) findViewById(R.id.rtbSpecialist_ud);
+        RatingBarSpecialist.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+
+            }
+        });
 
         SendMessageRequestButton = (Button) findViewById(R.id.send_message_request_button);
         DeclineMessageRequestButton = (Button) findViewById(R.id.decline_message_request_button);
@@ -104,7 +114,7 @@ public class PopupDetailUser extends AppCompatActivity {
                 {
                     //String userImage = dataSnapshot.child("image").getValue().toString();
                     String userName = dataSnapshot.child("name").getValue().toString();
-                    String userLastname = dataSnapshot.child("lastname").getValue().toString();
+                    String userLastname = dataSnapshot.child("lastName").getValue().toString();
                     //String userEmail = dataSnapshot.child("email").getValue().toString();
                     String userCity = dataSnapshot.child("city").getValue().toString();
                     String userCountry = dataSnapshot.child("country").getValue().toString();

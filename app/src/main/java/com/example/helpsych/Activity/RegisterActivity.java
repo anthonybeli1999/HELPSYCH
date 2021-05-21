@@ -22,6 +22,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private Button CreateAccountButton;
@@ -32,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
     private DatabaseReference RootRef;
 
     private ProgressDialog loadingBar;
+    String formattedDate ="";
 
 
     @Override
@@ -40,6 +45,10 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        formattedDate = df.format(c);
 
         mAuth = FirebaseAuth.getInstance();
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -123,12 +132,13 @@ public class RegisterActivity extends AppCompatActivity {
                                 RootRef.child("Users").child(currentUserID).child("birthdate")
                                         .setValue(userBirthDay);
 
+                                RootRef.child("Users").child(currentUserID).child("registrationDay")
+                                        .setValue(formattedDate);
 
-                                //Tipo de paciente
+                                //Tipo de usuario
                                 //Administrator = 0
                                 //Specialist = 1
-                                //Listener = 2
-                                //Patient = 3
+                                //Patient = 2
                                 RootRef.child("Users").child(currentUserID).child("usertype")
                                         .setValue("2");
 

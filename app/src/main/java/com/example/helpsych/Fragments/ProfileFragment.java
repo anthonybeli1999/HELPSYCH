@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.helpsych.Activity.EditProfileActivity;
 import com.example.helpsych.Activity.LoginActivity;
+import com.example.helpsych.Activity.PasswordChangeActivity;
 import com.example.helpsych.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -123,12 +124,12 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        Button btnTurnIntoListener = v.findViewById(R.id.btnTurnIntoListener);
+        Button btnTurnIntoListener = v.findViewById(R.id.btnChangePassword_p);
         btnTurnIntoListener.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //mAuth.signOut();
-                //ChangeUserType();
+                Intent intent = new Intent(v.getContext(), PasswordChangeActivity.class);
+                startActivity(intent);
             }
         });
 
