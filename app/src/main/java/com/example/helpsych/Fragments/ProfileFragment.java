@@ -88,7 +88,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_profile, container, false);
+        //View v = inflater.inflate(R.layout.fragment_profile, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_profile, container, false);
 
 
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -97,13 +98,13 @@ public class ProfileFragment extends Fragment {
         currentEmal = mAuth.getCurrentUser().getEmail();
 
 
-        userNameP = (TextView) v.findViewById(R.id.txt_name_p);
-        userLastNameP = (TextView) v.findViewById(R.id.txt_lastname_p);
-        userEmailP =  (TextView)v.findViewById(R.id.txt_email_p);
-        userSexP =  (TextView) v.findViewById(R.id.txt_sex_p);
-        userBirthDateP = (TextView)v.findViewById(R.id.txt_date_p);
-        userDescriptionP = (TextView) v.findViewById(R.id.txt_description_p);
-        userProfileImage = (ImageView) v.findViewById(R.id.img_userphoto_p);
+        userNameP = (TextView) rootView.findViewById(R.id.txt_name_p);
+        userLastNameP = (TextView) rootView.findViewById(R.id.txt_lastname_p);
+        userEmailP =  (TextView)rootView.findViewById(R.id.txt_email_p);
+        userSexP =  (TextView) rootView.findViewById(R.id.txt_sex_p);
+        userBirthDateP = (TextView)rootView.findViewById(R.id.txt_date_p);
+        userDescriptionP = (TextView) rootView.findViewById(R.id.txt_description_p);
+        userProfileImage = (ImageView) rootView.findViewById(R.id.img_userphoto_p);
 
         try{
             RetrieveUserInfo();
@@ -114,7 +115,7 @@ public class ProfileFragment extends Fragment {
         }
 
 
-        Button btnLogout = v.findViewById(R.id.btnLogout);
+        Button btnLogout = rootView.findViewById(R.id.btnLogout);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +125,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        Button btnTurnIntoListener = v.findViewById(R.id.btnChangePassword_p);
+        Button btnTurnIntoListener = rootView.findViewById(R.id.btnChangePassword_p);
         btnTurnIntoListener.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +134,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        TextView txtEditarPerfil = v.findViewById(R.id.user_textbutton_edit);
+        TextView txtEditarPerfil = rootView.findViewById(R.id.user_textbutton_edit);
 
         txtEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,8 +146,8 @@ public class ProfileFragment extends Fragment {
 
 
 
-        return v;
-
+        //return v;
+        return rootView;
 
     }
 

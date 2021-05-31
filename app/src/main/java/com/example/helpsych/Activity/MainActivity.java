@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.helpsych.Adapters.SliderPagerAdapter;
 import com.example.helpsych.Fragments.ArticleFragment;
 import com.example.helpsych.Fragments.ChatFragment;
 import com.example.helpsych.Fragments.HelpFragment;
@@ -29,8 +33,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference RootRef;
     private String currentUserID;
 
+    private ViewPager pager;
+    private PagerAdapter pagerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, articleFragment);
-        transaction.commit();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,6 +77,17 @@ public class MainActivity extends AppCompatActivity {
         currentUserID = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
 
+        List<Fragment> list = new ArrayList<>();
+        list.add(new ArticleFragment());
+        list.add(new ChatFragment());
+        list.add(new HelpFragment());
+        list.add(new ReportFragment());
+        list.add(new ProfileFragment());
+
+        pager = findViewById(R.id.pager);
+        pagerAdapter = new SliderPagerAdapter(getSupportFragmentManager(),list);
+        pager.setAdapter(pagerAdapter);
+
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -79,30 +95,24 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()){
                 case R.id.ArticleFragment:
-                    loadFragment(articleFragment);
+                    pager.setCurrentItem(0);
                     return true;
                 case R.id.ChatFragment:
-                    loadFragment(chatFragment);
+                    pager.setCurrentItem(1);
                     return true;
                 case R.id.HelpFragment:
-                    loadFragment(helpFragment);
+                    pager.setCurrentItem(2);
                     return true;
                 case R.id.ReportFragment:
-                    loadFragment(reportFragment);
+                    pager.setCurrentItem(3);
                     return true;
                 case R.id.PerfilFragment:
-                    loadFragment(perfilFragment);
+                    pager.setCurrentItem(4);
                     return true;
             }
             return false;
         }
     };
-
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, fragment);
-        transaction.commit();
-    }
 
 
     @Override

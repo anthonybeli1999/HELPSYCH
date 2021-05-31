@@ -75,10 +75,13 @@ public class ArticleFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View v = inflater.inflate(R.layout.fragment_article, container, false);
+        //View v = inflater.inflate(R.layout.fragment_article, container, false);
+
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_article, container, false);
+
 
         ArticlesRef = FirebaseDatabase.getInstance().getReference().child("Article");
-        ArticlesRecyclerList = v.findViewById(R.id.article_recycler_list);
+        ArticlesRecyclerList = rootView.findViewById(R.id.article_recycler_list);
 
 
         FirebaseRecyclerOptions<Article> options =
@@ -124,7 +127,7 @@ public class ArticleFragment extends Fragment {
 
 
 
-        return v;
+        return rootView;
     }
 
     public static class ArticlesViewHolder extends RecyclerView.ViewHolder

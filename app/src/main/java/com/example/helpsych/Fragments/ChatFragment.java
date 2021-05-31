@@ -104,7 +104,8 @@ public class ChatFragment extends Fragment {
         // Inflate the layout for this fragment
 
         // Inflate the layout for this fragment
-        PrivateChatsView = inflater.inflate(R.layout.fragment_chat, container, false);
+        //PrivateChatsView = inflater.inflate(R.layout.fragment_chat, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_chat, container, false);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -114,12 +115,13 @@ public class ChatFragment extends Fragment {
         ChatRequestsRef = FirebaseDatabase.getInstance().getReference().child("Chat Requests");
 
         ContactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts");
-        chatsList = (RecyclerView) PrivateChatsView.findViewById(R.id.contacts_list);
+        chatsList = (RecyclerView) rootView.findViewById(R.id.contacts_list);
         chatsList.setLayoutManager(new LinearLayoutManager(getContext()));
-        myRequestsList = (RecyclerView) PrivateChatsView.findViewById(R.id.chat_requests_list);
+        myRequestsList = (RecyclerView) rootView.findViewById(R.id.chat_requests_list);
 
-        return PrivateChatsView;
+        //return PrivateChatsView;
         //return inflater.inflate(R.layout.fragment_chat, container, false);
+        return rootView;
 
     }
 

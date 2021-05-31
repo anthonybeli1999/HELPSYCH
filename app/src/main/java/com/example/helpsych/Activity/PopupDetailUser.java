@@ -3,9 +3,16 @@ package com.example.helpsych.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Explode;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionValues;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -82,7 +89,10 @@ public class PopupDetailUser extends AppCompatActivity {
 
 
         RetrieveUserInfo();
+
     }
+
+
 
     private void RetrieveUserInfo()
     {
@@ -116,16 +126,16 @@ public class PopupDetailUser extends AppCompatActivity {
                     String userName = dataSnapshot.child("name").getValue().toString();
                     String userLastname = dataSnapshot.child("lastName").getValue().toString();
                     //String userEmail = dataSnapshot.child("email").getValue().toString();
-                    String userCity = dataSnapshot.child("city").getValue().toString();
-                    String userCountry = dataSnapshot.child("country").getValue().toString();
-                    String userLinkedin = dataSnapshot.child("linkedin").getValue().toString();
+                    //String userCity = dataSnapshot.child("city").getValue().toString();
+                    //String userCountry = dataSnapshot.child("country").getValue().toString();
+                    //String userLinkedin = dataSnapshot.child("linkedin").getValue().toString();
 
                     userProfileName.setText(userName);
                     userProfileLastname.setText(userLastname);
                     //userProfileEmail.setText(userEmail);
-                    userProfileCity.setText(userCity);
-                    userProfileCountry.setText(userCountry);
-                    userProfileLinkedin.setText(userLinkedin);
+                    //userProfileCity.setText(userCity);
+                    //userProfileCountry.setText(userCountry);
+                    //userProfileLinkedin.setText(userLinkedin);
 
                     ManageChatRequests();
                 }
@@ -226,6 +236,11 @@ public class PopupDetailUser extends AppCompatActivity {
                     if (Current_State.equals("friends"))
                     {
                         RemoveSpecificContact();
+                        Intent intent = new Intent (getApplicationContext(), PopupRatingUser.class);
+                        intent.putExtra("uid", receiverUserID);
+                        intent.putExtra("useruid", senderUserID);
+                        startActivity(intent);
+                        finish();
                     }
                 }
             });

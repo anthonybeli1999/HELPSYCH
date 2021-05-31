@@ -10,12 +10,13 @@
         android:id="@+id/toolbar">
     </include>
 
-    <FrameLayout
-        android:id="@+id/frame_container"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:layout_above="@id/bottom_navigation"/>
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_below="@+id/toolbar">
+    </androidx.viewpager.widget.ViewPager>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -29,7 +30,7 @@
         android:background="@drawable/background_bar"
 
         app:menu="@menu/bottom_navigation"
-        app:labelVisibilityMode="selected"
+        app:labelVisibilityMode="labeled"
         style="@style/BottomNavigation"/>
 
 </RelativeLayout>

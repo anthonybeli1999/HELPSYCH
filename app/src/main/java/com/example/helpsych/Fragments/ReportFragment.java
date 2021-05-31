@@ -85,7 +85,8 @@ public class ReportFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View v = inflater.inflate(R.layout.fragment_report, container, false);
+        //View v = inflater.inflate(R.layout.fragment_report, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_report, container, false);
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         currentEmal = mAuth.getCurrentUser().getEmail();
@@ -93,17 +94,17 @@ public class ReportFragment extends Fragment {
         ContactsRef = FirebaseDatabase.getInstance().getReference();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        txtAllChats = (TextView) v.findViewById(R.id.txt_all_chats);
-        txtRegistrationDay = (TextView) v.findViewById(R.id.txt_date_registration);
-        txtRankingQuantity = (TextView) v.findViewById(R.id.txt_ranking_quantity);
+        txtAllChats = (TextView) rootView.findViewById(R.id.txt_all_chats);
+        txtRegistrationDay = (TextView) rootView.findViewById(R.id.txt_date_registration);
+        txtRankingQuantity = (TextView) rootView.findViewById(R.id.txt_ranking_quantity);
 
         RetrieveInformationFriends();
         SetInformation();
         RetrieveInformationRegistrationDate();
 
 
-        return v;
-
+        //return v;
+        return rootView;
     }
 
     private void SetInformation() {
