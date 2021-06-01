@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.helpsych.Activity.AllUserActivity;
 import com.example.helpsych.Activity.EditProfileActivity;
+import com.example.helpsych.Activity.PopupTestActivity;
 import com.example.helpsych.R;
 
 /**
@@ -71,7 +72,9 @@ public class HelpFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_help, container, false);
 
         TextView txt_btn_alluser;
+        Button Btn_Help;
         txt_btn_alluser = rootView.findViewById(R.id.txt_btn_alluser);
+        Btn_Help = rootView.findViewById(R.id.btn_help);
 
         txt_btn_alluser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +84,14 @@ public class HelpFragment extends Fragment {
             }
         });
 
-        //return v;
+        Btn_Help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), PopupTestActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return rootView;
     }
 }

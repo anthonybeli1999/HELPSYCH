@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="Por favor lo invitamos a  valorar la atención recibida por el oyente"
                 android:textColor="@color/black"
-                android:fontFamily="@font/kalambold"
+                android:fontFamily="@font/robotobold"
                 android:textSize="18sp"/>
         </LinearLayout>
 
@@ -66,10 +66,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/kalamregular"
                 android:gravity="start"
                 android:text="Coméntanos como te fue:"
                 android:textColor="@color/black"
+                android:fontFamily="@font/robotoregular"
                 android:textSize="16sp" />
 
             <EditText
@@ -77,13 +77,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edt_background"
-                android:fontFamily="@font/kalamregular"
                 android:hint="Ingresa tu comentario aquí"
                 android:paddingVertical="5dp"
                 android:paddingHorizontal="10dp"
                 android:layout_marginBottom="10dp"
                 android:inputType="textMultiLine"
                 android:lines="3"
+                android:fontFamily="@font/robotoregular"
+                android:textSize="16sp"
                 android:gravity="start"/>
 
         </LinearLayout>
@@ -103,8 +104,9 @@
                 android:textColor="@color/white"
                 android:layout_marginRight="5dp"
                 android:paddingHorizontal="20dp"
-                android:fontFamily="@font/kalambold"
-                android:textSize="18sp"/>
+                android:textStyle="bold"
+                android:fontFamily="@font/robotoregular"
+                android:textSize="14sp"/>
 
             <Button
                 android:id="@+id/btn_rating_send"
@@ -115,8 +117,9 @@
                 android:textColor="@color/white"
                 android:layout_marginLeft="5dp"
                 android:paddingHorizontal="20dp"
-                android:fontFamily="@font/kalambold"
-                android:textSize="18sp"/>
+                android:textStyle="bold"
+                android:fontFamily="@font/robotobold"
+                android:textSize="14sp"/>
         </LinearLayout>
 
     </LinearLayout>
