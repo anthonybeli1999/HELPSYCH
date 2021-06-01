@@ -10,12 +10,13 @@
         android:id="@+id/toolbar">
     </include>
 
-    <FrameLayout
-        android:id="@+id/frame_container_specialist"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pagerSpecialist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:layout_above="@id/bottom_navigation_specialist"/>
+        android:layout_above="@+id/bottom_navigation_specialist"
+        android:layout_below="@+id/toolbar">
+    </androidx.viewpager.widget.ViewPager>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_specialist"

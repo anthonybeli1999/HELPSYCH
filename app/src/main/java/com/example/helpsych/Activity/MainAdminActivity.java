@@ -5,23 +5,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.example.helpsych.Adapters.SliderPagerAdapter;
+import com.example.helpsych.Adapters.SliderPagerAdminAdapter;
 import com.example.helpsych.Fragments.ApproachAdminFragment;
 import com.example.helpsych.Fragments.ArticleAdminFragment;
+import com.example.helpsych.Fragments.ArticleFragment;
+import com.example.helpsych.Fragments.ChatFragment;
+import com.example.helpsych.Fragments.HelpFragment;
+import com.example.helpsych.Fragments.ProfileFragment;
 import com.example.helpsych.Fragments.ReportAdminFragment;
+import com.example.helpsych.Fragments.ReportFragment;
 import com.example.helpsych.Fragments.UsersAdminFragment;
 import com.example.helpsych.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainAdminActivity extends AppCompatActivity {
 
-    ArticleAdminFragment articleAdminFragment = new ArticleAdminFragment();
-    ApproachAdminFragment chatAdminFragment = new ApproachAdminFragment();
-    UsersAdminFragment helpAdminFragment = new UsersAdminFragment();
-    ReportAdminFragment reportAdminFragment = new ReportAdminFragment();
+    private ViewPager pager;
+    private PagerAdapter pagerAdapterAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +42,39 @@ public class MainAdminActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation_admin);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container_admin, articleAdminFragment);
-        transaction.commit();
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        List<Fragment> list = new ArrayList<>();
+        list.add(new ArticleAdminFragment());
+        list.add(new ApproachAdminFragment());
+        list.add(new UsersAdminFragment());
+        list.add(new ReportAdminFragment());
+
+        pager = findViewById(R.id.pagerAdmin);
+        pagerAdapterAdmin = new SliderPagerAdminAdapter(getSupportFragmentManager(),list);
+        pager.setAdapter(pagerAdapterAdmin);
+
+        pager.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                switch (pager.getCurrentItem()) {
+                    case 0:
+                        navigation.setSelectedItemId(R.id.ArticleAdminFragment);
+                        break;
+                    case 1:
+                        navigation.setSelectedItemId(R.id.ApproachAdminFragment);
+                        break;
+                    case 2:
+                        navigation.setSelectedItemId(R.id.UsersAdminFragment);
+                        break;
+                    case 3:
+                        navigation.setSelectedItemId(R.id.ReportAdminFragment);
+                        break;
+                }
+            }
+        });
+
     }
 
 
@@ -45,25 +83,19 @@ public class MainAdminActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()){
                 case R.id.ArticleAdminFragment:
-                    loadFragment(articleAdminFragment);
+                    pager.setCurrentItem(0);
                     return true;
                 case R.id.ApproachAdminFragment:
-                    loadFragment(chatAdminFragment);
+                    pager.setCurrentItem(1);
                     return true;
                 case R.id.UsersAdminFragment:
-                    loadFragment(helpAdminFragment);
+                    pager.setCurrentItem(2);
                     return true;
                 case R.id.ReportAdminFragment:
-                    loadFragment(reportAdminFragment);
+                    pager.setCurrentItem(3);
                     return true;
             }
             return false;
         }
     };
-
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container_admin, fragment);
-        transaction.commit();
-    }
 }

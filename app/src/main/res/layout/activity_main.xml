@@ -26,11 +26,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:elevation="8dp"
-
         android:background="@drawable/background_bar"
-
         app:menu="@menu/bottom_navigation"
-        app:labelVisibilityMode="labeled"
+        app:labelVisibilityMode="auto"
         style="@style/BottomNavigation"/>
 
 </RelativeLayout>

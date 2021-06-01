@@ -8,9 +8,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.helpsych.Adapters.SliderPagerAdapter;
@@ -41,15 +43,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArticleFragment articleFragment = new ArticleFragment();
-    ChatFragment chatFragment = new ChatFragment();
-    HelpFragment helpFragment = new HelpFragment();
-    ReportFragment reportFragment = new ReportFragment();
-    ProfileFragment perfilFragment = new ProfileFragment();
-    FindUsersFragment findUsersFragment = new FindUsersFragment();
-    RequestFragment requestFragment = new RequestFragment();
-
-    //Thats what im doing
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
     private DatabaseReference RootRef;
@@ -88,6 +81,30 @@ public class MainActivity extends AppCompatActivity {
         pagerAdapter = new SliderPagerAdapter(getSupportFragmentManager(),list);
         pager.setAdapter(pagerAdapter);
 
+
+        pager.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                switch (pager.getCurrentItem()) {
+                    case 0:
+                        navigation.setSelectedItemId(R.id.ArticleFragment);
+                        break;
+                    case 1:
+                        navigation.setSelectedItemId(R.id.ChatFragment);
+                        break;
+                    case 2:
+                        navigation.setSelectedItemId(R.id.HelpFragment);
+                        break;
+                    case 3:
+                        navigation.setSelectedItemId(R.id.ReportFragment);
+                        break;
+                    case 4:
+                        navigation.setSelectedItemId(R.id.PerfilFragment);
+                        break;
+
+                }
+            }
+        });
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
