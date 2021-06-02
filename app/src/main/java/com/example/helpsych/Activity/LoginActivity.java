@@ -49,11 +49,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-
         mAuth = FirebaseAuth.getInstance();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
 
 
         InitializeFields();
@@ -76,69 +73,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if (currentUser != null)
-        {
-                 //SendUserToMainActivity();
-            String currentUserId = mAuth.getCurrentUser().getUid();
-            String deviceToken = FirebaseInstanceId.getInstance().getToken();
-            UsersRef.child(currentUserId).child("usertype")
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            currentUserType = snapshot.getValue().toString();
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-            UsersRef.child(currentUserId).child("device_token")
-                    .setValue(deviceToken)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task)
-                        {
-                            if (task.isSuccessful())
-                            {
-                                switch (currentUserType)
-                                {
-                                    case "0":
-                                        SendUserToMainActivity_a();
-                                        Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
-                                        loadingBar.dismiss();
-                                        break;
-                                    case "1":
-                                        SendUserToMainActivity_s();
-                                        Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
-                                        loadingBar.dismiss();
-                                        break;
-                                    case "2":
-                                        SendUserToMainActivity();
-                                        Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
-                                        loadingBar.dismiss();
-                                        break;
-                                    default:
-                                        break;
-
-                                }
-
-                            }
-                        }
-                    });
-
-        }
-    }
-
-
-
     private void AllowUserToLogin()
     {
         String email = UserEmail.getText().toString();
@@ -146,16 +80,16 @@ public class LoginActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(email))
         {
-            Toast.makeText(this, "Please enter email...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Por favor ingresa tu correo electronico...", Toast.LENGTH_SHORT).show();
         }
         if (TextUtils.isEmpty(password))
         {
-            Toast.makeText(this, "Please enter password...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Por favor ingresa tu contraseña...", Toast.LENGTH_SHORT).show();
         }
         else
         {
-            loadingBar.setTitle("Sign In");
-            loadingBar.setMessage("Please wait....");
+            loadingBar.setTitle("Ingresando");
+            loadingBar.setMessage("Espere un momento...");
             loadingBar.setCanceledOnTouchOutside(true);
             loadingBar.show();
 
@@ -166,13 +100,8 @@ public class LoginActivity extends AppCompatActivity {
                         {
                             if (task.isSuccessful())
                             {
-                                //SendUserToMainActivity();
-                                //Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
-                                //loadingBar.dismiss();
-
                                 String currentUserId = mAuth.getCurrentUser().getUid();
                                 String deviceToken = FirebaseInstanceId.getInstance().getToken();
-
 
                                 UsersRef.child(currentUserId).child("usertype")
                                         .addValueEventListener(new ValueEventListener() {
@@ -223,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                             else
                             {
                                 String message = task.getException().toString();
-                                Toast.makeText(LoginActivity.this, "Error : " + message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             }
                         }
@@ -235,17 +164,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void SendUserToMainActivity()
     {
-        //Intent mainIntent = new Intent(LoginActivity.this, MainAdminActivity.class);
         Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-        //Intent mainIntent = new Intent(LoginActivity.this, MainSpecialistActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();
     }
     private void SendUserToMainActivity_s()
     {
-        //Intent mainIntent = new Intent(LoginActivity.this, MainAdminActivity.class);
-        //Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
         Intent mainIntent = new Intent(LoginActivity.this, MainSpecialistActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
@@ -254,8 +179,6 @@ public class LoginActivity extends AppCompatActivity {
     private void SendUserToMainActivity_a()
     {
         Intent mainIntent = new Intent(LoginActivity.this, MainAdminActivity.class);
-        //Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-        //Intent mainIntent = new Intent(LoginActivity.this, MainSpecialistActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();

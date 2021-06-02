@@ -95,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                SendUserToLoginActivity();
+                finish();
             }
         });
 
@@ -204,9 +204,6 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-
-
-
     private void InitializeFields()
     {
         CreateAccountButton = (Button) findViewById(R.id.btnRegister);
@@ -221,13 +218,6 @@ public class RegisterActivity extends AppCompatActivity {
         //UserBirthDateUP = (TextInputLayout) findViewById(R.id.txtFechaNacimientoUP);
 
         loadingBar = new ProgressDialog(this);
-    }
-
-
-    private void SendUserToLoginActivity()
-    {
-        Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-        startActivity(loginIntent);
     }
 
 
