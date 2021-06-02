@@ -8,7 +8,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/dark_blue"
+        android:padding="5dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,11 +22,11 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/custom_profile_image"
-                android:layout_width="47dp"
-                android:layout_height="47dp"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
                 android:src="@drawable/profile_image"
                 android:cropToPadding="true"
-                android:padding="5dp"/>
+                android:padding="2dp"/>
 
         </LinearLayout>
 
@@ -32,14 +35,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:gravity="start">
+            android:gravity="start"
+            android:layout_marginStart="10dp">
 
             <TextView
                 android:id="@+id/custom_profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Display UserName"
-                android:textColor="@android:color/black"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="18sp"/>
 
@@ -49,13 +53,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:text="Last Seen"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@android:color/white"
                 android:textStyle="bold"
+                android:fontFamily="@font/robotolight"
                 android:textSize="14sp" />
 
         </LinearLayout>
-
-
 
     </LinearLayout>
 

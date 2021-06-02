@@ -73,10 +73,6 @@ public class ArticleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        //View v = inflater.inflate(R.layout.fragment_article, container, false);
-
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_article, container, false);
 
 
@@ -94,7 +90,7 @@ public class ArticleFragment extends Fragment {
                     @Override
                     protected void onBindViewHolder(@NonNull ArticlesViewHolder holder, final int position, @NonNull Article model)
                     {
-                        Picasso.get().load(model.getImage()).placeholder(R.drawable.online).into(holder.article_image);
+                        Picasso.get().load(model.getImage()).placeholder(R.drawable.article).into(holder.article_image);
                         holder.article_title.setText(model.getTitle());
                         holder.article_date.setText(model.getDate());
 
@@ -124,14 +120,12 @@ public class ArticleFragment extends Fragment {
         ArticlesRecyclerList.setAdapter(adapter);
 
         adapter.startListening();
-
-
-
         return rootView;
     }
 
     public static class ArticlesViewHolder extends RecyclerView.ViewHolder
     {
+
         TextView article_title;
         TextView article_date;
         ImageView article_image;

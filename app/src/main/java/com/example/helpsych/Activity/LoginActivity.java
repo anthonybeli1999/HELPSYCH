@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     String currentUserType;
     String currentUserId;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,17 +126,17 @@ public class LoginActivity extends AppCompatActivity {
                                                     {
                                                         case "0":
                                                             SendUserToMainActivity_a();
-                                                            Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(LoginActivity.this, "Sesión iniciada correctamente...", Toast.LENGTH_SHORT).show();
                                                             loadingBar.dismiss();
                                                             break;
                                                         case "1":
                                                             SendUserToMainActivity_s();
-                                                            Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(LoginActivity.this, "Sesión iniciada correctamente...", Toast.LENGTH_SHORT).show();
                                                             loadingBar.dismiss();
                                                             break;
                                                         case "2":
                                                             SendUserToMainActivity();
-                                                            Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(LoginActivity.this, "Sesión iniciada correctamente...", Toast.LENGTH_SHORT).show();
                                                             loadingBar.dismiss();
                                                             break;
                                                         default:

@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".Activity.AllUserActivity">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/toolbar">
+    <include layout="@layout/toolbarsspecialist"
+        android:id="@+id/toolbarspecialist">
     </include>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/find_friends_recycler_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/toolbarspecialist"
         android:layout_alignParentStart="true"/>
 
 </RelativeLayout>

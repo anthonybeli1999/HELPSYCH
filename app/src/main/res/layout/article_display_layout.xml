@@ -1,111 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/gray">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp"
-        android:paddingTop="5dp">
+        app:cardElevation="5dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/img_article_image"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ejemplonoticia"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="5dp">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_gravity="center">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/txt_article_psyappoach_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/txt_article_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="¿Qué ejercicio debes hacer para acabar con el estrés y la ansiedad?"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:textColor="@color/black"/>
-                </LinearLayout>
-
+                    android:text="EVENTO"
+                    android:textColor="@color/shadow_red"
+                    android:fontFamily="@font/robotoblack"
+                    android:textSize="12sp"/>
+                <TextView
+                    android:id="@+id/txt_article_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Miles de estudiantes estarán presentes en este evento 2016"
+                    android:lines="2"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/robotomedium"
+                    android:textColor="@color/black"
+                    android:layout_marginVertical="2dp"/>
+                <TextView
+                    android:id="@+id/txt_article_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Viernes, 12 de marzo 2016"
+                    android:fontFamily="@font/robotolight"
+                    android:textSize="14sp"/>
             </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="120dp"
+                android:layout_weight="2">
 
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/img_article_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Fecha de publicación: "
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        android:gravity="end"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:layout_gravity="center">
-
-                    <TextView
-                        android:id="@+id/txt_article_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="17/05/21"
-                        android:gravity="start"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"/>
-
-                </LinearLayout>
-
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ejemplonoticia"/>
             </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

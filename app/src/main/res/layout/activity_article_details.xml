@@ -6,104 +6,143 @@
     android:layout_height="match_parent"
     tools:context=".Activity.ArticleDetails">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/toolbar">
-    </include>
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
-            android:layout_margin="10dp"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/img_article_image"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ejemplonoticia" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/txt_detail_article_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:text="¿Qué ejercicio debes hacer para acabar con el estrés y la ansiedad?"
-                android:textColor="@color/shadow_red"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/img_article_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ejemplonoticia" />
 
-            <TextView
-                android:id="@+id/txt_detail_article_subtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="La práctica deportiva puede ayudarte a combatirlos"
-                android:textColor="#707070"
-                android:textSize="17sp"
-                android:textStyle="italic" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/txt_detail_article_body"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin faucibus mattis interdum. Nunc sagittis elementum turpis, hendrerit elementum sem hendrerit id. Aliquam et eros facilisis, tristique elit ullamcorper, posuere leo. Nunc et elit blandit, dictum tellus at, mollis sapien. Sed vehicula massa ac scelerisque pellentesque. Etiam a mauris ac sem feugiat tincidunt id rutrum ipsum. Sed luctus euismod orci, vitae finibus lorem cursus sed. Etiam mattis ultricies diam, id finibus eros egestas egestas. Donec euismod semper erat, in lobortis leo malesuada in. Maecenas auctor auctor blandit."
-                android:textColor="@color/black"
-                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="20dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="5dp"
-                    android:layout_weight="1.37"
-                    android:text="Autor:"
-                    android:textColor="@color/dark_blue"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_detail_article_author"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="5dp"
-                    android:layout_weight="1"
-                    android:text="Jhon Doe"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginStart="40dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Fecha de publicación:"
-                    android:textColor="@color/dark_blue"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="40dp"
+                android:layout_marginHorizontal="30dp">
 
                 <TextView
                     android:id="@+id/txt_detail_article_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/robotolight"
+                    android:text="Viernes, 12 de marzo 2016"
+                    android:textColor="#757575"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/txt_detail_article_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
-                    android:layout_weight="1.25"
-                    android:text="15/05/21"
+                    android:fontFamily="@font/robotomedium"
+                    android:text="Miles de estudiantes estarán presentes en este evento 2016"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="24sp"/>
+
+                <TextView
+                    android:id="@+id/txt_detail_article_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/slaboregular"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin faucibus mattis interdum. Nunc sagittis elementum turpis, hendrerit elementum sem hendrerit id. Aliquam et eros facilisis, tristique elit ullamcorper, posuere leo. Nunc et elit blandit, dictum tellus at, mollis sapien. Sed vehicula massa ac scelerisque pellentesque. Etiam a mauris ac sem feugiat tincidunt id rutrum ipsum. Sed luctus euismod orci, vitae finibus lorem cursus sed. Etiam mattis ultricies diam, id finibus eros egestas egestas. Donec euismod semper erat, in lobortis leo malesuada in. Maecenas auctor auctor blandit."
+                    android:textColor="#757575"
+                    android:lineSpacingExtra="3dp"
+                    android:textSize="19sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="right">
+                    <ImageView
+                        android:id="@+id/article_detail_unlike"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_unlike"
+                        android:elevation="10dp"/>
+                    <ImageView
+                        android:id="@+id/article_detail_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_like"
+                        android:elevation="10dp"
+                        android:visibility="gone"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+                    <TextView
+                        android:id="@+id/txt_detail_article_psyapproach_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:fontFamily="@font/robotolight"
+                        android:text="Enfoque psicológico: "
+                        android:gravity="end"
+                        android:textColor="#757575"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/txt_detail_article_psyapproach"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:fontFamily="@font/robotolight"
+                        android:text="Ansiedad"
+                        android:gravity="end"
+                        android:textColor="#757575"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+                    <TextView
+                        android:id="@+id/txt_detail_article_author_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:fontFamily="@font/robotolight"
+                        android:text="Autor: "
+                        android:textColor="#757575"
+                        android:gravity="end"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:id="@+id/txt_detail_article_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:fontFamily="@font/robotolight"
+                        android:text="Jhon Doe"
+                        android:textColor="#757575"
+                        android:gravity="end"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>

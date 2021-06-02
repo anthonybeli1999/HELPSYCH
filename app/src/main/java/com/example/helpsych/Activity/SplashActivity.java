@@ -41,8 +41,6 @@ public class SplashActivity extends AppCompatActivity {
         TimerTask tarea = new TimerTask() {
             @Override
             public void run() {
-
-
                 FirebaseUser currentUser = mAuth.getCurrentUser();
 
                 if (currentUser != null)

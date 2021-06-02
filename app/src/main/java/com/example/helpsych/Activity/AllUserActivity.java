@@ -2,6 +2,7 @@ package com.example.helpsych.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,10 +10,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.helpsych.Fragments.FindUsersFragment;
 import com.example.helpsych.Model.User;
@@ -87,8 +93,49 @@ public class AllUserActivity extends AppCompatActivity {
 
         adapter.startListening();
 
+        Toolbar toolbar = findViewById(R.id.toolbarspecialist);
+        setSupportActionBar(toolbar);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
 
+        getMenuInflater().inflate(R.menu.items_search, menu);
+        MenuItem menuItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("SearchHere");
+
+        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
+                searchView.clearFocus();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.search:
+                Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.filter:
+                Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public static class FindFriendViewHolder extends RecyclerView.ViewHolder
