@@ -89,6 +89,9 @@ public class RegisterActivity extends AppCompatActivity {
         adapterFormat.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         UserSex.setAdapter(adapterFormat);
 
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        formattedDate = df.format(c);
 
         AlreadyHaveAccountLink.setOnClickListener(new View.OnClickListener()
         {

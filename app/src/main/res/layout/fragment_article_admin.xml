@@ -9,136 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="10dp"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Registro de nuevo articulo"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingVertical="10dp"
-                android:textColor="@color/white"
-                android:background="@color/sky"
-                android:gravity="center"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:hint="Título">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_article_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:hint="Subtitulo">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_article_subtitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:hint="Cuerpo">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_article_body"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:lines="5"
-                    android:gravity="start"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:hint="Fecha">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_article_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:hint="Autor">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_article_author"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:hint="Etiqueta">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_article_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp">
 
             <Button
-                android:id="@+id/btnNewArticle"
+                android:id="@+id/article_add_admin_new"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:backgroundTint="@color/dark_blue"
-                android:fontFamily="sans-serif"
-                android:text="SIGUIENTE"
-                android:padding="10dp"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:text="NUEVO"/>
 
         </LinearLayout>
 

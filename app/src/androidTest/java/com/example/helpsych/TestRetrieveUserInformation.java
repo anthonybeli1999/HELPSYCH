@@ -9,7 +9,6 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.helpsych.Activity.MainActivity;
-import com.example.helpsych.R;
 
 import org.hamcrest.Matcher;
 import org.junit.Rule;
@@ -36,7 +35,7 @@ public class TestRetrieveUserInformation {
     @Test
     public void obtenerDatosuUsuario()
     {
-        onView(withId(R.id.PerfilFragment)).perform(click());
+        onView(withId(R.id.ProfileFragment)).perform(click());
         onView(isRoot()).perform(waitFor(2000));
     }
 

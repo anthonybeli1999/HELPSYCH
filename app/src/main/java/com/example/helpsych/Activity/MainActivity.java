@@ -4,11 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -21,10 +20,10 @@ import com.example.helpsych.Fragments.ChatFragment;
 import com.example.helpsych.Fragments.HelpFragment;
 import com.example.helpsych.Fragments.ProfileFragment;
 import com.example.helpsych.Fragments.ReportFragment;
-import com.example.helpsych.Fragments.FindUsersFragment;
 
-import com.example.helpsych.Fragments.RequestFragment;
 import com.example.helpsych.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
+
+    private ArrayList listaIdAarticles;
+    private Random randomGenerator;
 
 
     @Override
@@ -71,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
         RootRef = FirebaseDatabase.getInstance().getReference();
 
         List<Fragment> list = new ArrayList<>();
-        list.add(new ArticleFragment());
         list.add(new ChatFragment());
+        list.add(new ArticleFragment());
         list.add(new HelpFragment());
         list.add(new ReportFragment());
         list.add(new ProfileFragment());
@@ -87,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 switch (pager.getCurrentItem()) {
                     case 0:
-                        navigation.setSelectedItemId(R.id.ArticleFragment);
+                        navigation.setSelectedItemId(R.id.ChatFragment);
                         break;
                     case 1:
-                        navigation.setSelectedItemId(R.id.ChatFragment);
+                        navigation.setSelectedItemId(R.id.ArticleFragment);
                         break;
                     case 2:
                         navigation.setSelectedItemId(R.id.HelpFragment);
@@ -99,22 +102,25 @@ public class MainActivity extends AppCompatActivity {
                         navigation.setSelectedItemId(R.id.ReportFragment);
                         break;
                     case 4:
-                        navigation.setSelectedItemId(R.id.PerfilFragment);
+                        navigation.setSelectedItemId(R.id.ProfileFragment);
                         break;
 
                 }
             }
         });
+
+        getIdArticle();
+
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()){
-                case R.id.ArticleFragment:
+                case R.id.ChatFragment:
                     pager.setCurrentItem(0);
                     return true;
-                case R.id.ChatFragment:
+                case R.id.ArticleFragment:
                     pager.setCurrentItem(1);
                     return true;
                 case R.id.HelpFragment:
@@ -123,13 +129,37 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.ReportFragment:
                     pager.setCurrentItem(3);
                     return true;
-                case R.id.PerfilFragment:
+                case R.id.ProfileFragment:
                     pager.setCurrentItem(4);
                     return true;
             }
             return false;
         }
     };
+
+    private void getIdArticle()
+    {
+        RootRef.child("Article").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                listaIdAarticles = new ArrayList<String>();
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String id_article = snapshot.getKey();
+                    listaIdAarticles.add(id_article);
+                }
+
+                randomGenerator = new Random();
+                int index = randomGenerator.nextInt(listaIdAarticles.size());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
 
 
     @Override

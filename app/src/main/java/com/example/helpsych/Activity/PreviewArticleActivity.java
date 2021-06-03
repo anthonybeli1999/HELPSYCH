@@ -33,20 +33,19 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 public class PreviewArticleActivity extends AppCompatActivity {
 
-
-
     private DatabaseReference RootRef;
 
     private FirebaseAuth mAuth;
 
     private Button UpdateAccountSettings;
     private TextView ArticleTitle, ArticleSubtitle, ArticleBody, ArticleDate, ArticleAuthor, ArticleLabel;
-    private static final int GalleryPick = 1;
+
     private ImageView ArticleProfileImage;
     private Button AddImageArticle, SaveArticle;
     private ProgressDialog loadingBar;
 
     private StorageReference ArticleImagesRef;
+    private static final int GalleryPick = 1;
 
     String id_article ="";
 
@@ -79,8 +78,7 @@ public class PreviewArticleActivity extends AppCompatActivity {
         AddImageArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent galleryIntent = new Intent();
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, GalleryPick);
             }
@@ -94,141 +92,68 @@ public class PreviewArticleActivity extends AppCompatActivity {
             }
         });
 
-
-        try{
-            RetrieveUserInfo();
-        }
-        catch (Exception e)
-        {
-
-        }
-
     }
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode==GalleryPick  &&  resultCode==RESULT_OK  &&  data!=null)
+        if (requestCode == GalleryPick  &&  resultCode==RESULT_OK  &&  data!=null)
         {
             Uri ImageUri = data.getData();
+            StorageReference filePath = ArticleImagesRef.child(id_article + ".jpg");
 
-            CropImage.activity()
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .setAspectRatio(1, 1)
-                    .start(this);
-        }
-
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
-        {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-
-            if (resultCode == RESULT_OK)
-            {
-                loadingBar.setTitle("Set Profile Image");
-                loadingBar.setMessage("Please wait, your profile image is updating...");
-                loadingBar.setCanceledOnTouchOutside(false);
-                loadingBar.show();
-
-                Uri resultUri = result.getUri();
-
-
-                StorageReference filePath = ArticleImagesRef.child(id_article + ".jpg");
-
-                filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
+            filePath.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
+                {
+                    if (task.isSuccessful())
                     {
-                        if (task.isSuccessful())
-                        {
-                            Toast.makeText(PreviewArticleActivity.this, "Profile Image uploaded Successfully...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PreviewArticleActivity.this, "Profile Image uploaded Successfully...", Toast.LENGTH_SHORT).show();
 
-                            Task<Uri> filepath = task.getResult().getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Uri downloadUrl = uri;
-                                    final String downloaedUrl = uri.toString();
+                        Task<Uri> filepath = task.getResult().getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Uri downloadUrl = uri;
+                                final String downloaedUrl = uri.toString();
 
 
-                                    RootRef.child("Article").child(id_article).child("image")
-                                            .setValue(downloaedUrl)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task)
+                                RootRef.child("Article").child(id_article).child("image")
+                                        .setValue(downloaedUrl)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task)
+                                            {
+                                                if (task.isSuccessful())
                                                 {
-                                                    if (task.isSuccessful())
-                                                    {
-                                                        Toast.makeText(PreviewArticleActivity.this, "Image save in Database, Successfully...", Toast.LENGTH_SHORT).show();
-                                                        loadingBar.dismiss();
-                                                    }
-                                                    else
-                                                    {
-                                                        String message = task.getException().toString();
-                                                        Toast.makeText(PreviewArticleActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
-                                                        loadingBar.dismiss();
-                                                    }
+                                                    Toast.makeText(PreviewArticleActivity.this, "Image save in Database, Successfully...", Toast.LENGTH_SHORT).show();
+                                                    loadingBar.dismiss();
                                                 }
-                                            });
+                                                else
+                                                {
+                                                    String message = task.getException().toString();
+                                                    Toast.makeText(PreviewArticleActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                                                    loadingBar.dismiss();
+                                                }
+                                            }
+                                        });
 
-                                }
-                            });
+                            }
+                        });
 
 
 
-                        }
-                        else
-                        {
-                            String message = task.getException().toString();
-                            Toast.makeText(PreviewArticleActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
-                            loadingBar.dismiss();
-                        }
                     }
-                });
-            }
-        }
-    }
-
-    private void RetrieveUserInfo()
-    {
-        RootRef.child("Article").child(id_article)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot)
+                    else
                     {
-                        if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("article_body")) && (dataSnapshot.hasChild("image")))
-                        {
-                            String retrieveArticleName = dataSnapshot.child("article_body").getValue().toString();
-                            String retrieveArticleBody = dataSnapshot.child("article_title").getValue().toString();
-                            String retrieveArticleImage = dataSnapshot.child("image").getValue().toString();
-
-                            ArticleTitle.setText(retrieveArticleName);
-                            ArticleBody.setText(retrieveArticleBody);
-                            Picasso.get().load(retrieveArticleImage).into(ArticleProfileImage);
-
-                        }
-                        else if((dataSnapshot.exists()) && (dataSnapshot.hasChild("article_body")))
-                        {
-
-
-                            String retrieveArticleName = dataSnapshot.child("article_body").getValue().toString();
-                            String retrieveArticleBody = dataSnapshot.child("article_title").getValue().toString();
-
-                            ArticleTitle.setText(retrieveArticleName);
-                            ArticleBody.setText(retrieveArticleBody);
-                        }
-                        else
-                        {
-                            //userName.setVisibility(View.VISIBLE);
-                            Toast.makeText(PreviewArticleActivity.this, "...", Toast.LENGTH_SHORT).show();
-                        }
+                        String message = task.getException().toString();
+                        Toast.makeText(PreviewArticleActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                        loadingBar.dismiss();
                     }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                }
+            });
+        }
     }
 }

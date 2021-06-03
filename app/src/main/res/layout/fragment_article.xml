@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.ArticleFragment"
-    android:background="@color/gray">
-
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +18,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:filterTouchesWhenObscured="true"
                 android:background="@drawable/gradient_image"
@@ -29,7 +28,7 @@
             <ImageView
                 android:id="@+id/img_article_top_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ejemplonoticia"
                 android:filterTouchesWhenObscured="true"
@@ -71,7 +70,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="10dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -84,6 +83,5 @@
 
     </LinearLayout>
 
-
-</RelativeLayout>
+</ScrollView>
 

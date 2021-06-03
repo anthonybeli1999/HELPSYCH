@@ -15,7 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.helpsych.Activity.LoginActivity;
+import com.example.helpsych.Activity.PopupAddArticle;
 import com.example.helpsych.Activity.PreviewArticleActivity;
+import com.example.helpsych.Activity.RegisterActivity;
 import com.example.helpsych.Model.Article;
 import com.example.helpsych.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -91,60 +94,20 @@ public class ArticleAdminFragment extends Fragment {
 
         ArticleRef = FirebaseDatabase.getInstance().getReference().child("Article");
 
-        Article_title = (EditText) v.findViewById(R.id.edt_article_title);
-        Article_subtitle = (EditText) v.findViewById(R.id.edt_article_subtitle);
-        Article_body = (EditText) v.findViewById(R.id.edt_article_body);
-        Article_date = (EditText) v.findViewById(R.id.edt_article_date);
-        Article_author = (EditText) v.findViewById(R.id.edt_article_author);
-        Article_label = (EditText) v.findViewById(R.id.edt_article_label);
-
-        loadingBar = new ProgressDialog(this.getActivity());
-        AddNewArticle = (Button) v.findViewById(R.id.btnNewArticle);
+        AddNewArticle = (Button) v.findViewById(R.id.article_add_admin_new);
 
         AddNewArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddNewArticle_m();
-                Article_title.setText("");
-                Article_body.setText("");
+                Intent intent = new Intent(getContext(), PopupAddArticle.class);
+                startActivity(intent);
             }
         });
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         formattedDate = df.format(c);
-
         return v;
     }
 
-    private void AddNewArticle_m() {
-        String ArticleTitle = Article_title.getText().toString();
-        String ArticleSubtitle = Article_subtitle.getText().toString();
-        String ArticleBody = Article_body.getText().toString();
-        String ArticleDate = Article_date.getText().toString();
-        String ArticleAuthor = Article_author.getText().toString();
-        String ArticleLabel = Article_label.getText().toString();
-
-        String UID = UUID.randomUUID().toString();
-
-        if (TextUtils.isEmpty(ArticleTitle)) {
-            Toast.makeText(getContext(), "Por favor ingrese un título...", Toast.LENGTH_SHORT).show();
-        } else {
-            Article ar = new Article();
-            ar.setId(UID);
-            ar.setTitle(ArticleTitle);
-            ar.setSubtitle(ArticleSubtitle);
-            ar.setBody(ArticleBody);
-            ar.setDate(ArticleDate);
-            ar.setAuthor(ArticleAuthor);
-            ar.setLabel(ArticleLabel);
-            ar.setCreationdate(formattedDate);
-            RootRef.child("Article").child(ar.getId()).setValue(ar);
-
-            Toast.makeText(getContext(), "Artículo creado satisfactoriamente...", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getContext(), PreviewArticleActivity.class);
-            intent.putExtra("id_article", UID);
-            startActivity(intent);
-        }
-    }
 }

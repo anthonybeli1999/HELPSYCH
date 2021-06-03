@@ -523,16 +523,20 @@ public class PopupTestActivity extends AppCompatActivity {
                     Answers.clearCheck();
 
                     if(nota < 50){
-                        SendChatRequest();
+                        //SendChatRequest();
+                        finish();
                         Toast.makeText(this, "Limites normales - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                     } else if (nota >= 50 && nota < 60){
                         SendChatRequest();
+                        finish();
                         Toast.makeText(this, "Ansiedad leve moderada - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                     } else if (nota >= 60 && nota < 70){
                         SendChatRequest();
+                        finish();
                         Toast.makeText(this, "Ansiedad moderada a intensa - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                     } else if (nota >= 70){
                         SendChatRequest();
+                        finish();
                         Toast.makeText(this, "Ansiedad intensa - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                     }
                     break;
@@ -577,7 +581,6 @@ public class PopupTestActivity extends AppCompatActivity {
                 randomGenerator = new Random();
                 int index = randomGenerator.nextInt(listaUsuarios.size());
                 receiverUserID = String.valueOf(listaUsuarios.get(index));
-
 
                 ContactsRef.child(senderUserID)
                         .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -667,8 +670,6 @@ public class PopupTestActivity extends AppCompatActivity {
 
                             }
                         });
-
-
             }
 
             @Override
