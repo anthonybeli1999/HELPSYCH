@@ -1,9 +1,11 @@
 package com.example.helpsych.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -16,8 +18,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.helpsych.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.security.acl.Group;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 public class PopupTestActivity extends AppCompatActivity {
 
@@ -29,10 +42,20 @@ public class PopupTestActivity extends AppCompatActivity {
     int nota = 0;
     int NPregunta = 1;
 
+    private DatabaseReference UsersRef;
+    ArrayList listaUsuarios;
+    private Random randomGenerator;
+    private DatabaseReference ChatRequestRef, NotificationRef, ContactsRef;
+    private FirebaseAuth mAuth;
+    private String senderUserID, receiverUserID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popup_test);
+
+        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        mAuth = FirebaseAuth.getInstance();
 
         DisplayMetrics medidasVentana = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(medidasVentana);
@@ -43,6 +66,11 @@ public class PopupTestActivity extends AppCompatActivity {
         getWindow().setLayout((int)(width*0.9), (int)(height*0.5));
 
         InitializeFields();
+
+        ChatRequestRef = FirebaseDatabase.getInstance().getReference().child("Chat Requests");
+        senderUserID = mAuth.getCurrentUser().getUid();
+        NotificationRef = FirebaseDatabase.getInstance().getReference().child("Notifications");
+        ContactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts");
 
         BtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -495,12 +523,16 @@ public class PopupTestActivity extends AppCompatActivity {
                     Answers.clearCheck();
 
                     if(nota < 50){
+                        SendChatRequest();
                         Toast.makeText(this, "Limites normales - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                     } else if (nota >= 50 && nota < 60){
+                        SendChatRequest();
                         Toast.makeText(this, "Ansiedad leve moderada - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                     } else if (nota >= 60 && nota < 70){
+                        SendChatRequest();
                         Toast.makeText(this, "Ansiedad moderada a intensa - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                     } else if (nota >= 70){
+                        SendChatRequest();
                         Toast.makeText(this, "Ansiedad intensa - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                     }
                     break;
@@ -522,5 +554,127 @@ public class PopupTestActivity extends AppCompatActivity {
 
         BtnPrevious = (Button) findViewById(R.id.test_btn_previous);
         BtnNext = (Button) findViewById(R.id.test_btn_next);
+    }
+
+    private void SendChatRequest()
+    {
+        //UsersRef.orderByChild("usertype").equalTo("1")
+        //private DatabaseReference UsersRef;
+        //UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        UsersRef.orderByChild("usertype").equalTo("1").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                listaUsuarios = new ArrayList<String>();
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                    String id_usuario = snapshot.getKey();
+                    listaUsuarios.add(id_usuario);
+
+                }
+                randomGenerator = new Random();
+                int index = randomGenerator.nextInt(listaUsuarios.size());
+                receiverUserID = String.valueOf(listaUsuarios.get(index));
+
+
+                ContactsRef.child(senderUserID)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot)
+                            {
+                                final String[] retImage = {"default_image"};
+
+                                if (dataSnapshot.hasChild(receiverUserID))
+                                {
+                                    UsersRef.child(receiverUserID).addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot)
+                                        {
+                                            if (dataSnapshot.exists())
+                                            {
+                                                if (dataSnapshot.hasChild("image"))
+                                                {
+                                                    retImage[0] = dataSnapshot.child("image").getValue().toString();
+                                                }
+
+                                                final String retName = dataSnapshot.child("name").getValue().toString();
+
+
+                                                Intent chatIntent = new Intent(PopupTestActivity.this, ChatActivity.class);
+                                                chatIntent.putExtra("visit_user_id", receiverUserID);
+                                                chatIntent.putExtra("visit_user_name", retName);
+                                                chatIntent.putExtra("visit_image", retImage[0]);
+                                                startActivity(chatIntent);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
+                                else
+                                {
+                                    ChatRequestRef.child(senderUserID).child(receiverUserID)
+                                            .child("request_type").setValue("sent")
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task)
+                                                {
+                                                    if (task.isSuccessful())
+                                                    {
+                                                        ChatRequestRef.child(receiverUserID).child(senderUserID)
+                                                                .child("request_type").setValue("received")
+                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<Void> task)
+                                                                    {
+                                                                        if (task.isSuccessful())
+                                                                        {
+                                                                            HashMap<String, String> chatNotificationMap = new HashMap<>();
+                                                                            chatNotificationMap.put("from", senderUserID);
+                                                                            chatNotificationMap.put("type", "Nueva solicitud de chat");
+                                                                            chatNotificationMap.put("message", " le ha mandado una solicitud de chat.");
+
+                                                                            NotificationRef.child(receiverUserID).push()
+                                                                                    .setValue(chatNotificationMap)
+                                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                        @Override
+                                                                                        public void onComplete(@NonNull Task<Void> task)
+                                                                                        {
+                                                                                            if (task.isSuccessful())
+                                                                                            {
+                                                                                                Toast.makeText(PopupTestActivity.this, "Notification send succesfuly...", Toast.LENGTH_SHORT).show();
+
+                                                                                            }
+                                                                                        }
+                                                                                    });
+                                                                        }
+                                                                    }
+                                                                });
+                                                    }
+                                                }
+                                            });
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
     }
 }

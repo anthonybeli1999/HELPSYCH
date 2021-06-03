@@ -62,7 +62,7 @@ public class ChatActivity extends AppCompatActivity {
     private MessageAdapter messageAdapter;
     private RecyclerView userMessagesList;
 
-
+    private DatabaseReference NotificationRef;
     private String saveCurrentTime, saveCurrentDate;
 
 
@@ -74,7 +74,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
 
-
+        NotificationRef = FirebaseDatabase.getInstance().getReference().child("Notifications");
 
         mAuth = FirebaseAuth.getInstance();
         messageSenderID = mAuth.getCurrentUser().getUid();
@@ -265,6 +265,28 @@ public class ChatActivity extends AppCompatActivity {
                 {
                     if (task.isSuccessful())
                     {
+                        HashMap<String, String> chatNotificationMap = new HashMap<>();
+                        chatNotificationMap.put("from", messageSenderID);
+                        chatNotificationMap.put("type", "Nuevo mensaje recibido");
+                        chatNotificationMap.put("message", " le ha enviado un mensaje.");
+
+
+                        NotificationRef.child(messageReceiverID).push()
+                                .setValue(chatNotificationMap)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task)
+                                    {
+                                        if (task.isSuccessful())
+                                        {
+                                            //SendMessageRequestButton.setEnabled(true);
+                                            //Current_State = "request_sent";
+                                            //SendMessageRequestButton.setText("Cancelar solicitud");
+                                            Toast.makeText(ChatActivity.this, "Notification send succesfuly...", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                });
                         Toast.makeText(ChatActivity.this, "Message Sent Successfully...", Toast.LENGTH_SHORT).show();
                     }
                     else
