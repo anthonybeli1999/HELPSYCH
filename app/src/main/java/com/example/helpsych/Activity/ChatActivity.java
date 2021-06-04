@@ -270,7 +270,6 @@ public class ChatActivity extends AppCompatActivity {
                         chatNotificationMap.put("type", "Nuevo mensaje recibido");
                         chatNotificationMap.put("message", " le ha enviado un mensaje.");
 
-
                         NotificationRef.child(messageReceiverID).push()
                                 .setValue(chatNotificationMap)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {

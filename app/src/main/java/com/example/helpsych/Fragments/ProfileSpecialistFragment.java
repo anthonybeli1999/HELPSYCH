@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.helpsych.Activity.EditProfileActivity;
 import com.example.helpsych.Activity.LoginActivity;
+import com.example.helpsych.Activity.MainActivity;
 import com.example.helpsych.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,6 +38,7 @@ import java.util.HashMap;
 public class ProfileSpecialistFragment extends Fragment {
 
     private DatabaseReference RootRef;
+    private DatabaseReference UserRef;
 
     private String currentUserID, currentUserType, currentEmal;
 
@@ -97,7 +99,7 @@ public class ProfileSpecialistFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         currentEmal = mAuth.getCurrentUser().getEmail();
-
+        UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         userNameP = (TextView) v.findViewById(R.id.txt_name_s);
         userLastNameP = (TextView) v.findViewById(R.id.txt_lastname_s);
@@ -150,42 +152,24 @@ public class ProfileSpecialistFragment extends Fragment {
         return v;
     }
 
-    public void ChangeUserType()
-    {
-        HashMap<String, Object> profileMap = new HashMap<>();
-        profileMap.put("uid", currentUserID);
-        profileMap.put("usertype", "2");
-        RootRef.child("Users").child(currentUserID).updateChildren(profileMap)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task)
-                    {
-                        if (task.isSuccessful())
-                        {
-
-                            Toast.makeText(getContext(), "Tipo de usuario actualizado...", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            String message = task.getException().toString();
-                            Toast.makeText(getContext(), "Error: " + message, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-    }
-    public void Logout(View view) {
-
-    }
-
     private void SendUserToLoginActivity()
     {
+        UserRef.child(currentUserID).child("device_token")
+                .setValue("").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if (task.isSuccessful()){
+
+                }
+            }
+        });
+
         Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
-        //finish();
+        getActivity().finish();
     }
-
 
     private void RetrieveUserInfo()
     {

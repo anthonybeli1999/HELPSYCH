@@ -13,14 +13,6 @@
         android:gravity="center"
         android:layout_margin="30dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Detalle usuario"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/shadow_red"
-            android:gravity="center"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/visit_profile_image"
@@ -42,12 +34,20 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <RatingBar
-                    android:id="@+id/rtbSpecialist_ud"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:numStars="5" />
+                    android:paddingTop="10dp"
+                    android:gravity="center">
+
+                    <RatingBar
+                        android:id="@+id/rtbSpecialist_ud"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5" />
+
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -74,7 +74,7 @@
                             android:layout_height="wrap_content"
                             android:text="Juan Antonio"
                             android:textSize="14sp"
-                            android:textColor="@color/sky"
+                            android:textColor="@color/shadow_red"
                             android:textStyle="bold"/>
                     </LinearLayout>
 
@@ -96,7 +96,7 @@
                             android:layout_height="wrap_content"
                             android:text="Salas Mogrovejo"
                             android:textSize="14sp"
-                            android:textColor="@color/sky"
+                            android:textColor="@color/shadow_red"
                             android:textStyle="bold"/>
                     </LinearLayout>
 
@@ -132,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                         android:textSize="14sp"
-                        android:textColor="@color/sky"
+                        android:textColor="@color/shadow_red"
                         android:textStyle="bold"/>
                 </LinearLayout>
 
@@ -163,7 +163,7 @@
                         android:layout_height="wrap_content"
                         android:text="Tacna"
                         android:textSize="14sp"
-                        android:textColor="@color/sky"
+                        android:textColor="@color/shadow_red"
                         android:textStyle="bold"/>
                 </LinearLayout>
 
@@ -185,7 +185,7 @@
                         android:layout_height="wrap_content"
                         android:text="Perú"
                         android:textSize="14sp"
-                        android:textColor="@color/sky"
+                        android:textColor="@color/shadow_red"
                         android:textStyle="bold"/>
                 </LinearLayout>
 
@@ -218,7 +218,7 @@
                         android:layout_height="wrap_content"
                         android:text="https://pe.linkedin.com/"
                         android:textSize="14sp"
-                        android:textColor="@color/sky"
+                        android:textColor="@color/shadow_red"
                         android:textStyle="bold"/>
                 </LinearLayout>
 

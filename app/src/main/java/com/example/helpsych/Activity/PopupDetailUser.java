@@ -100,8 +100,8 @@ public class PopupDetailUser extends AppCompatActivity {
                 if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("image"))) {
                     String userImage = dataSnapshot.child("image").getValue().toString();
                     String userName = dataSnapshot.child("name").getValue().toString();
-                    String userLastname = dataSnapshot.child("lastname").getValue().toString();
-                    String userEmail = dataSnapshot.child("email").getValue().toString();
+                    String userLastname = dataSnapshot.child("lastName").getValue().toString();
+                    //String userEmail = dataSnapshot.child("email").getValue().toString();
                     String userCity = dataSnapshot.child("city").getValue().toString();
                     String userCountry = dataSnapshot.child("country").getValue().toString();
                     String userLinkedin = dataSnapshot.child("linkedin").getValue().toString();

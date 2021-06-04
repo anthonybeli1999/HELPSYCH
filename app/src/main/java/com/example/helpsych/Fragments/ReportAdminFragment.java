@@ -3,6 +3,7 @@ package com.example.helpsych.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,7 +13,11 @@ import android.widget.Button;
 
 import com.example.helpsych.Activity.LoginActivity;
 import com.example.helpsych.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +27,9 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ReportAdminFragment extends Fragment {
 
     private FirebaseAuth mAuth;
+    private String currentUserID;
+    private DatabaseReference UserRef;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -67,7 +75,11 @@ public class ReportAdminFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_report_admin, container, false);
+
         mAuth = FirebaseAuth.getInstance();
+        UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        currentUserID = mAuth.getCurrentUser().getUid();
+
         Button Signout = (Button)  v.findViewById(R.id.btn_Signout_admin);
         Signout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,9 +94,20 @@ public class ReportAdminFragment extends Fragment {
 
     private void SendUserToLoginActivity()
     {
+        UserRef.child(currentUserID).child("device_token")
+                .setValue("").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if (task.isSuccessful()){
+
+                }
+            }
+        });
+
         Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
-        //finish();
+        getActivity().finish();
     }
 }
