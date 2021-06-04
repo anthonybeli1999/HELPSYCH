@@ -10,54 +10,41 @@
         android:id="@+id/toolbar">
     </include>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:layout_margin="10dp"
-        android:layout_marginTop="-46dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="vertical">
+        android:layout_below="@+id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end">
-
-            <TextView
-                android:id="@+id/user_textbutton_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="Cancelar"
-                android:textColor="@color/shadow_red"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:orientation="horizontal">
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="20dp"
-                android:layout_weight="2"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="end">
 
-                <ImageView
-                    android:id="@+id/userProfilePhotoEdit"
-                    android:layout_width="82dp"
-                    android:layout_height="95dp"
-                    android:layout_marginHorizontal="30dp"
-                    android:layout_marginVertical="10dp"
-                    android:background="#7E7E7E" />
+                <TextView
+                    android:id="@+id/user_textbutton_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/robotobold"
+                    android:text="CANCELAR"
+                    android:textAllCaps="true"
+                    android:textColor="@color/shadow_red"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/txtTipoProfile"
@@ -66,280 +53,237 @@
                     android:gravity="center"
                     android:text="Paciente"
                     android:textColor="#7E7E7E"
-                    android:textSize="14sp" />
+                    android:textSize="15sp"
+                    android:visibility="gone" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/userProfilePhotoEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginVertical="5dp"
+                    android:src="@drawable/profile_image" />
 
                 <Button
                     android:id="@+id/btn_upload_photo"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/sky"
-                    android:fontFamily="sans-serif"
-                    android:text="Subir foto"
-                    android:textColor="@color/white"
-                    android:textSize="11sp" />
+                    android:backgroundTint="@color/shadow_red"
+                    android:fontFamily="@font/robotoregular"
+                    android:text="SUBIR UNA FOTO"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="true"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:text="Nombres"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/edt_name"
+                        android:hint="Ingresa tus nombres"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:inputType="text"
+                        android:layout_marginHorizontal="90dp"
+                        android:gravity="center"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:text="Apellidos"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="15sp" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Nombres:"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/edt_lastname"
+                        android:hint="Ingresa tus apellidos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:inputType="text"
+                        android:layout_marginHorizontal="90dp"
+                        android:gravity="center"/>
+                </LinearLayout>
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/edt_name"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="text"
-                                android:padding="5dp"
-                                android:textSize="14sp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:text="E-mail"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/edt_email"
+                        android:hint="Ingresa tu e-mail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:inputType="textEmailAddress"
+                        android:layout_marginHorizontal="50dp"
+                        android:gravity="center"
+                        android:enabled="false"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:text="Fecha de nacimiento"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/edt_date"
+                        android:hint="Ingresa tu fecha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:inputType="text"
+                        android:layout_marginHorizontal="120dp"
+                        android:gravity="center"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingTop="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:text="Sexo"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="15sp" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Apellidos:"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/edt_lastname"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="text"
-                                android:padding="5dp"
-                                android:textSize="14sp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
+                    <EditText
+                        android:id="@+id/edt_sex"
+                        android:hint="Ingresa tu sexo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:inputType="text"
+                        android:layout_marginHorizontal="100dp"
+                        android:gravity="center"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:orientation="vertical"
-                    android:paddingTop="10dp">
+                    android:paddingTop="10dp"
+                    android:visibility="gone">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:text="Descripción"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="15sp" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="E-mail:"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/edt_email"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:enabled="false"
-                                android:inputType="textEmailAddress"
-                                android:padding="5dp"
-                                android:textSize="14sp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingTop="10dp">
-
-                    <LinearLayout
+                    <EditText
+                        android:id="@+id/edt_description"
+                        android:hint="Ingresa tu descripción"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Fecha de nacimiento:"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/edt_date"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="datetime"
-                                android:padding="5dp"
-                                android:textSize="14sp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingTop="10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Sexo"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/edt_sex"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="text"
-                                android:padding="5dp"
-                                android:textSize="14sp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingTop="10dp">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Descripcion"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/edt_description"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="textMultiLine"
-                                android:lines="4"
-                                android:padding="5dp"
-                                android:textSize="14sp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:inputType="textMultiLine"
+                        android:gravity="top|center"
+                        android:lines="3"
+                        android:layout_marginHorizontal="90dp"/>
                 </LinearLayout>
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/dark_blue"
+                    android:fontFamily="@font/robotolight"
+                    android:text="GUARDAR CAMBIOS"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_upload"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/dark_blue"
-            android:fontFamily="sans-serif"
-            android:padding="10dp"
-            android:text="GUARDAR CAMBIOS"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

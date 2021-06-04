@@ -73,7 +73,7 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                SendUserToPerfilFragment();
+                finish();
             }
         });
 
@@ -102,23 +102,12 @@ public class EditProfileActivity extends AppCompatActivity {
         ButtonUploadPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent galleryIntent = new Intent();
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                galleryIntent.setType("image/*");
-                startActivityForResult(galleryIntent, GalleryPick);
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAspectRatio(1, 1)
+                        .start(EditProfileActivity.this);
             }
         });
-
-
-
-    }
-
-    private void SendUserToPerfilFragment()
-    {
-        Intent mainIntent = new Intent(EditProfileActivity.this, MainActivity.class);
-        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(mainIntent);
-        finish();
     }
 
     private void InitializeFields()
@@ -150,16 +139,6 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode==GalleryPick  &&  resultCode==RESULT_OK  &&  data!=null)
-        {
-            Uri ImageUri = data.getData();
-
-            CropImage.activity()
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .setAspectRatio(1, 1)
-                    .start(this);
-        }
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
         {
@@ -365,14 +344,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 });
     }
 
-
     private void SendUserToMainActivity()
     {
-        Intent mainIntent = new Intent(EditProfileActivity.this, MainActivity.class);
-        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(mainIntent);
         finish();
     }
-
 
 }

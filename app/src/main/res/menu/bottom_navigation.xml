@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/ChatFragment"
-        android:icon="@drawable/ic_chat"
-        android:title="Chats">
-    </item>
     <item android:id="@+id/ArticleFragment"
         android:icon="@drawable/ic_article"
         android:title="Articulos">
+    </item>
+    <item android:id="@+id/ChatFragment"
+        android:icon="@drawable/ic_chat"
+        android:title="Chats">
     </item>
     <item android:id="@+id/HelpFragment"
         android:icon="@drawable/ic_help"

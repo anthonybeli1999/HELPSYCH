@@ -24,20 +24,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="En este apartado podras realizar"
+                android:text="En este apartado podras realizar un test para identificar tu problema"
                 android:textSize="18sp"
                 android:textColor="@color/black"
-                android:textStyle="bold"
+                android:fontFamily="@font/robotolight"
                 android:gravity="center"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="un test para identificar tu problema"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:gravity="center"/>
 
             <ImageView
                 android:layout_width="match_parent"
@@ -54,7 +46,6 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:textColor="@color/shadow_red"
                 android:textSize="16sp"
-                android:layout_marginHorizontal="10dp"
                 android:drawableLeft="@drawable/ic_add_24dp"/>
 
 
@@ -71,7 +62,7 @@
                     android:layout_marginVertical="5dp"
                     android:textSize="18sp"
                     android:textColor="@color/dark_blue"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/robotomedium"
                     android:gravity="center"/>
 
             </LinearLayout>

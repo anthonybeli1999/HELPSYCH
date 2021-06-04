@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
         RootRef = FirebaseDatabase.getInstance().getReference();
 
         List<Fragment> list = new ArrayList<>();
-        list.add(new ChatFragment());
         list.add(new ArticleFragment());
+        list.add(new ChatFragment());
         list.add(new HelpFragment());
         list.add(new ReportFragment());
         list.add(new ProfileFragment());
@@ -90,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 switch (pager.getCurrentItem()) {
                     case 0:
-                        navigation.setSelectedItemId(R.id.ChatFragment);
+                        navigation.setSelectedItemId(R.id.ArticleFragment);
                         break;
                     case 1:
-                        navigation.setSelectedItemId(R.id.ArticleFragment);
+                        navigation.setSelectedItemId(R.id.ChatFragment);
                         break;
                     case 2:
                         navigation.setSelectedItemId(R.id.HelpFragment);
@@ -117,10 +117,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()){
-                case R.id.ChatFragment:
+                case R.id.ArticleFragment:
                     pager.setCurrentItem(0);
                     return true;
-                case R.id.ArticleFragment:
+                case R.id.ChatFragment:
                     pager.setCurrentItem(1);
                     return true;
                 case R.id.HelpFragment:

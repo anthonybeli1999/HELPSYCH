@@ -9,10 +9,10 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="red">#d62839</color>
-    <color name="shadow_red">#ba324f</color>
-    <color name="dark_blue">#175676</color>
-    <color name="dark_blue2">#0e394f</color>
-    <color name="sky">#4ba3c3</color>
+    <color name="shadow_red">#ff6e6c</color>
+    <color name="dark_blue">#1f1235</color>
+    <color name="dark_blue2">#1b1425</color>
+    <color name="sky">#fbdd74</color>
     <color name="light">#cce6f4</color>
     <color name="gray">#F8F8F8</color>
 </resources>
