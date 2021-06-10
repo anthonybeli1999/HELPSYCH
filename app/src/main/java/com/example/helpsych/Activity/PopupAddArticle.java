@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.helpsych.Model.Article;
@@ -40,8 +42,9 @@ public class PopupAddArticle extends AppCompatActivity {
     String UAID = UUID.randomUUID().toString();
     String downloaedUrl = "";
 
-    EditText EdtAddArticleTile, EdtAddArticleBody, EdtAddApproach;
+    EditText EdtAddArticleTile, EdtAddArticleBody;
     Button BtnAddArticleImg, BtnAddArticleSave;
+    Spinner CmbAddApproach;
 
     private ProgressDialog loadingBar;
 
@@ -74,6 +77,10 @@ public class PopupAddArticle extends AppCompatActivity {
         InitializeFields();
 
         loadingBar = new ProgressDialog(this.getApplicationContext());
+
+        ArrayAdapter<CharSequence> adapterFormat = ArrayAdapter.createFromResource(this, R.array.article_add_approach_string, R.layout.support_simple_spinner_dropdown_item);
+        adapterFormat.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        CmbAddApproach.setAdapter(adapterFormat);
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -122,7 +129,7 @@ public class PopupAddArticle extends AppCompatActivity {
     private void AddNewArticle_m() {
         String ArticleTitle = EdtAddArticleTile.getText().toString();
         String ArticleBody = EdtAddArticleBody.getText().toString();
-        String ArticleApproach = EdtAddApproach.getText().toString();
+        String ArticleApproach = CmbAddApproach.getSelectedItem().toString();
         String UID = UAID;
 
         if (TextUtils.isEmpty(ArticleTitle) || TextUtils.isEmpty(ArticleBody) || TextUtils.isEmpty(ArticleApproach) || downloaedUrl == null) {
@@ -184,7 +191,7 @@ public class PopupAddArticle extends AppCompatActivity {
     private void InitializeFields(){
         EdtAddArticleTile = (EditText) findViewById(R.id.article_add_title);
         EdtAddArticleBody = (EditText) findViewById(R.id.article_add_body);
-        EdtAddApproach = (EditText) findViewById(R.id.article_add_approach);
+        CmbAddApproach = (Spinner) findViewById(R.id.article_add_approach);
 
         BtnAddArticleImg = (Button) findViewById(R.id.article_add_upload_image);
         BtnAddArticleSave = (Button) findViewById(R.id.article_add_save);

@@ -126,7 +126,7 @@
                     android:textColor="@color/white"
                     android:layout_marginRight="5dp"
                     android:paddingHorizontal="20dp"
-                    android:fontFamily="@font/kalambold"
+                    android:fontFamily="@font/robotolight"
                     android:textSize="18sp"
                     android:layout_gravity="start"/>
 
@@ -143,11 +143,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SIGUIENTE"
-                    android:backgroundTint="@color/sky"
+                    android:backgroundTint="@color/dark_blue"
                     android:textColor="@color/white"
                     android:layout_marginLeft="5dp"
                     android:paddingHorizontal="20dp"
-                    android:fontFamily="@font/kalambold"
+                    android:fontFamily="@font/robotolight"
                     android:textSize="18sp"
                     android:layout_gravity="end"/>
             </LinearLayout>

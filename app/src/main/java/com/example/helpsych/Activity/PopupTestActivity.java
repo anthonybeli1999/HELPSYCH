@@ -525,11 +525,11 @@ public class PopupTestActivity extends AppCompatActivity {
                     if(nota < 50){
                         //SendChatRequest();
                         finish();
-                        Toast.makeText(this, "Limites normales - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, "Limites normales - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                     } else if (nota >= 50 && nota < 60){
                         SendChatRequest();
                         finish();
-                        Toast.makeText(this, "Ansiedad leve moderada - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, "Ansiedad leve moderada - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                     } else if (nota >= 60 && nota < 70){
                         SendChatRequest();
                         finish();
@@ -537,7 +537,7 @@ public class PopupTestActivity extends AppCompatActivity {
                     } else if (nota >= 70){
                         SendChatRequest();
                         finish();
-                        Toast.makeText(this, "Ansiedad intensa - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, "Ansiedad intensa - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                     }
                     break;
             }

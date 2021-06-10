@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.PopupAddArticle"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +29,6 @@
                 android:fontFamily="@font/robotoblack"
                 android:textSize="24sp"/>
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -149,21 +149,22 @@
                     android:textColor="@color/black"
                     android:fontFamily="@font/robotolight"
                     android:textSize="16sp" />
-                <EditText
-                    android:id="@+id/article_add_approach"
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edt_background"
-                    android:hint="Ingresa el enfoque aqui..."
-                    android:paddingVertical="8dp"
-                    android:paddingHorizontal="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:inputType="text"
-                    android:lines="1"
-                    android:fontFamily="@font/robotoregular"
-                    android:textSize="16sp"
-                    android:gravity="start"
-                    android:layout_marginVertical="5dp"/>
+                    android:layout_weight="1"
+                    android:background="@drawable/edt_backgroundspinner"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="3dp">
+
+                    <Spinner
+                        android:id="@+id/article_add_approach"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"/>
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -178,7 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="ADJUNTAR IMAGEN"
-                    android:backgroundTint="@color/black"
+                    android:backgroundTint="@color/dark_blue2"
                     android:textColor="@color/white"
                     android:layout_marginLeft="5dp"
                     android:paddingHorizontal="20dp"
@@ -190,14 +191,13 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginHorizontal="60dp"
-            android:layout_marginVertical="20dp">
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp">
 
             <Button
                 android:id="@+id/article_add_save"
@@ -205,15 +205,12 @@
                 android:layout_height="wrap_content"
                 android:text="GUARDAR CAMBIOS"
                 android:backgroundTint="@color/gray"
-                android:textColor="@color/black"
+                android:textColor="@color/dark_blue2"
                 android:textSize="16sp"
                 android:fontFamily="@font/robotomedium"
-                android:layout_marginHorizontal="10dp"
-                android:drawableLeft="@drawable/ic_baseline_cloud_done_24"/>
+                android:drawableStart="@drawable/ic_baseline_cloud_done_24"/>
         </LinearLayout>
 
     </LinearLayout>
 
-
-
-</ScrollView>
+</RelativeLayout>
