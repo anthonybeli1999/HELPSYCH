@@ -1,5 +1,10 @@
 package com.example.helpsych.Model;
 
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Messages
 {
     private String from, message, type, to, messageID, time, date, name;

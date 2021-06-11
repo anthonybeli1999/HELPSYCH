@@ -281,7 +281,7 @@ public class ChatActivity extends AppCompatActivity {
                                             //SendMessageRequestButton.setEnabled(true);
                                             //Current_State = "request_sent";
                                             //SendMessageRequestButton.setText("Cancelar solicitud");
-                                            Toast.makeText(ChatActivity.this, "Notification send succesfuly...", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ChatActivity.this, "Notification send successful...", Toast.LENGTH_SHORT).show();
                                         }
                                     }
 

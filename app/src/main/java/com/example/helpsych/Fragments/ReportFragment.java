@@ -1,24 +1,52 @@
 package com.example.helpsych.Fragments;
 
+import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.helpsych.Activity.ChatActivity;
+import com.example.helpsych.Activity.MainActivity;
+import com.example.helpsych.Activity.MoodHistoryActivity;
 import com.example.helpsych.R;
+import com.example.helpsych.util.Constants;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,11 +55,13 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class ReportFragment extends Fragment {
 
+
+
     private DatabaseReference RootRef, ContactsRef,UsersRef;
     private int countFriends;
     private String registrationDay;
 
-    private String currentUserID, currentUserType, currentEmal;
+    private String currentUserID, currentUserType, currentEmal, messageSenderID;
 
     private FirebaseAuth mAuth;
 
@@ -39,6 +69,22 @@ public class ReportFragment extends Fragment {
     private TextView userNameP, userLastNameP, userEmailP, userSexP, userBirthDateP, userDescriptionP;
     private ImageView userProfileImage;
 
+    //ModTracker
+    private ImageView moodImageView;
+    private ImageButton moodHistoryButton;
+    private ImageButton addCommentButton;
+    private ImageButton shareAppButton;
+    private GestureDetectorCompat mDetector;
+    private RelativeLayout parentRelativeLayout;
+
+    private SharedPreferences mPreferences;
+    private String currentDay;
+    private int currentMoodIndex;
+    private String currentComment;
+    private RelativeLayout relative;
+
+    // Mood Tracker
+    private DatabaseReference MoodRef;
     TextView txtAllChats, txtRegistrationDay, txtRankingQuantity;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,6 +124,8 @@ public class ReportFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
@@ -103,7 +151,144 @@ public class ReportFragment extends Fragment {
         RetrieveInformationRegistrationDate();
 
 
+        messageSenderID = mAuth.getCurrentUser().getUid();
+        //MoodTracker
+        moodImageView = rootView.findViewById(R.id.my_mood);
+        parentRelativeLayout = rootView.findViewById(R.id.parent_relative_layout);
+        addCommentButton = rootView.findViewById(R.id.btn_add_comment);
+        moodHistoryButton = rootView.findViewById(R.id.btn_mood_history);
+
+        //parent_relative_layout
+
+        final GestureDetector gesture = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener()
+        { @Override
+        public boolean onDown(MotionEvent e)
+        { return true; }
+        @Override public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
+        {
+            final int SWIPE_MIN_DISTANCE = 50;
+            final int SWIPE_MAX_OFF_PATH = 500;
+            final int SWIPE_THRESHOLD_VELOCITY = 200;
+            try { //if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) return false;
+                if (e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE )
+                {
+                    if (currentMoodIndex < 4) {
+                        currentMoodIndex++;
+                        changeUiForMood(currentMoodIndex);
+                        //.saveMood(currentMoodIndex, currentDay, mPreferences);
+                        Toast.makeText(getContext(), "Comment Saved", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE )
+                {
+                    if (currentMoodIndex > 0) {
+                        currentMoodIndex--;
+                        changeUiForMood(currentMoodIndex);
+                        //SharedPreferencesHelper.saveMood(currentMoodIndex, currentDay, mPreferences);
+                        Toast.makeText(getContext(), "Comment Saved", Toast.LENGTH_SHORT).show();
+                    }
+                } } catch (Exception e) { // nothing
+                 }
+                return super.onFling(e1, e2, velocityX, velocityY); } });
+        rootView.setOnTouchListener(new View.OnTouchListener() { @Override public boolean onTouch(View v, MotionEvent event) { return gesture.onTouchEvent(event); } });
+
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        currentDay = df.format(c);
+        MoodRef = FirebaseDatabase.getInstance().getReference().child("MoodStatus");
+        //currentDay = mPreferences.getInt(SharedPreferencesHelper.KEY_CURRENT_DAY, 1);
+        //currentMoodIndex = mPreferences.getInt(SharedPreferencesHelper.KEY_CURRENT_MOOD, 3);
+        //currentComment = mPreferences.getString(SharedPreferencesHelper.KEY_CURRENT_COMMENT, "");
+        // Obtain the FirebaseAnalytics instance.
+
+
+        //*****************************Add comment to the Mood********************************/
+
+        addCommentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                final EditText editText = new EditText(getContext());
+
+
+                builder.setMessage("Comment\uD83E\uDD14 \uD83D\uDCDD").setView(editText)
+                        .setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (!editText.getText().toString().isEmpty()) {
+                                    //SharedPreferencesHelper.saveComment(editText.getText().toString(), currentDay, mPreferences);
+                                }
+
+                                HashMap<String, String> moodStatus = new HashMap<>();
+                                moodStatus.put("from", messageSenderID);
+                                moodStatus.put("mood", String.valueOf(currentMoodIndex));
+                                moodStatus.put("date", currentDay);
+                                moodStatus.put("comment", editText.getText().toString());
+
+                                MoodRef.child(messageSenderID).push()
+                                        .setValue(moodStatus)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task)
+                                            {
+                                                if (task.isSuccessful())
+                                                {
+                                                    //SendMessageRequestButton.setEnabled(true);
+                                                    //Current_State = "request_sent";
+                                                    //SendMessageRequestButton.setText("Cancelar solicitud");
+                                                    Toast.makeText(getContext(), "Notification send successful...", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+                                        });
+
+                                dialog.dismiss();
+
+                                Toast.makeText(getContext(), "Comment Saved", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+
+                        Toast.makeText(getContext(), "Comment Canceled", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                        .create().show();
+
+
+            }
+        });
+
+
+        //* History Button to view Mood history screen*/
+        moodHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getContext(), MoodHistoryActivity.class);
+                intent.putExtra("visit_user_id", currentUserID);
+                startActivity(intent);
+            }
+        });
+
+        //*Share your mood Button*/
+
+        //v.setOnTouchListener(new View.OnTouchListener()
+        //{ @Override public boolean onTouch(View v, MotionEvent event) { return gesture.onTouchEvent(event); } });
+
         //return v;
+        rootView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gesture.onTouchEvent(event);
+            }
+        });
+
         return rootView;
     }
 
@@ -153,6 +338,13 @@ public class ReportFragment extends Fragment {
             }
         });
 
+    }
+
+    private void changeUiForMood(int currentMoodIndex) {
+        moodImageView.setImageResource(Constants.moodImagesArray[currentMoodIndex]);
+        parentRelativeLayout.setBackgroundResource(Constants.moodColorsArray[currentMoodIndex]);
+        MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), Constants.moodSoundsArray[currentMoodIndex]);
+        mediaPlayer.start();
     }
 
 

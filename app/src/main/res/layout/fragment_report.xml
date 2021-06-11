@@ -116,6 +116,70 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="340dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:background="@drawable/report_box_chats"
+                android:padding="10dp"
+                android:layout_marginHorizontal="10dp">
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/parent_relative_layout"
+                    >
+
+                    <ImageView
+                        android:id="@+id/my_mood"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_centerHorizontal="true"
+
+                        android:contentDescription="@string/mood_of_the_user"
+                        android:paddingTop="50dp"
+                        android:src="@drawable/smiley_happy" />
+
+
+                    <ImageButton
+                        android:id="@+id/btn_add_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_margin="16dp"
+                        android:background="@null"
+                        android:contentDescription="@string/add_comment_button"
+                        android:src="@drawable/ic_note_add_black" />
+
+                    <ImageButton
+                        android:id="@+id/btn_mood_history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_margin="16dp"
+                        android:background="@null"
+                        android:contentDescription="@string/mood_history_button"
+                        android:src="@drawable/ic_history_black" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>
