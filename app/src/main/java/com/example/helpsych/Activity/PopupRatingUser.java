@@ -26,6 +26,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
 public class PopupRatingUser extends AppCompatActivity {
 
     private Button Cancel, Send;
@@ -34,11 +39,13 @@ public class PopupRatingUser extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference RootRef;
-    private DatabaseReference RatingRef;
+    private DatabaseReference RatingRef, RatedRef;
 
     private String currentSpecialistID = "";
     private String currentUserUID = "";
-    private String nameUserUID = "";
+    private String nameUserUID , lastnameUserUID;
+    private String saveCurrentTime, saveCurrentDate;
+    private DatabaseReference NotificationRef;
 
 
     @Override
@@ -62,9 +69,21 @@ public class PopupRatingUser extends AppCompatActivity {
         currentSpecialistID = intent.getStringExtra("uid");
         currentUserUID = intent.getStringExtra("useruid");
         nameUserUID = "";
+        //lastnameUserUID = "";
+
+
+
+        NotificationRef = FirebaseDatabase.getInstance().getReference().child("Notifications");
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        saveCurrentDate = currentDate.format(calendar.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        saveCurrentTime = currentTime.format(calendar.getTime());
 
         RatingRef = FirebaseDatabase.getInstance().getReference().child("Rating");
-
+        RatedRef = FirebaseDatabase.getInstance().getReference().child("Rated");
+        RetrieveUserInfo();
         InitializeFields();
 
         Cancel.setOnClickListener(new View.OnClickListener() {
@@ -87,40 +106,60 @@ public class PopupRatingUser extends AppCompatActivity {
     private void SendRatingToSpecialist() {
         String comment = RatingComment.getText().toString();
 
-        RetrieveUserInfo();
+        String RatingSenderRef = "Rating/" + currentUserUID ;
+        String RatingReceiverRef = "Rating/" + currentSpecialistID;
 
-        //mAuth.create
-        RatingRef.child(currentSpecialistID).child(currentUserUID).child("Valoración")
-                .setValue(RatingBarUser.getRating()).addOnCompleteListener(new OnCompleteListener<Void>() {
+        DatabaseReference userRatingKeyRef = RootRef.child("Rating")
+                .child(currentUserUID).push();
+
+        String RatingPushID = userRatingKeyRef.getKey();
+        String fullName = nameUserUID + " " + lastnameUserUID;
+        String ratingValue= String.valueOf(RatingPushID);
+
+
+        Map ratingTextBody = new HashMap();
+        ratingTextBody.put("message", comment);
+        ratingTextBody.put("valuation", String.valueOf(RatingBarUser.getRating()));
+        ratingTextBody.put("fromID", currentUserUID);
+        ratingTextBody.put("toID", currentSpecialistID);
+        ratingTextBody.put("fromName", fullName);
+        ratingTextBody.put("messageID", ratingValue);
+        ratingTextBody.put("time", saveCurrentTime);
+        ratingTextBody.put("date", saveCurrentDate);
+
+        Map ratingBodyDetails = new HashMap();
+        ratingBodyDetails.put(RatingSenderRef + "/" + RatingPushID, ratingTextBody);
+        ratingBodyDetails.put( RatingReceiverRef + "/" + RatingPushID, ratingTextBody);
+
+        RootRef.updateChildren(ratingBodyDetails).addOnCompleteListener(new OnCompleteListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task)
+            public void onComplete(@NonNull Task task)
             {
-                if (task.isSuccessful()){
-                    RatingRef.child(currentSpecialistID).child(currentUserUID).child("Autor").setValue(nameUserUID).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful())
+                {
+                    HashMap<String, String> chatNotificationMap = new HashMap<>();
+                    chatNotificationMap.put("from", currentUserUID);
+                    chatNotificationMap.put("type", "Nuevo valoración recibida");
+                    chatNotificationMap.put("message", " ha valorado su atención. Gracias por su tiempo.");
 
-                            RatingRef.child(currentSpecialistID).child(currentUserUID).child("Comentario").setValue(comment).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    NotificationRef.child(currentSpecialistID).push()
+                            .setValue(chatNotificationMap)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(getApplicationContext(), "Rating guardado", Toast.LENGTH_SHORT).show();
+                                public void onComplete(@NonNull Task<Void> task)
+                                {
+                                    if (task.isSuccessful())
+                                    {
+                                        Toast.makeText(PopupRatingUser.this, "Notification send successful...", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                             });
-                        }
-                    });
-
+                    Toast.makeText(PopupRatingUser.this, "Rating saved Successfully...", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-        //mAuth.create
-        RatingRef.child(currentSpecialistID).child(currentUserUID).child("Valoración")
-                .setValue(RatingBarUser.getRating()).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task)
-            {
-                if (task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "Rating guardado", Toast.LENGTH_SHORT).show();
+                else
+                {
+                    Toast.makeText(PopupRatingUser.this, "Error", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -135,6 +174,8 @@ public class PopupRatingUser extends AppCompatActivity {
                     {
                         String retrieveUserName = dataSnapshot.child("name").getValue().toString();
                         nameUserUID = retrieveUserName;
+                        String retrieveUserLastName = dataSnapshot.child("lastName").getValue().toString();
+                        lastnameUserUID = retrieveUserLastName;
                     }
 
                     @Override

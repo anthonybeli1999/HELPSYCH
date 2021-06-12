@@ -59,6 +59,7 @@ public class ReportFragment extends Fragment {
 
     private DatabaseReference RootRef, ContactsRef,UsersRef;
     private int countFriends;
+    private int countRatings;
     private String registrationDay;
 
     private String currentUserID, currentUserType, currentEmal, messageSenderID;
@@ -84,7 +85,7 @@ public class ReportFragment extends Fragment {
     private RelativeLayout relative;
 
     // Mood Tracker
-    private DatabaseReference MoodRef;
+    private DatabaseReference MoodRef, RatingRef;
     TextView txtAllChats, txtRegistrationDay, txtRankingQuantity;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -140,6 +141,7 @@ public class ReportFragment extends Fragment {
         currentEmal = mAuth.getCurrentUser().getEmail();
         RootRef = FirebaseDatabase.getInstance().getReference();
         ContactsRef = FirebaseDatabase.getInstance().getReference();
+        RatingRef = FirebaseDatabase.getInstance().getReference();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         txtAllChats = (TextView) rootView.findViewById(R.id.txt_all_chats);
@@ -147,6 +149,7 @@ public class ReportFragment extends Fragment {
         txtRankingQuantity = (TextView) rootView.findViewById(R.id.txt_ranking_quantity);
 
         RetrieveInformationFriends();
+        RetrieveInformationRating();
         SetInformation();
         RetrieveInformationRegistrationDate();
 
@@ -198,13 +201,6 @@ public class ReportFragment extends Fragment {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         currentDay = df.format(c);
         MoodRef = FirebaseDatabase.getInstance().getReference().child("MoodStatus");
-        //currentDay = mPreferences.getInt(SharedPreferencesHelper.KEY_CURRENT_DAY, 1);
-        //currentMoodIndex = mPreferences.getInt(SharedPreferencesHelper.KEY_CURRENT_MOOD, 3);
-        //currentComment = mPreferences.getString(SharedPreferencesHelper.KEY_CURRENT_COMMENT, "");
-        // Obtain the FirebaseAnalytics instance.
-
-
-        //*****************************Add comment to the Mood********************************/
 
         addCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -265,7 +261,6 @@ public class ReportFragment extends Fragment {
         });
 
 
-        //* History Button to view Mood history screen*/
         moodHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,12 +271,6 @@ public class ReportFragment extends Fragment {
             }
         });
 
-        //*Share your mood Button*/
-
-        //v.setOnTouchListener(new View.OnTouchListener()
-        //{ @Override public boolean onTouch(View v, MotionEvent event) { return gesture.onTouchEvent(event); } });
-
-        //return v;
         rootView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -338,6 +327,32 @@ public class ReportFragment extends Fragment {
             }
         });
 
+    }
+
+    private void RetrieveInformationRating()
+    {
+        ContactsRef.child("Rating").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    /*for (DataSnapshot snap: snapshot.child(currentUserID).getChildren()) {
+                        Log.e(snap.getKey(),snap.getChildrenCount() + "");
+                    }*/
+                    countRatings = (int) snapshot.child(currentUserID).getChildrenCount();
+                    txtRankingQuantity.setText(String.valueOf(countRatings));
+                }
+                else
+                {
+                    txtAllChats.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void changeUiForMood(int currentMoodIndex) {

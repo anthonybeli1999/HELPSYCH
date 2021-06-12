@@ -44,7 +44,9 @@
                         android:id="@+id/rtbSpecialist_ud"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:numStars="5" />
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:rating="2.5" />
 
                 </LinearLayout>
 

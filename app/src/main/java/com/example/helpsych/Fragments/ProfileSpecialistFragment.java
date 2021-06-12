@@ -1,10 +1,14 @@
 package com.example.helpsych.Fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +21,10 @@ import android.widget.Toast;
 import com.example.helpsych.Activity.EditProfileActivity;
 import com.example.helpsych.Activity.LoginActivity;
 import com.example.helpsych.Activity.MainActivity;
+import com.example.helpsych.Model.Psychological_approach;
 import com.example.helpsych.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -260,5 +267,6 @@ public class ProfileSpecialistFragment extends Fragment {
                     }
                 });
     }
+
 
 }

@@ -5,14 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.Explode;
-import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionValues;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -29,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PopupDetailUser extends AppCompatActivity {
@@ -39,8 +34,10 @@ public class PopupDetailUser extends AppCompatActivity {
     private TextView userProfileName, userProfileLastname, userProfileEmail, userProfileCity, userProfileCountry, userProfileLinkedin;
     private Button SendMessageRequestButton, DeclineMessageRequestButton;
     private RatingBar RatingBarSpecialist;
-
-    private DatabaseReference UserRef, ChatRequestRef, ContactsRef, NotificationRef;
+    ArrayList<String> ValuesArray = new ArrayList<String>();
+    private double acumulador;
+    private double rating;
+    private DatabaseReference UserRef, ChatRequestRef, ContactsRef, NotificationRef, RatingRef;
     private FirebaseAuth mAuth;
 
     @Override
@@ -61,10 +58,12 @@ public class PopupDetailUser extends AppCompatActivity {
         ChatRequestRef = FirebaseDatabase.getInstance().getReference().child("Chat Requests");
         ContactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts");
         NotificationRef = FirebaseDatabase.getInstance().getReference().child("Notifications");
+        RatingRef = FirebaseDatabase.getInstance().getReference().child("Rating");
 
 
         receiverUserID = getIntent().getExtras().get("visit_user_id").toString();
         senderUserID = mAuth.getCurrentUser().getUid();
+
 
 
         userProfileImage = (ImageView) findViewById(R.id.visit_profile_image);
@@ -76,12 +75,9 @@ public class PopupDetailUser extends AppCompatActivity {
         userProfileLinkedin = (TextView) findViewById(R.id.txt_pop_user_linkedin);
 
         RatingBarSpecialist = (RatingBar) findViewById(R.id.rtbSpecialist_ud);
-        RatingBarSpecialist.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 
-            }
-        });
+
+
 
         SendMessageRequestButton = (Button) findViewById(R.id.send_message_request_button);
         DeclineMessageRequestButton = (Button) findViewById(R.id.decline_message_request_button);
@@ -94,6 +90,30 @@ public class PopupDetailUser extends AppCompatActivity {
 
 
     private void RetrieveUserInfo() {
+
+        RatingRef.child(receiverUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String value = snapshot.child("valuation").getValue(String.class);
+                    ValuesArray.add(value);
+                }
+
+                acumulador = 0;
+                for(int i = 0; i<ValuesArray.size(); i++)
+                {
+                    acumulador += Double.parseDouble(ValuesArray.get(i).toString());
+                }
+                rating = acumulador / ValuesArray.size();
+                RatingBarSpecialist.setRating((float)rating);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
         UserRef.child(receiverUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
