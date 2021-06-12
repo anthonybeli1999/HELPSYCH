@@ -24,8 +24,7 @@ tools:context=".Fragments.ChatFragment">
                 android:textColor="@color/white"
                 android:paddingVertical="5dp"
                 android:layout_marginBottom="5dp"
-                android:textStyle="bold">
-            </TextView>
+                android:textStyle="bold"/>
         </LinearLayout>
 
         <LinearLayout

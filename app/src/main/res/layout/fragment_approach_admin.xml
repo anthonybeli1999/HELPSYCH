@@ -24,7 +24,6 @@
                 android:layout_height="wrap_content"
                 android:text="Enfoque psicológico"
                 android:textSize="20sp"
-                android:fontFamily="@font/robotomedium"
                 android:paddingVertical="10dp"
                 android:textColor="@color/white"
                 android:background="@color/dark_blue"
@@ -32,27 +31,40 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginVertical="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
+            android:orientation="vertical"
             android:gravity="center"
-            android:orientation="vertical">
+            android:layout_marginHorizontal="20dp">
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:hint="Enfoque psicológico">
+                android:text="En este apartado podrás agregar y ver los enfoques psicológicos disponibles"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/robotolight"
+                android:gravity="center"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtPsyApproach"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"/>
-            </com.google.android.material.textfield.TextInputLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginVertical="10dp"
+                android:src="@drawable/img_approach">
+            </ImageView>
 
+            <EditText
+                android:id="@+id/txtPsyApproach"
+                android:hint="Ingresa el enfoque psicológico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/robotolight"
+                android:inputType="text"
+                android:layout_marginHorizontal="0dp"
+                android:gravity="center"/>
 
             <Button
                 android:id="@+id/btnAdd_PsyApproach"
@@ -64,22 +76,33 @@
                 android:text="AGREGAR ENFOQUE PSICOLÓGICO"
                 android:padding="10dp"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:elevation="10dp"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="LISTA DE ENFOQUES PSICOLÓGICOS"
-                    android:gravity="center"
-                    android:background="@color/shadow_red"
-                    android:textColor="@color/white"
+                    android:text="Lista de enfoque psicológicos"
+                    android:textSize="18sp"
                     android:paddingVertical="5dp"
-                    android:layout_marginVertical="5dp"
-                    android:fontFamily="@font/robotomedium">
-                </TextView>
+                    android:textColor="@color/shadow_red"
+                    android:fontFamily="@font/robotomedium"
+                    android:gravity="center"/>
+
             </LinearLayout>
 
             <LinearLayout

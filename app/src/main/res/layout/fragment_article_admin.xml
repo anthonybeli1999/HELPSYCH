@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ArticleAdminFragment">
 
     <LinearLayout
@@ -11,19 +12,47 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginHorizontal="20dp">
-
-            <Button
-                android:id="@+id/article_add_admin_new"
+            android:layout_height="match_parent">
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Nuestros artículos"
+                android:textSize="20sp"
+                android:fontFamily="@font/robotomedium"
+                android:paddingVertical="10dp"
                 android:textColor="@color/white"
-                android:text="NUEVO"/>
+                android:background="@color/dark_blue"
+                android:gravity="center"/>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/article_recycler_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"/>
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
 
-</ScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/article_add_admin_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="start|bottom"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_add_24dp"
+        app:backgroundTint="@color/dark_blue"
+        app:tint="@color/white" />
+
+</RelativeLayout>
