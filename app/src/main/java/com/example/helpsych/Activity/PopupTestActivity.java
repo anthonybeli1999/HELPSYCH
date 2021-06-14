@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -17,6 +19,8 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.helpsych.Model.Psychological_approach;
+import com.example.helpsych.Model.Test;
 import com.example.helpsych.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 public class PopupTestActivity extends AppCompatActivity {
@@ -39,13 +44,13 @@ public class PopupTestActivity extends AppCompatActivity {
     RadioButton AnswerNever, AnswerSometimes, AnswerMedium, AnswerEver;
     Button BtnPrevious, BtnNext;
     RadioGroup Answers;
-    int nota = 0;
-    int NPregunta = 1;
+    double nota = 0;
+    int NPregunta = 0;
 
     private DatabaseReference UsersRef;
     ArrayList listaUsuarios;
     private Random randomGenerator;
-    private DatabaseReference ChatRequestRef, NotificationRef, ContactsRef;
+    private DatabaseReference ChatRequestRef, NotificationRef, ContactsRef, RootRef;
     private FirebaseAuth mAuth;
     private String senderUserID, receiverUserID;
 
@@ -56,6 +61,7 @@ public class PopupTestActivity extends AppCompatActivity {
 
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
+        RootRef = FirebaseDatabase.getInstance().getReference();
 
         DisplayMetrics medidasVentana = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(medidasVentana);
@@ -72,10 +78,13 @@ public class PopupTestActivity extends AppCompatActivity {
         NotificationRef = FirebaseDatabase.getInstance().getReference().child("Notifications");
         ContactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts");
 
+        GetQuestions();
         BtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Next(v);
+                //Next(v);
+                GetQuestions();
+
             }
         });
 
@@ -83,6 +92,107 @@ public class PopupTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+    }
+
+    private void GetQuestions()
+    {
+        List<Test> questions= new ArrayList();
+        RootRef.child("Test").child("059cbffd-f796-4612-a166-0f34ea1085f7").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    for(DataSnapshot ds: snapshot.getChildren())
+                    {
+                        String ApproachId = ds.child("idApproach").getValue().toString();
+                        String QuestionId = ds.child("idQuestion").getValue().toString();
+                        String ApproachName = ds.child("nameApproach").getValue().toString();
+                        String Question = ds.child("question").getValue().toString();
+                        questions.add(new Test(QuestionId,ApproachName,ApproachId,Question));
+                    }
+
+                    //20
+                    //20 -80
+                    //20 - 80 = 60
+                    //60/2 = 30
+                    //20 + 30 = 50//mitad
+
+
+
+
+
+                    if(NPregunta == questions.size())
+                    {
+                        if(AnswerNever.isChecked()){
+                            nota = nota + 1;
+                        }
+                        else if(AnswerSometimes.isChecked()){
+                            nota = nota + 2;
+                        }
+                        else if(AnswerMedium.isChecked()){
+                            nota = nota + 3;
+                        }
+                        else if(AnswerEver.isChecked()){
+                            nota = nota + 4;
+                        }
+
+                        double min = questions.size();
+                        double max = questions.size() * 4;
+                        double mitad = questions.size() + ((max-min)/2);
+                        double intervalo = ((max-min)/2) / 3;
+                        double intervalo1 = mitad + intervalo; //60
+                        double intervalo2 = intervalo1 + intervalo; // 70
+
+                        if(nota < mitad){
+                            finish();
+                            Toast.makeText(getApplicationContext(), "Limites normales - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
+                        } else if (nota >= mitad && nota < intervalo1){
+                            SendChatRequest();
+                            finish();
+                            Toast.makeText(getApplicationContext(), "Ansiedad leve moderada - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
+                        } else if (nota >= intervalo1 && nota < intervalo2){
+                            SendChatRequest();
+                            finish();
+                            Toast.makeText(getApplicationContext(), "Ansiedad moderada a intensa - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
+                        } else if (nota >= intervalo2){
+                            SendChatRequest();
+                            finish();
+                            Toast.makeText(getApplicationContext(), "Ansiedad intensa - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else
+                    {
+                        if(AnswerNever.isChecked()){
+                            nota = nota + 1;
+                        }
+                        else if(AnswerSometimes.isChecked()){
+                            nota = nota + 2;
+                        }
+                        else if(AnswerMedium.isChecked()){
+                            nota = nota + 3;
+                        }
+                        else if(AnswerEver.isChecked()){
+                            nota = nota + 4;
+                        }
+
+                        NQuestionTest.setText("Pregunta "+ (NPregunta+1) + ":");
+                        QuestionTest.setText(questions.get(NPregunta).getQuestion());
+
+                        Answers.clearCheck();
+
+                        BtnPrevious.setVisibility(View.GONE);
+                        NPregunta = NPregunta + 1;
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
@@ -108,6 +218,7 @@ public class PopupTestActivity extends AppCompatActivity {
                     else if(AnswerEver.isChecked()){
                         nota = nota + 4;
                     }
+
                     //Numero de pregunta
                     NPregunta = NPregunta + 1;
 

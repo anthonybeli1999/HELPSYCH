@@ -1,5 +1,7 @@
 package com.example.helpsych.Model;
 
+import androidx.annotation.NonNull;
+
 public class Psychological_approach {
     private String p_approachId, p_approachName;
 
@@ -25,5 +27,11 @@ public class Psychological_approach {
     }
 
     public Psychological_approach() {
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return p_approachName;
     }
 }
