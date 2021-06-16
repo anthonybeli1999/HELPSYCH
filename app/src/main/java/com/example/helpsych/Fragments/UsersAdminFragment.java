@@ -2,10 +2,13 @@ package com.example.helpsych.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,17 +16,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.helpsych.Activity.AllUserActivity;
-import com.example.helpsych.Activity.EditProfileActivity;
-import com.example.helpsych.Activity.LoginActivity;
-import com.example.helpsych.Activity.MainActivity;
+import com.example.helpsych.Activity.PopupDetailUser;
 import com.example.helpsych.Activity.RegisterActivity;
+import com.example.helpsych.Activity.RegisterSpecialist;
+import com.example.helpsych.Model.User;
 import com.example.helpsych.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
@@ -31,6 +37,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -45,6 +52,7 @@ import java.util.UUID;
 public class UsersAdminFragment extends Fragment {
 
     private Button CreateAccountButton;
+    private FloatingActionButton RegisterSpecialistButton;
     private EditText UserEmail, UserPassword, UserName, UserLastName, UserSex, UserBirthDate, UserCountry, UserCity, UserPhone,UserLinkedin;
     private TextView AlreadyHaveAccountLink;
 
@@ -53,6 +61,9 @@ public class UsersAdminFragment extends Fragment {
     private DatabaseReference RootRef;
 
     private ProgressDialog loadingBar;
+
+    private RecyclerView FindFriendsRecyclerList;
+    private DatabaseReference UsersRef;
 
     String formattedDate ="";
 
@@ -104,163 +115,85 @@ public class UsersAdminFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_users_admin, container, false);
 
         mAuth = FirebaseAuth.getInstance();
-
-        FirebaseOptions firebaseOptions = new FirebaseOptions.Builder()
-                .setDatabaseUrl("https://helpsych-66739-default-rtdb.firebaseio.com")
-                .setApiKey("AIzaSyCCilUA5-Pu1LafwsvbyD3HBchsKE1oqTY")
-                .setApplicationId("helpsych-66739").build();
-
-        try { FirebaseApp myApp = FirebaseApp.initializeApp(getContext(), firebaseOptions, "AnyAppName");
-            mAuth2 = FirebaseAuth.getInstance(myApp);
-        } catch (IllegalStateException e){
-            mAuth2 = FirebaseAuth.getInstance(FirebaseApp.getInstance("AnyAppName"));
-        }
-
         RootRef = FirebaseDatabase.getInstance().getReference();
 
+        RegisterSpecialistButton = (FloatingActionButton) v.findViewById(R.id.article_add_admin_new_specialist);
 
-        //userNameP = (TextView) v.findViewById(R.id.txt_name_p);
-        CreateAccountButton = (Button) v.findViewById(R.id.btnRegister_s);
-        UserEmail = (EditText) v.findViewById(R.id.txtEmail_rs);
-        UserPassword = (EditText) v.findViewById(R.id.txtPassword_rs);
-
-        UserName = (EditText) v.findViewById(R.id.txtNombre_rs);
-        UserLastName = (EditText) v.findViewById(R.id.txtApellido_rs);
-        UserSex = (EditText) v.findViewById(R.id.txtSexo_rs);
-
-        UserBirthDate = (EditText) v.findViewById(R.id.txtFechaNacimiento_rs);
-
-        UserPhone = (EditText) v.findViewById(R.id.txt_phone_rs);
-        UserCountry = (EditText) v.findViewById(R.id.txt_country_rs);
-        UserCity = (EditText) v.findViewById(R.id.txt_city_rs);
-        UserLinkedin = (EditText) v.findViewById(R.id.txt_linkedin_rs);
-
-        loadingBar = new ProgressDialog(getContext());
+        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        FindFriendsRecyclerList = v.findViewById(R.id.find_friends_recycler_list);
 
 
-        CreateAccountButton.setOnClickListener(new View.OnClickListener() {
+        FirebaseRecyclerOptions<User> options =
+                new FirebaseRecyclerOptions.Builder<User>()
+                        .setQuery(UsersRef, User.class)
+                        .build();
+
+
+        FirebaseRecyclerAdapter<User, UsersAdminFragment.FindFriendViewHolder> adapter =
+                new FirebaseRecyclerAdapter<User, UsersAdminFragment.FindFriendViewHolder>(options) {
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull UsersAdminFragment.FindFriendViewHolder holder, final int position, @NonNull User model)
+                    {
+                        holder.userName.setText(model.getName());
+                        holder.userStatus.setText(model.getLastName());
+                        Picasso.get().load(model.getImage()).placeholder(R.drawable.profile_image).into(holder.profileImage);
+                        holder.userType.setText("Usuarios");
+                        holder.userType.setTextColor(Color.rgb(186, 50, 79));
+
+
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view)
+                            {
+                                //String visit_user_id = getRef(position).getKey();
+                                //Intent profileIntent = new Intent(getContext(), PopupDetailUser.class);
+                                //profileIntent.putExtra("visit_user_id", visit_user_id);
+                                //startActivity(profileIntent);
+                            }
+                        });
+                    }
+
+                    @NonNull
+                    @Override
+                    public UsersAdminFragment.FindFriendViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+                    {
+                        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.users_display_layout, viewGroup, false);
+                        UsersAdminFragment.FindFriendViewHolder viewHolder = new UsersAdminFragment.FindFriendViewHolder(view);
+                        return viewHolder;
+                    }
+                };
+
+        FindFriendsRecyclerList.setLayoutManager(new GridLayoutManager(getContext(),1));
+        FindFriendsRecyclerList.setAdapter(adapter);
+
+        adapter.startListening();
+
+        RegisterSpecialistButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                CreateNewAccount();
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), RegisterSpecialist.class);
+                startActivity(intent);
             }
         });
-
-        Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        formattedDate = df.format(c);
-
 
         return v;
     }
 
-    private void CreateNewAccount()
+    public static class FindFriendViewHolder extends RecyclerView.ViewHolder
     {
-        String email = UserEmail.getText().toString();
-        String password = UserPassword.getText().toString();
+        TextView userName, userStatus, userType;
+        ImageView profileImage;
 
-        String userName = UserName.getText().toString();
-        String userLastName = UserLastName.getText().toString();
-        String userSex = UserSex.getText().toString();
-        String userBirthDay = UserBirthDate.getText().toString();
-        String userLinkedin = UserLinkedin.getText().toString();
-
-        String userPhone = UserPhone.getText().toString();
-        String userCity = UserCity.getText().toString();
-        String userCountry = UserCountry.getText().toString();
-
-        if (TextUtils.isEmpty(email))
+        public FindFriendViewHolder(@NonNull View itemView)
         {
-            Toast.makeText(getContext(), "Por favor ingrese un correo electrónico...", Toast.LENGTH_SHORT).show();
-        }
-        if (TextUtils.isEmpty(password))
-        {
-            Toast.makeText(getContext(), "Por favor ingrese una contraseña...", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            loadingBar.setTitle("Creando una cuenta nueva");
-            loadingBar.setMessage("Por favor espere mientras registramos al usuario...");
-            loadingBar.setCanceledOnTouchOutside(true);
-            loadingBar.show();
+            super(itemView);
 
-            mAuth2.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task)
-                        {
-                            if (task.isSuccessful())
-                            {
-                                String deviceToken = FirebaseInstanceId.getInstance().getToken();
-
-                                String currentUserID = mAuth2.getCurrentUser().getUid();
-                                RootRef.child("Users").child(currentUserID).setValue("");
-
-
-                                RootRef.child("Users").child(currentUserID).child("device_token")
-                                        .setValue(deviceToken);
-
-                                RootRef.child("Users").child(currentUserID).child("name")
-                                        .setValue(userName);
-
-                                RootRef.child("Users").child(currentUserID).child("lastName")
-                                        .setValue(userLastName);
-
-                                RootRef.child("Users").child(currentUserID).child("sex")
-                                        .setValue(userSex);
-
-                                RootRef.child("Users").child(currentUserID).child("birthdate")
-                                        .setValue(userBirthDay);
-
-
-
-                                RootRef.child("Users").child(currentUserID).child("phone")
-                                        .setValue(userPhone);
-
-                                RootRef.child("Users").child(currentUserID).child("country")
-                                        .setValue(userCountry);
-
-                                RootRef.child("Users").child(currentUserID).child("city")
-                                        .setValue(userCity);
-
-                                RootRef.child("Users").child(currentUserID).child("linkedin")
-                                        .setValue(userLinkedin);
-
-                                RootRef.child("Users").child(currentUserID).child("registrationDay")
-                                        .setValue(formattedDate);
-
-                                RootRef.child("Users").child(currentUserID).child("usertype")
-                                        .setValue("1");
-
-                                Toast.makeText(getContext(), "El usuario se ha registrado correctamente...", Toast.LENGTH_SHORT).show();
-                                ClearEditBoxes();
-                                mAuth2.signOut();
-                                loadingBar.dismiss();
-                            }
-                            else
-                            {
-                                String message = task.getException().toString();
-                                Toast.makeText(getContext(), "Error : " + message, Toast.LENGTH_SHORT).show();
-                                loadingBar.dismiss();
-                            }
-                        }
-                    });
+            userName = itemView.findViewById(R.id.user_profile_name);
+            userStatus = itemView.findViewById(R.id.user_status);
+            profileImage = itemView.findViewById(R.id.users_profile_image);
+            userType = itemView.findViewById(R.id.user_status_chat);
         }
     }
 
-    private void ClearEditBoxes()
-    {
-        UserEmail.setText("");
-        UserPassword.setText("");
-
-        UserName.setText("");
-        UserLastName.setText("");
-        UserSex.setText("");
-        UserBirthDate.setText("");
-        UserLinkedin.setText("");
-
-        UserPhone.setText("");
-        UserCity.setText("");
-        UserCountry.setText("");
-    }
 }

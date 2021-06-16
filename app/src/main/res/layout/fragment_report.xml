@@ -130,15 +130,14 @@
                 android:layout_weight="1"
                 android:background="@drawable/report_box_chats"
                 android:padding="10dp"
-                android:layout_marginHorizontal="10dp">
-
+                android:layout_marginHorizontal="10dp"
+                android:visibility="gone">
 
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/parent_relative_layout"
-                    >
+                    android:id="@+id/parent_relative_layout">
 
                     <ImageView
                         android:id="@+id/my_mood"

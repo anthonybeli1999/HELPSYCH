@@ -111,26 +111,6 @@ public class ReportAdminFragment extends Fragment {
         TestRef = FirebaseDatabase.getInstance().getReference().child("Test");
         currentUserID = mAuth.getCurrentUser().getUid();
 
-        mSpinnerApproaches = v.findViewById(R.id.spinnerApproaches);
-        questionTest = v.findViewById(R.id.txtQuestionTest);
-        loadApproaches();
-
-        //Test
-
-        questionlist = v.findViewById(R.id.question_test_list);
-        //question_test_list
-
-        //Test
-
-        Button addQuestion = (Button) v.findViewById(R.id.btnAddQuestion_Test);
-        addQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddNewQuestion(selectedApproach);
-                questionTest.setText("");
-
-            }
-        });
 
         Button Signout = (Button)  v.findViewById(R.id.btn_Signout_admin);
         Signout.setOnClickListener(new View.OnClickListener() {
@@ -144,71 +124,6 @@ public class ReportAdminFragment extends Fragment {
         return v;
     }
 
-    private void loadApproaches()
-    {
-        List<Psychological_approach> approaches= new ArrayList();
-        RootRef.child("psyapproach").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
-                    for(DataSnapshot ds: snapshot.getChildren())
-                    {
-                        String ApproachId = ds.child("p_approachId").getValue().toString();
-                        String ApproachName = ds.child("p_approachName").getValue().toString();
-                        approaches.add(new Psychological_approach(ApproachId,ApproachName));
-                    }
-
-                    ArrayAdapter arrayAdapter = new ArrayAdapter( getContext(), android.R.layout.simple_dropdown_item_1line,approaches);
-                    mSpinnerApproaches.setAdapter(arrayAdapter);
-                    mSpinnerApproaches.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            selectedNameApproach = parent.getItemAtPosition(position).toString();
-                            selectedApproach = approaches.get(position).getP_approachId();
-                            LoadQuestionList(selectedApproach);
-
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-
-                    });
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
-    private void AddNewQuestion(String selectApproach) {
-        String question = questionTest.getText().toString();
-        //String UID = UUID.randomUUID().toString();
-
-        if (TextUtils.isEmpty(question)) {
-            Toast.makeText(getContext(), "Por favor ingrese una pregunta", Toast.LENGTH_SHORT).show();
-        } else {
-            DatabaseReference QuestionKeyRef = RootRef.child("Test")
-                    .child(selectApproach).push();
-
-            String questionPushID = QuestionKeyRef.getKey();
-
-            Test test = new Test();
-            test.setIdApproach(selectApproach);
-            test.setIdQuestion(questionPushID);
-            test.setNameApproach(selectedNameApproach);
-            test.setQuestion(question);
-            RootRef.child("Test").child(selectApproach).child(test.getIdQuestion()).setValue(test);
-            Toast.makeText(getContext(), "Pregunta agregada correctamente", Toast.LENGTH_SHORT).show();
-        }
-    }
     private void SendUserToLoginActivity()
     {
         UserRef.child(currentUserID).child("device_token")
@@ -228,76 +143,4 @@ public class ReportAdminFragment extends Fragment {
         getActivity().finish();
     }
 
-    private void LoadQuestionList(String selectApproach){
-        super.onStart();
-        FirebaseRecyclerOptions<Test> options =
-                new FirebaseRecyclerOptions.Builder<Test>()
-                        .setQuery(TestRef.child(selectApproach), Test.class)
-                        .build();
-
-        FirebaseRecyclerAdapter<Test, ReportAdminFragment.TestQuestionViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Test, ReportAdminFragment.TestQuestionViewHolder>(options) {
-
-                    @Override
-                    protected void onBindViewHolder(@NonNull ReportAdminFragment.TestQuestionViewHolder holder, final int position, @NonNull Test test )
-                    {
-                        holder.QuestionTest.setText(test.getQuestion());
-
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view)
-                            {
-                                String question_id = getRef(position).getKey();
-
-                                CharSequence options[] = new CharSequence[]
-                                        {
-                                                "Eliminar pregunta",
-                                        };
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                builder.setTitle(test.getQuestion() );
-
-                                builder.setItems(options, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i)
-                                    {
-                                        if (i == 0)
-                                        {
-                                            TestRef.child(selectApproach).child(question_id).removeValue();
-                                            LoadQuestionList(selectedApproach);
-                                        }
-                                    }
-                                });
-                                builder.show();
-                            }
-                        });
-                    }
-
-                    @NonNull
-                    @Override
-                    public ReportAdminFragment.TestQuestionViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
-                    {
-                        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.question_display_layout, viewGroup, false);
-                        ReportAdminFragment.TestQuestionViewHolder viewHolder = new ReportAdminFragment.TestQuestionViewHolder(view);
-                        return viewHolder;
-                    }
-                };
-
-        questionlist.setLayoutManager(new GridLayoutManager(getContext(),1));
-        questionlist.setAdapter(adapter);
-
-        adapter.startListening();
-    }
-
-    public static class TestQuestionViewHolder extends RecyclerView.ViewHolder
-    {
-        TextView QuestionTest;
-
-        public TestQuestionViewHolder(@NonNull View itemView)
-        {
-            super(itemView);
-
-            QuestionTest = (TextView) itemView.findViewById(R.id.question_display);
-        }
-    }
 }

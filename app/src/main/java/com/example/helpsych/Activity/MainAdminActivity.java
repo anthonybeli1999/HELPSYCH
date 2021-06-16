@@ -22,6 +22,7 @@ import com.example.helpsych.Fragments.HelpFragment;
 import com.example.helpsych.Fragments.ProfileFragment;
 import com.example.helpsych.Fragments.ReportAdminFragment;
 import com.example.helpsych.Fragments.ReportFragment;
+import com.example.helpsych.Fragments.TestsAdminFragment;
 import com.example.helpsych.Fragments.UsersAdminFragment;
 import com.example.helpsych.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -49,6 +50,7 @@ public class MainAdminActivity extends AppCompatActivity {
         list.add(new ArticleAdminFragment());
         list.add(new ApproachAdminFragment());
         list.add(new UsersAdminFragment());
+        list.add(new TestsAdminFragment());
         list.add(new ReportAdminFragment());
 
         pager = findViewById(R.id.pagerAdmin);
@@ -69,6 +71,9 @@ public class MainAdminActivity extends AppCompatActivity {
                         navigation.setSelectedItemId(R.id.UsersAdminFragment);
                         break;
                     case 3:
+                        navigation.setSelectedItemId(R.id.TestAdminFragment);
+                        break;
+                    case 4:
                         navigation.setSelectedItemId(R.id.ReportAdminFragment);
                         break;
                 }
@@ -91,8 +96,11 @@ public class MainAdminActivity extends AppCompatActivity {
                 case R.id.UsersAdminFragment:
                     pager.setCurrentItem(2);
                     return true;
-                case R.id.ReportAdminFragment:
+                case R.id.TestAdminFragment:
                     pager.setCurrentItem(3);
+                    return true;
+                case R.id.ReportAdminFragment:
+                    pager.setCurrentItem(4);
                     return true;
             }
             return false;
