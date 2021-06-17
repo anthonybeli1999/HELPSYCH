@@ -36,9 +36,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button LoginButton, PhoneLoginButton;
     private EditText UserEmail, UserPassword;
-    private TextView NeedNewAccountLink, ForgetPasswordLink;
+    private Button NeedNewAccountLink, ForgetPasswordLink;
 
     private DatabaseReference UsersRef;
+    private TextView ForgotPassword;
 
     String currentUserType;
     String currentUserId;
@@ -68,6 +69,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view)
             {
                 AllowUserToLogin();
+            }
+        });
+
+        ForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent forgotPass = new Intent(LoginActivity.this, PopupForgotPassword.class);
+                startActivity(forgotPass);
             }
         });
     }
@@ -195,8 +204,9 @@ public class LoginActivity extends AppCompatActivity {
         //PhoneLoginButton = (Button) findViewById(R.id.phone_login_button);
         UserEmail = (EditText) findViewById(R.id.txtEmail);
         UserPassword = (EditText) findViewById(R.id.txtPassword);
-        NeedNewAccountLink = (TextView) findViewById(R.id.txt_registro);
+        NeedNewAccountLink = (Button) findViewById(R.id.btn_registro);
         //ForgetPasswordLink = (TextView) findViewById(R.id.forget_password_link);
+        ForgotPassword = (TextView) findViewById(R.id.txt_forgot_password_login);
         loadingBar = new ProgressDialog(this);
     }
 }

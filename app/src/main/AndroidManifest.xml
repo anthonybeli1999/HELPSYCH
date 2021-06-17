@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HelPsych">
-        <activity android:name=".Activity.RegisterSpecialist"></activity>
+        <activity android:name=".Activity.PopupForgotPassword"
+            android:theme="@style/Theme.AppCompat.PopupTheme" />
+        <activity android:name=".Activity.RegisterSpecialist" />
         <activity android:name=".Activity.MoodHistoryActivity" />
         <activity
             android:name=".Activity.PopupAddArticle"

@@ -3,13 +3,18 @@ package com.example.helpsych.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.TransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +49,11 @@ public class PasswordChangeActivity extends AppCompatActivity {
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    private TextView txvForgotPassword, txvGoBack;
+    private TextView txvGoBack;
+
+    private ImageView ImgShowOldPassword,ImgHideOldPassword;
+    private ImageView ImgShowNew1Password,ImgHideNew1Password;
+    private ImageView ImgShowNew2Password,ImgHideNew2Password;
 
     private Toolbar SettingsToolBar;
     private String currentUserID, currentUserType;
@@ -66,6 +75,8 @@ public class PasswordChangeActivity extends AppCompatActivity {
         InitializeFields();
         retrievesEmail = mAuth.getCurrentUser().getEmail();
 
+        Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.robotolight);
+
         txvGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -74,13 +85,6 @@ public class PasswordChangeActivity extends AppCompatActivity {
             }
         });
 
-        txvForgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                ForgotPassword();
-            }
-        });
 
         ChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,32 +94,65 @@ public class PasswordChangeActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    private  void ForgotPassword()
-    {
-        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
-        dialogo1.setTitle("Reinicio de contraseña");
-        dialogo1.setMessage("Se le enviará un correo electrónico a: " + retrievesEmail + " con los pasos para recuperar su contraseña.");
-        dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogo1, int id) {
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-
-                auth.sendPasswordResetEmail(retrievesEmail)
-                        .addOnCompleteListener(new OnCompleteListener() {
-                            @Override
-                            public void onComplete(@NonNull Task task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(PasswordChangeActivity.this, "Se le ha enviado un correo electrónico para recuperar su contraseña.", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(PasswordChangeActivity.this, "Ha ocurrido un error, inténtelo más tarde", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+        ImgShowOldPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edtOldPassword.setInputType(InputType.TYPE_CLASS_TEXT);
+                ImgShowOldPassword.setVisibility(View.GONE);
+                ImgHideOldPassword.setVisibility(View.VISIBLE);
+                edtOldPassword.setTypeface(typeface);
             }
         });
-        dialogo1.show();
 
+        ImgHideOldPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edtOldPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                ImgHideOldPassword.setVisibility(View.GONE);
+                ImgShowOldPassword.setVisibility(View.VISIBLE);
+                edtOldPassword.setTypeface(typeface);
+            }
+        });
+
+        ImgShowNew1Password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edtNewPassword1.setInputType(InputType.TYPE_CLASS_TEXT);
+                ImgShowNew1Password.setVisibility(View.GONE);
+                ImgHideNew1Password.setVisibility(View.VISIBLE);
+                edtNewPassword1.setTypeface(typeface);
+            }
+        });
+
+        ImgHideNew1Password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edtNewPassword1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                ImgHideNew1Password.setVisibility(View.GONE);
+                ImgShowNew1Password.setVisibility(View.VISIBLE);
+                edtNewPassword1.setTypeface(typeface);
+            }
+        });
+
+        ImgShowNew2Password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edtNewPassword2.setInputType(InputType.TYPE_CLASS_TEXT);
+                ImgShowNew2Password.setVisibility(View.GONE);
+                ImgHideNew2Password.setVisibility(View.VISIBLE);
+                edtNewPassword2.setTypeface(typeface);
+            }
+        });
+
+        ImgHideNew2Password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edtNewPassword2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                ImgHideNew2Password.setVisibility(View.GONE);
+                ImgShowNew2Password.setVisibility(View.VISIBLE);
+                edtNewPassword2.setTypeface(typeface);
+            }
+        });
 
     }
 
@@ -123,10 +160,18 @@ public class PasswordChangeActivity extends AppCompatActivity {
 
         txvGoBack = (TextView) findViewById(R.id.txtCancelar_pc);
         ChangePassword = (Button) findViewById(R.id.btnChangePassword);
-        txvForgotPassword = (TextView) findViewById(R.id.txt_ForgotPassword_pc);
         edtOldPassword = (EditText) findViewById(R.id.txvOldPassword);
         edtNewPassword1 = (EditText) findViewById(R.id.txvNewPassword1);
         edtNewPassword2 = (EditText) findViewById(R.id.txvNewPassword2);
+
+        ImgShowOldPassword = (ImageView) findViewById(R.id.img_show_old_password_change_password);
+        ImgHideOldPassword = (ImageView) findViewById(R.id.img_hide_old_password_change_password);
+
+        ImgShowNew1Password = (ImageView) findViewById(R.id.img_show_new1_password_change_password);
+        ImgHideNew1Password = (ImageView) findViewById(R.id.img_hide_new1_password_change_password);
+
+        ImgShowNew2Password = (ImageView) findViewById(R.id.img_show_new2_password_change_password);
+        ImgHideNew2Password = (ImageView) findViewById(R.id.img_hide_new2_password_change_password);
     }
 
     private void SendUserToProfileFragment()
@@ -139,8 +184,6 @@ public class PasswordChangeActivity extends AppCompatActivity {
         String oldPassword = edtOldPassword.getText().toString();
         String newPassword1 = edtNewPassword1.getText().toString();
         String newPassword2 = edtNewPassword2.getText().toString();
-
-
 
         if(TextUtils.isEmpty(newPassword1) || TextUtils.isEmpty(newPassword2) || TextUtils.isEmpty(oldPassword))
         {

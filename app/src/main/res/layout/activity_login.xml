@@ -77,14 +77,14 @@
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/robotolight"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical"
             android:gravity="center">
 
@@ -115,13 +115,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginBottom="10dp">
+            android:gravity="center">
 
             <Button
                 android:id="@+id/btnLogin"
-                android:layout_width="wrap_content"
-                android:paddingHorizontal="30dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="INICIAR SESIÓN"
                 android:fontFamily="@font/robotoregular"
@@ -134,24 +132,42 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginBottom="20dp">
+
+            <Button
+                android:id="@+id/btn_registro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/shadow_red"
+                android:fontFamily="@font/robotomedium"
+                android:text="CREAR UNA NUEVA CUENTA"
+                android:padding="5dp"
+                android:textColor="@color/dark_blue"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="¿No tienes cuenta?"
+                android:text="¿Olvidaste tu contraseña?"
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 android:gravity="center"
-                android:fontFamily="@font/robotolight"
-                android:layout_marginHorizontal="5dp"/>
+                android:fontFamily="@font/robotolight"/>
 
             <TextView
-                android:id="@+id/txt_registro"
-                android:layout_width="wrap_content"
+                android:id="@+id/txt_forgot_password_login"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Registrate ahora"
+                android:text="Restablecela ahora"
                 android:textSize="18sp"
                 android:textColor="@color/shadow_red"
                 android:fontFamily="@font/robotomedium"
