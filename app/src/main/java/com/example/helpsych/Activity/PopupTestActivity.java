@@ -121,9 +121,6 @@ public class PopupTestActivity extends AppCompatActivity {
                     //20 + 30 = 50//mitad
 
 
-
-
-
                     if(NPregunta == questions.size())
                     {
                         if(AnswerNever.isChecked()){

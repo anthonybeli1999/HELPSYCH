@@ -10,14 +10,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.helpsych.Model.User;
 import com.example.helpsych.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,14 +43,16 @@ public class RegisterActivity extends AppCompatActivity {
     private Button CreateAccountButton;
     private EditText UserEmail, UserPassword, UserName, UserLastName, UserBirthDate;
     private TextView AlreadyHaveAccountLink;
-
-    private TextInputLayout UserBirthDateUP;
+    private ImageView Btncalendardate;
 
     private FirebaseAuth mAuth;
     private DatabaseReference RootRef;
 
     private ProgressDialog loadingBar;
     String formattedDate ="";
+
+    private LinearLayout LinearOtherGen;
+    private EditText UserOtherGen;
 
     private Spinner UserSex;
 
@@ -111,12 +117,36 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        UserBirthDate.setOnClickListener(new View.OnClickListener() {
+        Btncalendardate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog(DATE_ID);
             }
         });
+
+        UserSex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        LinearOtherGen.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        LinearOtherGen.setVisibility(View.GONE);
+                        break;
+                    case 2:
+                        LinearOtherGen.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
     }
 
     @Override
@@ -136,8 +166,17 @@ public class RegisterActivity extends AppCompatActivity {
 
         String userName = UserName.getText().toString();
         String userLastName = UserLastName.getText().toString();
-        String userSex = UserSex.getSelectedItem().toString();
         String userBirthDay = UserBirthDate.getText().toString();
+
+        String userSex;
+
+        if(LinearOtherGen.getVisibility() == View.VISIBLE){
+            userSex = UserOtherGen.getText().toString();
+        }
+        else{
+            userSex = UserSex.getSelectedItem().toString();
+        }
+
 
         if (TextUtils.isEmpty(email))
         {
@@ -218,7 +257,10 @@ public class RegisterActivity extends AppCompatActivity {
         UserLastName = (EditText) findViewById(R.id.txtApellido);
         UserSex = (Spinner) findViewById(R.id.login_cmb_sex);
         UserBirthDate = (EditText) findViewById(R.id.txtFechaNacimiento);
-        //UserBirthDateUP = (TextInputLayout) findViewById(R.id.txtFechaNacimientoUP);
+        Btncalendardate = (ImageView) findViewById(R.id.register_btn_img_calendar);
+
+        LinearOtherGen = (LinearLayout) findViewById(R.id.linear_otherger_register) ;
+        UserOtherGen = (EditText) findViewById(R.id.txtOtherGen);
 
         loadingBar = new ProgressDialog(this);
     }
