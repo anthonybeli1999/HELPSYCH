@@ -1,5 +1,7 @@
 package com.example.helpsych.Fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -87,11 +89,23 @@ public class HelpFragment extends Fragment {
         Btn_Help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), PopupTestActivity.class);
-                startActivity(intent);
+                showDialogAlert();
             }
         });
 
         return rootView;
+    }
+
+    private void showDialogAlert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogCustom);
+        builder.setTitle("¡Advertencia!");
+        builder.setMessage("Tenga en cuenta que los siguientes tests son orientativos y no representan un diagnóstico definitivo.")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getContext(), PopupTestActivity.class);
+                        startActivity(intent);
+                    }
+                }).show();
     }
 }

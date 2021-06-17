@@ -11,7 +11,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:elevation="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ayuda"
+                android:textSize="20sp"
+                android:fontFamily="@font/robotomedium"
+                android:paddingVertical="15dp"
+                android:textColor="@color/white"
+                android:background="@color/dark_blue"
+                android:paddingHorizontal="20dp"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_marginVertical="20dp"

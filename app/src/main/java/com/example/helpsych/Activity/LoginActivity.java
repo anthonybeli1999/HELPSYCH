@@ -2,15 +2,19 @@ package com.example.helpsych.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference UsersRef;
     private TextView ForgotPassword;
 
+    private ImageView BtnImgShowPassword, BtnImgHidePassword;
+
     String currentUserType;
     String currentUserId;
 
@@ -51,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.robotolight);
 
 
         InitializeFields();
@@ -77,6 +85,26 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent forgotPass = new Intent(LoginActivity.this, PopupForgotPassword.class);
                 startActivity(forgotPass);
+            }
+        });
+
+        BtnImgShowPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserPassword.setInputType(InputType.TYPE_CLASS_TEXT);
+                BtnImgShowPassword.setVisibility(View.GONE);
+                BtnImgHidePassword.setVisibility(View.VISIBLE);
+                UserPassword.setTypeface(typeface);
+            }
+        });
+
+        BtnImgHidePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                BtnImgHidePassword.setVisibility(View.GONE);
+                BtnImgShowPassword.setVisibility(View.VISIBLE);
+                UserPassword.setTypeface(typeface);
             }
         });
     }
@@ -207,6 +235,10 @@ public class LoginActivity extends AppCompatActivity {
         NeedNewAccountLink = (Button) findViewById(R.id.btn_registro);
         //ForgetPasswordLink = (TextView) findViewById(R.id.forget_password_link);
         ForgotPassword = (TextView) findViewById(R.id.txt_forgot_password_login);
+
+        BtnImgShowPassword = (ImageView) findViewById(R.id.login_img_show_password);
+        BtnImgHidePassword = (ImageView) findViewById(R.id.login_img_hide_password);
+
         loadingBar = new ProgressDialog(this);
     }
 }

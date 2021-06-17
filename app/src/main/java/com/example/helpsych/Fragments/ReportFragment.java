@@ -163,6 +163,8 @@ public class ReportFragment extends Fragment {
 
         //parent_relative_layout
 
+        /*
+
         final GestureDetector gesture = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener()
         { @Override
         public boolean onDown(MotionEvent e)
@@ -194,6 +196,8 @@ public class ReportFragment extends Fragment {
                  }
                 return super.onFling(e1, e2, velocityX, velocityY); } });
         rootView.setOnTouchListener(new View.OnTouchListener() { @Override public boolean onTouch(View v, MotionEvent event) { return gesture.onTouchEvent(event); } });
+
+         */
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
@@ -260,7 +264,6 @@ public class ReportFragment extends Fragment {
             }
         });
 
-
         moodHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -271,12 +274,16 @@ public class ReportFragment extends Fragment {
             }
         });
 
+        /*
+
         rootView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return gesture.onTouchEvent(event);
             }
         });
+
+         */
 
         return rootView;
     }

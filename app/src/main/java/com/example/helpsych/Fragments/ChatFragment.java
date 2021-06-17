@@ -52,6 +52,7 @@ public class ChatFragment extends Fragment {
     private FirebaseAuth mAuth;
     private String currentUserID="";
 
+    private int countFriends;
 
     //REQUEST CHAT
 
@@ -121,9 +122,13 @@ public class ChatFragment extends Fragment {
 
         //return PrivateChatsView;
         //return inflater.inflate(R.layout.fragment_chat, container, false);
+
+
         return rootView;
 
     }
+
+
 
     @Override
     public void onStart()
@@ -494,6 +499,7 @@ public class ChatFragment extends Fragment {
         myRequestsList.setAdapter(adapterRequest);
         adapterRequest.startListening();
     }
+    
 
 
     public static class  ChatsViewHolder extends RecyclerView.ViewHolder

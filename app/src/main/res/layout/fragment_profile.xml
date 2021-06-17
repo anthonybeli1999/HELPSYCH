@@ -8,13 +8,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Perfil"
+                android:textSize="20sp"
+                android:fontFamily="@font/robotomedium"
+                android:paddingVertical="15dp"
+                android:textColor="@color/white"
+                android:background="@color/dark_blue"
+                android:paddingHorizontal="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end">
+            android:gravity="end"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp">
 
             <TextView
                 android:id="@+id/user_textbutton_edit"
@@ -34,7 +51,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginVertical="5dp">
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="20dp">
 
             <TextView
                 android:id="@+id/txtTipoProfile"
@@ -58,7 +76,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginHorizontal="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -233,14 +252,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginVertical="20dp">
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="20dp">
 
             <Button
                 android:id="@+id/btnChangePassword_p"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/dark_blue"
-                android:fontFamily="@font/robotolight"
+                android:fontFamily="@font/robotomedium"
                 android:text="CAMBIAR DE CONTRASEÑA"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
@@ -250,7 +270,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/shadow_red"
-                android:fontFamily="@font/robotoregular"
+                android:fontFamily="@font/robotomedium"
                 android:text="CERRAR SESIÓN"
                 android:textColor="@color/dark_blue"
                 android:textSize="15sp"/>

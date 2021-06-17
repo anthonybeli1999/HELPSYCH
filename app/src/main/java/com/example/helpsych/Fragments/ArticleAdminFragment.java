@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.helpsych.Activity.ArticleDetails;
-import com.example.helpsych.Activity.LoginActivity;
 import com.example.helpsych.Activity.PopupAddArticle;
-import com.example.helpsych.Activity.PreviewArticleActivity;
-import com.example.helpsych.Activity.RegisterActivity;
 import com.example.helpsych.Model.Article;
-import com.example.helpsych.Model.User;
 import com.example.helpsych.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -36,12 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -37,7 +37,6 @@
         <activity
             android:name=".Activity.ArticleDetails"
             android:parentActivityName=".Activity.MainActivity" />
-        <activity android:name=".Activity.PreviewArticleActivity" />
         <activity android:name=".Activity.MainSpecialistActivity" />
         <activity android:name=".Activity.MainAdminActivity" />
         <activity android:name=".Activity.AllUserActivity" />

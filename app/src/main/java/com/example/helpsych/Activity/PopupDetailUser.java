@@ -32,12 +32,16 @@ public class PopupDetailUser extends AppCompatActivity {
 
     private ImageView userProfileImage;
     private TextView userProfileName, userProfileLastname, userProfileEmail, userProfileCity, userProfileCountry, userProfileLinkedin;
+    private TextView userProfileDescription;
     private Button SendMessageRequestButton, DeclineMessageRequestButton;
     private RatingBar RatingBarSpecialist;
     ArrayList<String> ValuesArray = new ArrayList<String>();
+
     private double acumulador;
     private double rating;
+
     private DatabaseReference UserRef, ChatRequestRef, ContactsRef, NotificationRef, RatingRef;
+    private DatabaseReference MessagesRef;
     private FirebaseAuth mAuth;
 
     @Override
@@ -59,25 +63,21 @@ public class PopupDetailUser extends AppCompatActivity {
         ContactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts");
         NotificationRef = FirebaseDatabase.getInstance().getReference().child("Notifications");
         RatingRef = FirebaseDatabase.getInstance().getReference().child("Rating");
-
+        MessagesRef = FirebaseDatabase.getInstance().getReference().child("Messages");
 
         receiverUserID = getIntent().getExtras().get("visit_user_id").toString();
         senderUserID = mAuth.getCurrentUser().getUid();
 
-
-
+        userProfileDescription = (TextView) findViewById(R.id.txt_pop_user_description);
         userProfileImage = (ImageView) findViewById(R.id.visit_profile_image);
         userProfileName = (TextView) findViewById(R.id.txt_pop_user_name);
-        userProfileLastname = (TextView) findViewById(R.id.txt_pop_user_lastname);
+        //userProfileLastname = (TextView) findViewById(R.id.txt_pop_user_lastname);
         //userProfileEmail = (TextView) findViewById(R.id.txt_pop_user_email);
         userProfileCity = (TextView) findViewById(R.id.txt_pop_user_city);
         userProfileCountry = (TextView) findViewById(R.id.txt_pop_user_country);
         userProfileLinkedin = (TextView) findViewById(R.id.txt_pop_user_linkedin);
 
         RatingBarSpecialist = (RatingBar) findViewById(R.id.rtbSpecialist_ud);
-
-
-
 
         SendMessageRequestButton = (Button) findViewById(R.id.send_message_request_button);
         DeclineMessageRequestButton = (Button) findViewById(R.id.decline_message_request_button);
@@ -122,14 +122,18 @@ public class PopupDetailUser extends AppCompatActivity {
                     String userName = dataSnapshot.child("name").getValue().toString();
                     String userLastname = dataSnapshot.child("lastName").getValue().toString();
                     //String userEmail = dataSnapshot.child("email").getValue().toString();
+
+                    String userDescription = dataSnapshot.child("description").getValue().toString();
+
                     String userCity = dataSnapshot.child("city").getValue().toString();
                     String userCountry = dataSnapshot.child("country").getValue().toString();
                     String userLinkedin = dataSnapshot.child("linkedin").getValue().toString();
 
                     Picasso.get().load(userImage).placeholder(R.drawable.profile_image).into(userProfileImage);
-                    userProfileName.setText(userName);
-                    userProfileLastname.setText(userLastname);
+                    userProfileName.setText(userName + " " + userLastname);
+                    //userProfileLastname.setText(userLastname);
                     //userProfileEmail.setText(userEmail);
+                    userProfileDescription.setText(userDescription);
                     userProfileCity.setText(userCity);
                     userProfileCountry.setText(userCountry);
                     userProfileLinkedin.setText(userLinkedin);
@@ -144,8 +148,8 @@ public class PopupDetailUser extends AppCompatActivity {
                     //String userCountry = dataSnapshot.child("country").getValue().toString();
                     //String userLinkedin = dataSnapshot.child("linkedin").getValue().toString();
 
-                    userProfileName.setText(userName);
-                    userProfileLastname.setText(userLastname);
+                    userProfileName.setText(userName + " " + userLastname);
+                    //userProfileLastname.setText(userLastname);
                     //userProfileEmail.setText(userEmail);
                     //userProfileCity.setText(userCity);
                     //userProfileCountry.setText(userCountry);
@@ -253,6 +257,26 @@ public class PopupDetailUser extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+
+                            MessagesRef.child(senderUserID).child(receiverUserID)
+                                    .removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                        }
+                                    });
+
+                            MessagesRef.child(receiverUserID).child(senderUserID)
+                                    .removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                        }
+                                    });
+
+
                             ContactsRef.child(receiverUserID).child(senderUserID)
                                     .removeValue()
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -272,6 +296,8 @@ public class PopupDetailUser extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 
     private void AcceptChatRequest() {

@@ -1,5 +1,7 @@
 package com.example.helpsych.Activity;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +37,7 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -52,13 +56,37 @@ public class EditProfileActivity extends AppCompatActivity {
     private StorageReference UserProfileImagesRef;
     private ProgressDialog loadingBar;
 
+    private ImageView ImgCalendar;
+
     private Toolbar SettingsToolBar;
+
+    private int nYearIni, nMonthIni, nDayIni, sYearIni, sMonthIni, sDayIni;
+    static final int DATE_ID = 0;
+    Calendar C = Calendar.getInstance();
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    nYearIni = year;
+                    nMonthIni = month;
+                    nDayIni = dayOfMonth;
+                    colocar_fecha();
+                }
+            };
+
+    private void colocar_fecha() {
+        userBirthDate.setText(nDayIni + "/" + (nMonthIni + 1) + "/" + nYearIni);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        sYearIni = C.get(Calendar.YEAR);
+        sMonthIni = C.get(Calendar.MONTH);
+        sDayIni = C.get(Calendar.DAY_OF_MONTH);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
@@ -108,6 +136,13 @@ public class EditProfileActivity extends AppCompatActivity {
                         .start(EditProfileActivity.this);
             }
         });
+
+        ImgCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(DATE_ID);
+            }
+        });
     }
 
     private void InitializeFields()
@@ -125,7 +160,7 @@ public class EditProfileActivity extends AppCompatActivity {
         userProfileImage = (ImageView) findViewById(R.id.userProfilePhotoEdit);
         loadingBar = new ProgressDialog(this);
         ButtonUploadPhoto = (Button) findViewById(R.id.btn_upload_photo);
-
+        ImgCalendar = (ImageView) findViewById(R.id.profile_btn_img_calendar);
         /*SettingsToolBar = (Toolbar) findViewById(R.id.settings_toolbar);
         setSupportActionBar(SettingsToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -134,6 +169,16 @@ public class EditProfileActivity extends AppCompatActivity {
     */}
 
 
+
+
+    @Override
+    protected Dialog onCreateDialog(int id){
+        switch (id){
+            case DATE_ID:
+                return new DatePickerDialog(this, mDateSetListener, sYearIni, sMonthIni, sDayIni);
+        }
+        return null;
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)

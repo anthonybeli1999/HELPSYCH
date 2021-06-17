@@ -14,17 +14,18 @@ tools:context=".Fragments.ChatFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CONVERSACIONES ACTIVAS"
-                android:gravity="center"
-                android:background="@color/dark_blue"
+                android:text="Conversaciones activas"
+                android:textSize="20sp"
+                android:fontFamily="@font/robotomedium"
+                android:paddingVertical="15dp"
                 android:textColor="@color/white"
-                android:paddingVertical="5dp"
-                android:layout_marginBottom="5dp"
-                android:textStyle="bold"/>
+                android:background="@color/dark_blue"
+                android:paddingHorizontal="20dp"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -39,18 +40,19 @@ tools:context=".Fragments.ChatFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SOLICITUDES DE CONVERSACIONES"
-                android:gravity="center"
-                android:background="@color/shadow_red"
-                android:textColor="@color/white"
+                android:text="Solicitudes de conversaciones"
+                android:textSize="18sp"
+                android:fontFamily="@font/robotoregular"
                 android:paddingVertical="5dp"
-                android:layout_marginVertical="5dp"
-                android:textStyle="bold">
-            </TextView>
+                android:textColor="@color/white"
+                android:background="@color/shadow_red"
+                android:gravity="end"
+                android:paddingHorizontal="20dp"/>
         </LinearLayout>
 
         <LinearLayout

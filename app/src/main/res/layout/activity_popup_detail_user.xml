@@ -4,256 +4,247 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.PopupDetailUser">
+    tools:context=".Activity.PopupDetailUser"
+    android:gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_margin="30dp">
-
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/visit_profile_image"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:src="@drawable/profile_image"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp"/>
+        android:layout_marginHorizontal="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Especialista"
+                android:textSize="15sp"
+                android:textColor="@color/dark_blue"
+                android:fontFamily="@font/robotoblack"
+                android:autofillHints="true"
+                android:gravity="center"
+                android:textAllCaps="true"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/visit_profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:src="@drawable/profile_image"
+                android:layout_marginVertical="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginVertical="10dp">
+
+            <RatingBar
+                android:id="@+id/rtbSpecialist_ud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="2.5"
+                android:theme="@style/RatingBar"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombres y Apellidos"
+                android:textSize="15sp"
+                android:textColor="@color/dark_blue"
+                android:fontFamily="@font/robotobold"
+                android:autofillHints="true"
+                android:gravity="center"
+                android:textAllCaps="true"/>
+            <TextView
+                android:id="@+id/txt_pop_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jhon"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/robotolight"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descripción"
+                android:textSize="15sp"
+                android:textColor="@color/dark_blue"
+                android:fontFamily="@font/robotobold"
+                android:autofillHints="true"
+                android:gravity="center"
+                android:textAllCaps="true"/>
+            <TextView
+                android:id="@+id/txt_pop_user_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/robotolight"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:gravity="center">
-
-                    <RatingBar
-                        android:id="@+id/rtbSpecialist_ud"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:isIndicator="true"
-                        android:numStars="5"
-                        android:rating="2.5" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Nombres"
-                            android:textSize="15sp"
-                            android:textColor="@color/dark_blue"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/txt_pop_user_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Juan Antonio"
-                            android:textSize="14sp"
-                            android:textColor="@color/shadow_red"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Apellidos"
-                            android:textSize="15sp"
-                            android:textColor="@color/dark_blue"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/txt_pop_user_lastname"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Salas Mogrovejo"
-                            android:textSize="14sp"
-                            android:textColor="@color/shadow_red"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="vertical"
-                android:paddingTop="10dp">
+                android:layout_weight="1">
 
-
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Descripcion"
-                        android:textSize="15sp"
-                        android:textColor="@color/dark_blue"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:id="@+id/txt_pop_user_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                        android:textSize="14sp"
-                        android:textColor="@color/shadow_red"
-                        android:textStyle="bold"/>
-                </LinearLayout>
+                    android:text="Ciudad"
+                    android:textSize="15sp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="@font/robotobold"
+                    android:gravity="center"
+                    android:textAllCaps="true"/>
+                <TextView
+                    android:id="@+id/txt_pop_user_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tacna"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:gravity="center"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:paddingTop="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Ciudad"
-                        android:textSize="15sp"
-                        android:textColor="@color/dark_blue"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:id="@+id/txt_pop_user_city"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tacna"
-                        android:textSize="14sp"
-                        android:textColor="@color/shadow_red"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="País"
-                        android:textSize="15sp"
-                        android:textColor="@color/dark_blue"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:id="@+id/txt_pop_user_country"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Perú"
-                        android:textSize="14sp"
-                        android:textColor="@color/shadow_red"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="vertical"
-                android:paddingTop="10dp">
+                android:layout_weight="1">
 
-
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Linkedin"
-                        android:textSize="15sp"
-                        android:textColor="@color/dark_blue"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:id="@+id/txt_pop_user_linkedin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="https://pe.linkedin.com/"
-                        android:textSize="14sp"
-                        android:textColor="@color/shadow_red"
-                        android:textStyle="bold"/>
-                </LinearLayout>
+                    android:text="País"
+                    android:textSize="15sp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="@font/robotobold"
+                    android:gravity="center"
+                    android:textAllCaps="true"/>
+                <TextView
+                    android:id="@+id/txt_pop_user_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Perú"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:gravity="center"/>
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/send_message_request_button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:text="Enviar solicitud"
-            android:backgroundTint="@color/dark_blue"
-            android:textAllCaps="false"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"/>
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
 
-        <Button
-            android:id="@+id/decline_message_request_button"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RED SOCIAL"
+                android:textSize="15sp"
+                android:textColor="@color/dark_blue"
+                android:fontFamily="@font/robotobold"
+                android:autofillHints="true"
+                android:gravity="center"
+                android:textAllCaps="true"/>
+            <TextView
+                android:id="@+id/txt_pop_user_linkedin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="https://www.facebook.com"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/robotolight"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:text="Cancelar solicitud"
-            android:backgroundTint="@color/shadow_red"
-            android:textAllCaps="false"
-            android:visibility="invisible"
-            android:layout_marginHorizontal="20dp"/>
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <Button
+                android:id="@+id/send_message_request_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:fontFamily="@font/robotomedium"
+                android:textSize="16sp"
+                android:text="Enviar solicitud"
+                android:backgroundTint="@color/dark_blue"
+                android:textAllCaps="false"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:id="@+id/decline_message_request_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:text="Cancelar solicitud"
+                android:backgroundTint="@color/shadow_red"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                android:layout_marginHorizontal="20dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
+
 
 </RelativeLayout>

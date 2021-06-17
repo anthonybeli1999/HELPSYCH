@@ -197,18 +197,6 @@ public class ChatSpecialistFragment extends Fragment {
                                             startActivity(chatIntent);
                                         }
 
-
-                                    });
-
-                                    holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                                        @Override
-                                        public boolean onLongClick(View v) {
-                                            String visit_user_id = getRef(position).getKey();
-                                            Intent profileIntent = new Intent(getContext(), PopupDetailUser.class);
-                                            profileIntent.putExtra("visit_user_id", visit_user_id);
-                                            startActivity(profileIntent);
-                                            return false;
-                                        }
                                     });
                                 }
                             }

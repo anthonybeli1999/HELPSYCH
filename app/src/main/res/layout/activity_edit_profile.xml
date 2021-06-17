@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/shadow_red"
-                    android:fontFamily="@font/robotoregular"
+                    android:fontFamily="@font/robotomedium"
                     android:text="SUBIR UNA FOTO"
                     android:textColor="@color/dark_blue"
                     android:textSize="12sp" />
@@ -107,7 +107,7 @@
                         android:textColor="@color/black"
                         android:fontFamily="@font/robotolight"
                         android:inputType="text"
-                        android:layout_marginHorizontal="90dp"
+                        android:layout_marginHorizontal="50dp"
                         android:gravity="center"/>
 
                 </LinearLayout>
@@ -137,7 +137,7 @@
                         android:textColor="@color/black"
                         android:fontFamily="@font/robotolight"
                         android:inputType="text"
-                        android:layout_marginHorizontal="90dp"
+                        android:layout_marginHorizontal="50dp"
                         android:gravity="center"/>
                 </LinearLayout>
 
@@ -174,8 +174,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="50dp"
+                    android:layout_marginBottom="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -187,17 +189,33 @@
                         android:textColor="@color/dark_blue"
                         android:textSize="15sp" />
 
-                    <EditText
-                        android:id="@+id/edt_date"
-                        android:hint="Ingresa tu fecha"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/robotolight"
-                        android:inputType="text"
-                        android:layout_marginHorizontal="120dp"
-                        android:gravity="center"/>
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/edt_date"
+                            android:hint="Fecha"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/robotolight"
+                            android:inputType="date"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:enabled="false"/>
+
+                        <ImageView
+                            android:id="@+id/profile_btn_img_calendar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_baseline_calendar_today_24"
+                            android:layout_weight="4"
+                            android:paddingHorizontal="12dp"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -212,21 +230,21 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/robotobold"
                         android:gravity="center"
-                        android:text="Sexo"
+                        android:text="Género"
                         android:textAllCaps="true"
                         android:textColor="@color/dark_blue"
                         android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/edt_sex"
-                        android:hint="Ingresa tu sexo"
+                        android:hint="Ingresa tu género"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/robotolight"
                         android:inputType="text"
-                        android:layout_marginHorizontal="100dp"
+                        android:layout_marginHorizontal="50dp"
                         android:gravity="center"/>
 
                 </LinearLayout>
@@ -275,7 +293,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/dark_blue"
-                    android:fontFamily="@font/robotolight"
+                    android:fontFamily="@font/robotomedium"
                     android:text="GUARDAR CAMBIOS"
                     android:textColor="@color/white"
                     android:textSize="15sp" />

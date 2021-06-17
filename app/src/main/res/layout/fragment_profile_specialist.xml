@@ -180,7 +180,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="10dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -208,7 +207,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="10dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -239,8 +237,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="10dp"
-                android:visibility="gone">
+                android:layout_marginBottom="20dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -274,7 +271,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="10dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -302,7 +298,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="10dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -337,7 +332,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="LinkedIn"
+                    android:text="RED SOCIAL"
                     android:textSize="15sp"
                     android:textColor="@color/dark_blue"
                     android:fontFamily="@font/robotobold"
@@ -356,33 +351,6 @@
 
             </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="10dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Descripcion:"
-                    android:textSize="15sp"
-                    android:textColor="@color/dark_blue"
-                    android:textStyle="bold"
-                    android:gravity="center"/>
-                <TextView
-                    android:id="@+id/txt_description_p"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="16sp"
-                    android:textColor="@color/sky"
-                    android:textStyle="bold"
-                    android:gravity="center"/>
-            </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -396,7 +364,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/dark_blue"
-                android:fontFamily="@font/robotolight"
+                android:fontFamily="@font/robotomedium"
                 android:text="CAMBIAR DE CONTRASEÑA"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
@@ -406,7 +374,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/shadow_red"
-                android:fontFamily="@font/robotoregular"
+                android:fontFamily="@font/robotomedium"
                 android:text="CERRAR SESIÓN"
                 android:textColor="@color/dark_blue"
                 android:textSize="15sp"/>
