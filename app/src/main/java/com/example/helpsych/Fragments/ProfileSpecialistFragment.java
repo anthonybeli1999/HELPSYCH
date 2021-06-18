@@ -14,11 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.helpsych.Activity.EditProfileActivity;
+import com.example.helpsych.Activity.EditProfileSpecialistActivity;
 import com.example.helpsych.Activity.LoginActivity;
 import com.example.helpsych.Activity.MainActivity;
 import com.example.helpsych.Model.Psychological_approach;
@@ -52,8 +54,11 @@ public class ProfileSpecialistFragment extends Fragment {
     private FirebaseAuth mAuth;
 
     private Button UpdateAccountSettings;
-    private TextView userNameP, userLastNameP, userEmailP, userSexP, userBirthDateP, userDescriptionP;
-    private ImageView userProfileImage;
+
+    private TextView specialistName, specialistLastname, specialistEmail, specialistDate, specialistGen, specialistNumber,
+            specialistDescription, specialistCity, specialistCountry, specialistSocial;
+
+    private ImageView specialistProfileImage;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -108,13 +113,18 @@ public class ProfileSpecialistFragment extends Fragment {
         currentEmal = mAuth.getCurrentUser().getEmail();
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        userNameP = (TextView) v.findViewById(R.id.txt_name_s);
-        userLastNameP = (TextView) v.findViewById(R.id.txt_lastname_s);
-        userEmailP =  (TextView)v.findViewById(R.id.txt_email_s);
-        userSexP =  (TextView) v.findViewById(R.id.txt_sex_s);
-        userBirthDateP = (TextView)v.findViewById(R.id.txt_date_s);
-        userDescriptionP = (TextView) v.findViewById(R.id.txt_description_s);
-        userProfileImage = (ImageView) v.findViewById(R.id.img_userphoto_s);
+        specialistName = (TextView) v.findViewById(R.id.txt_name_s);
+        specialistLastname = (TextView) v.findViewById(R.id.txt_lastname_s);
+        specialistEmail =  (TextView)v.findViewById(R.id.txt_email_s);
+        specialistDate = (TextView)v.findViewById(R.id.txt_date_s);
+        specialistGen =  (TextView) v.findViewById(R.id.txt_sex_s);
+        specialistNumber =  (TextView) v.findViewById(R.id.txt_number_s);
+        specialistDescription =  (TextView) v.findViewById(R.id.txt_description_s);
+        specialistCity =  (TextView) v.findViewById(R.id.txt_city_s);
+        specialistCountry =  (TextView) v.findViewById(R.id.txt_country_s);
+        specialistSocial =  (TextView) v.findViewById(R.id.txt_social_s);
+
+        specialistProfileImage = (ImageView) v.findViewById(R.id.img_userphoto_s);
 
         try{
             RetrieveUserInfo();
@@ -149,12 +159,10 @@ public class ProfileSpecialistFragment extends Fragment {
         txtEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), EditProfileActivity.class);
+                Intent intent = new Intent(v.getContext(), EditProfileSpecialistActivity.class);
                 startActivity(intent);
             }
         });
-
-
 
         return v;
     }
@@ -172,10 +180,10 @@ public class ProfileSpecialistFragment extends Fragment {
             }
         });
 
+        getActivity().finish();
         Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
-        getActivity().finish();
     }
 
     private void RetrieveUserInfo()
@@ -187,76 +195,136 @@ public class ProfileSpecialistFragment extends Fragment {
                     {
                         if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name") && (dataSnapshot.hasChild("image") && (dataSnapshot.hasChild("description")))))
                         {
-                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
-                            String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
-                            String retrievesEmail = currentEmal;
-                            String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
-                            String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
-                            String retrievesUserDescription = dataSnapshot.child("description").getValue().toString();
-                            String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
+                            String retrieveSpecialistName = dataSnapshot.child("name").getValue().toString();
+                            String retrieveSpecialistLastName = dataSnapshot.child("lastName").getValue().toString();
+                            String retrieveSpecialistEmail = currentEmal;
+                            String retrieveSpecialistDate = dataSnapshot.child("birthdate").getValue().toString();
+                            String retrieveSpecialistGen = dataSnapshot.child("sex").getValue().toString();
+                            String retrieveSpecialistNumber = dataSnapshot.child("phone").getValue().toString();
+                            String retrieveSpecialistDescription = dataSnapshot.child("description").getValue().toString();
+                            String retrieveSpecialistCity = dataSnapshot.child("city").getValue().toString();
+                            String retrieveSpecialistCountry = dataSnapshot.child("country").getValue().toString();
+                            String retrieveSpecialistSocial = dataSnapshot.child("linkedin").getValue().toString();
+                            String retrieveSpecialistProfileImage = dataSnapshot.child("image").getValue().toString();
 
-                            userNameP.setText(retrieveUserName);
-                            userLastNameP.setText(retrievesUserLastName);
-                            userEmailP.setText(retrievesEmail);
-                            userSexP.setText(retrievesUserSex);
-                            userLastNameP.setText(retrievesUserLastName);
-                            userBirthDateP.setText(retrievesUserBirthDate);
-                            userDescriptionP.setText(retrievesUserDescription);
-                            Picasso.get().load(retrieveProfileImage).into(userProfileImage);
+                            if(retrieveSpecialistDescription.equals("")){
+                                specialistDescription.setText("Por definir");
+                            }
+                            else{
+                                specialistDescription.setText(retrieveSpecialistDescription);
+                            }
+
+                            specialistName.setText(retrieveSpecialistName);
+                            specialistLastname.setText(retrieveSpecialistLastName);
+                            specialistEmail.setText(retrieveSpecialistEmail);
+                            specialistDate.setText(retrieveSpecialistDate);
+                            specialistGen.setText(retrieveSpecialistGen);
+                            specialistNumber.setText(retrieveSpecialistNumber);
+
+                            specialistCity.setText(retrieveSpecialistCity);
+                            specialistCountry.setText(retrieveSpecialistCountry);
+                            specialistSocial.setText(retrieveSpecialistSocial);
+                            Picasso.get().load(retrieveSpecialistProfileImage).into(specialistProfileImage);
 
                         }
                         else if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")&& (dataSnapshot.hasChild("description"))))
                         {
-                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
-                            String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
-                            String retrievesEmail = currentEmal;
-                            String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
-                            String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
-                            String retrievesUserDescription = dataSnapshot.child("description").getValue().toString();
+                            String retrieveSpecialistName = dataSnapshot.child("name").getValue().toString();
+                            String retrieveSpecialistLastName = dataSnapshot.child("lastName").getValue().toString();
+                            String retrieveSpecialistEmail = currentEmal;
+                            String retrieveSpecialistDate = dataSnapshot.child("birthdate").getValue().toString();
+                            String retrieveSpecialistGen = dataSnapshot.child("sex").getValue().toString();
+                            String retrieveSpecialistNumber = dataSnapshot.child("phone").getValue().toString();
+                            String retrieveSpecialistDescription = dataSnapshot.child("description").getValue().toString();
+                            String retrieveSpecialistCity = dataSnapshot.child("city").getValue().toString();
+                            String retrieveSpecialistCountry = dataSnapshot.child("country").getValue().toString();
+                            String retrieveSpecialistSocial = dataSnapshot.child("linkedin").getValue().toString();
 
-                            userNameP.setText(retrieveUserName);
-                            userLastNameP.setText(retrievesUserLastName);
-                            userEmailP.setText(retrievesEmail);
-                            userSexP.setText(retrievesUserSex);
-                            userLastNameP.setText(retrievesUserLastName);
-                            userBirthDateP.setText(retrievesUserBirthDate);
-                            userDescriptionP.setText(retrievesUserDescription);
+                            if(retrieveSpecialistDescription.equals("")){
+                                specialistDescription.setText("Por definir");
+                            }
+                            else{
+                                specialistDescription.setText(retrieveSpecialistDescription);
+                            }
+
+                            specialistName.setText(retrieveSpecialistName);
+                            specialistLastname.setText(retrieveSpecialistLastName);
+                            specialistEmail.setText(retrieveSpecialistEmail);
+                            specialistDate.setText(retrieveSpecialistDate);
+                            specialistGen.setText(retrieveSpecialistGen);
+                            specialistNumber.setText(retrieveSpecialistNumber);
+
+                            specialistCity.setText(retrieveSpecialistCity);
+                            specialistCountry.setText(retrieveSpecialistCountry);
+                            specialistSocial.setText(retrieveSpecialistSocial);
+
                         }
                         else if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")&& (dataSnapshot.hasChild("image"))))
                         {
-                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
-                            String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
-                            String retrievesEmail = mAuth.getCurrentUser().getEmail();
-                            String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
-                            String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
-                            String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
+                            String retrieveSpecialistName = dataSnapshot.child("name").getValue().toString();
+                            String retrieveSpecialistLastName = dataSnapshot.child("lastName").getValue().toString();
+                            String retrieveSpecialistEmail = currentEmal;
+                            String retrieveSpecialistDate = dataSnapshot.child("birthdate").getValue().toString();
+                            String retrieveSpecialistGen = dataSnapshot.child("sex").getValue().toString();
+                            String retrieveSpecialistNumber = dataSnapshot.child("phone").getValue().toString();
+                            String retrieveSpecialistDescription = dataSnapshot.child("description").getValue().toString();
+                            String retrieveSpecialistCity = dataSnapshot.child("city").getValue().toString();
+                            String retrieveSpecialistCountry = dataSnapshot.child("country").getValue().toString();
+                            String retrieveSpecialistSocial = dataSnapshot.child("linkedin").getValue().toString();
+                            String retrieveSpecialistProfileImage = dataSnapshot.child("image").getValue().toString();
 
-                            userNameP.setText(retrieveUserName);
-                            userLastNameP.setText(retrievesUserLastName);
-                            userEmailP.setText(retrievesEmail);
-                            userSexP.setText(retrievesUserSex);
-                            userLastNameP.setText(retrievesUserLastName);
-                            userBirthDateP.setText(retrievesUserBirthDate);
-                            Picasso.get().load(retrieveProfileImage).into(userProfileImage);
+                            if(retrieveSpecialistDescription.equals("")){
+                                specialistDescription.setText("Por definir");
+                            }
+                            else{
+                                specialistDescription.setText(retrieveSpecialistDescription);
+                            }
+
+                            specialistName.setText(retrieveSpecialistName);
+                            specialistLastname.setText(retrieveSpecialistLastName);
+                            specialistEmail.setText(retrieveSpecialistEmail);
+                            specialistDate.setText(retrieveSpecialistDate);
+                            specialistGen.setText(retrieveSpecialistGen);
+                            specialistNumber.setText(retrieveSpecialistNumber);
+
+                            specialistCity.setText(retrieveSpecialistCity);
+                            specialistCountry.setText(retrieveSpecialistCountry);
+                            specialistSocial.setText(retrieveSpecialistSocial);
+                            Picasso.get().load(retrieveSpecialistProfileImage).into(specialistProfileImage);
                         }
                         else if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("name")))
                         {
-                            String retrieveUserName = dataSnapshot.child("name").getValue().toString();
-                            String retrievesUserLastName = dataSnapshot.child("lastName").getValue().toString();
-                            String retrievesEmail = currentEmal;
-                            String retrievesUserSex = dataSnapshot.child("sex").getValue().toString();
-                            String retrievesUserBirthDate = dataSnapshot.child("birthdate").getValue().toString();
+                            String retrieveSpecialistName = dataSnapshot.child("name").getValue().toString();
+                            String retrieveSpecialistLastName = dataSnapshot.child("lastName").getValue().toString();
+                            String retrieveSpecialistEmail = currentEmal;
+                            String retrieveSpecialistDate = dataSnapshot.child("birthdate").getValue().toString();
+                            String retrieveSpecialistGen = dataSnapshot.child("sex").getValue().toString();
+                            String retrieveSpecialistNumber = dataSnapshot.child("phone").getValue().toString();
+                            String retrieveSpecialistDescription = dataSnapshot.child("description").getValue().toString();
+                            String retrieveSpecialistCity = dataSnapshot.child("city").getValue().toString();
+                            String retrieveSpecialistCountry = dataSnapshot.child("country").getValue().toString();
+                            String retrieveSpecialistSocial = dataSnapshot.child("linkedin").getValue().toString();
 
-                            userNameP.setText(retrieveUserName);
-                            userLastNameP.setText(retrievesUserLastName);
-                            userEmailP.setText(retrievesEmail);
-                            userSexP.setText(retrievesUserSex);
-                            userLastNameP.setText(retrievesUserLastName);
-                            userBirthDateP.setText(retrievesUserBirthDate);
+                            if(retrieveSpecialistDescription.equals("")){
+                                specialistDescription.setText("Por definir");
+                            }
+                            else{
+                                specialistDescription.setText(retrieveSpecialistDescription);
+                            }
+
+                            specialistName.setText(retrieveSpecialistName);
+                            specialistLastname.setText(retrieveSpecialistLastName);
+                            specialistEmail.setText(retrieveSpecialistEmail);
+                            specialistDate.setText(retrieveSpecialistDate);
+                            specialistGen.setText(retrieveSpecialistGen);
+                            specialistNumber.setText(retrieveSpecialistNumber);
+
+                            specialistCity.setText(retrieveSpecialistCity);
+                            specialistCountry.setText(retrieveSpecialistCountry);
+                            specialistSocial.setText(retrieveSpecialistSocial);
                         }
                         else
                         {
-                            //userName.setVisibility(View.VISIBLE);
                             Toast.makeText(getContext(), "Please set & update your profile information...", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -267,6 +335,5 @@ public class ProfileSpecialistFragment extends Fragment {
                     }
                 });
     }
-
 
 }

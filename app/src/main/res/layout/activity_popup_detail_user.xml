@@ -115,6 +115,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/robotolight"
+                android:layout_marginHorizontal="20dp"
                 android:gravity="center"/>
 
         </LinearLayout>

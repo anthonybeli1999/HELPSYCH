@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.EditProfileSpecialistActivity">
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar">
+    </include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/specialist_textbutton_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/robotobold"
+                    android:text="CANCELAR"
+                    android:textAllCaps="true"
+                    android:textColor="@color/shadow_red"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtTipoProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Paciente"
+                    android:textColor="#7E7E7E"
+                    android:textSize="15sp"
+                    android:visibility="gone" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/userProfilePhotoEdit_s"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginVertical="5dp"
+                    android:src="@drawable/profile_image" />
+
+                <Button
+                    android:id="@+id/btn_upload_photo_s"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/shadow_red"
+                    android:fontFamily="@font/robotomedium"
+                    android:text="SUBIR UNA FOTO"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="true"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:text="Nombres"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/edt_name_s"
+                        android:hint="Ingresa tus nombres"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:inputType="text"
+                        android:layout_marginHorizontal="50dp"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:text="Apellidos"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/edt_lastname_s"
+                        android:hint="Ingresa tus apellidos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:inputType="text"
+                        android:layout_marginHorizontal="50dp"
+                        android:gravity="center"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:text="E-mail"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/edt_email_s"
+                        android:hint="Ingresa tu e-mail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:inputType="textEmailAddress"
+                        android:layout_marginHorizontal="50dp"
+                        android:gravity="center"
+                        android:enabled="false"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="50dp"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:text="Fecha de nacimiento"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/edt_date_s"
+                            android:hint="Fecha"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/robotolight"
+                            android:inputType="date"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:enabled="false"/>
+
+                        <ImageView
+                            android:id="@+id/profile_btn_img_calendar_s"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_baseline_calendar_today_24"
+                            android:layout_weight="4"
+                            android:paddingHorizontal="12dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Género"
+                            android:textSize="15sp"
+                            android:textColor="@color/dark_blue"
+                            android:fontFamily="@font/robotobold"
+                            android:gravity="center"
+                            android:textAllCaps="true"/>
+
+                        <EditText
+                            android:id="@+id/edt_gen_s"
+                            android:hint="Género"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/robotolight"
+                            android:inputType="text"
+                            android:layout_marginHorizontal="20dp"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Número"
+                            android:textSize="15sp"
+                            android:textColor="@color/dark_blue"
+                            android:fontFamily="@font/robotobold"
+                            android:gravity="center"
+                            android:textAllCaps="true"/>
+                        <EditText
+                            android:id="@+id/edt_number_s"
+                            android:hint="Número"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/robotolight"
+                            android:inputType="number"
+                            android:layout_marginHorizontal="20dp"
+                            android:gravity="center"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:text="Descripción"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/edt_description_s"
+                        android:hint="Ingresa tu descripción"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:maxLines="4"
+                        android:inputType="textMultiLine"
+                        android:layout_marginHorizontal="20dp"
+                        android:gravity="center|top"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Ciudad"
+                            android:textSize="15sp"
+                            android:textColor="@color/dark_blue"
+                            android:fontFamily="@font/robotobold"
+                            android:gravity="center"
+                            android:textAllCaps="true"/>
+
+                        <EditText
+                            android:id="@+id/edt_city_s"
+                            android:hint="Ciudad"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/robotolight"
+                            android:inputType="text"
+                            android:layout_marginHorizontal="20dp"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="País"
+                            android:textSize="15sp"
+                            android:textColor="@color/dark_blue"
+                            android:fontFamily="@font/robotobold"
+                            android:gravity="center"
+                            android:textAllCaps="true"/>
+                        <EditText
+                            android:id="@+id/edt_country_s"
+                            android:hint="País"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/robotolight"
+                            android:inputType="text"
+                            android:layout_marginHorizontal="20dp"
+                            android:gravity="center"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="10dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:text="Descripción"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/edt_description"
+                        android:hint="Ingresa tu descripción"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:inputType="textMultiLine"
+                        android:gravity="top|center"
+                        android:lines="3"
+                        android:layout_marginHorizontal="90dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:text="Red social"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/edt_social_s"
+                        android:hint="Ingresa el enlace de tu red social"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:maxLines="1"
+                        android:inputType="text"
+                        android:layout_marginHorizontal="50dp"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="40dp">
+
+                <Button
+                    android:id="@+id/btn_upload_s"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/dark_blue"
+                    android:fontFamily="@font/robotomedium"
+                    android:text="GUARDAR CAMBIOS"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

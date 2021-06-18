@@ -107,8 +107,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
         InitializeFields();
 
-        //userName.setVisibility(View.INVISIBLE);
-
         UpdateAccountSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -116,16 +114,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 UpdateSettings();
             }
         });
+
         RetrieveUserInfo();
-
-
-        userProfileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-
-            }
-        });
 
         ButtonUploadPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,9 +137,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void InitializeFields()
     {
-        //NOmbre, apellido, mail, fn, sexo, botones de upload y upload photo
-        //DESCRIPCION
-
         UpdateAccountSettings = (Button) findViewById(R.id.btn_upload);
         userName = (EditText) findViewById(R.id.edt_name);
         userLastName = (EditText) findViewById(R.id.edt_lastname);
@@ -161,15 +148,7 @@ public class EditProfileActivity extends AppCompatActivity {
         loadingBar = new ProgressDialog(this);
         ButtonUploadPhoto = (Button) findViewById(R.id.btn_upload_photo);
         ImgCalendar = (ImageView) findViewById(R.id.profile_btn_img_calendar);
-        /*SettingsToolBar = (Toolbar) findViewById(R.id.settings_toolbar);
-        setSupportActionBar(SettingsToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setTitle("Account Settings");
-    */}
-
-
-
+    }
 
     @Override
     protected Dialog onCreateDialog(int id){
@@ -254,8 +233,6 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void UpdateSettings()
     {
 
@@ -297,7 +274,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     });
         }
     }
-
 
     private void RetrieveUserInfo()
     {

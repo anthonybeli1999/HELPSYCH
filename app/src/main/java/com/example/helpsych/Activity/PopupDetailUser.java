@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -31,7 +32,8 @@ public class PopupDetailUser extends AppCompatActivity {
     private String receiverUserID, senderUserID, Current_State;
 
     private ImageView userProfileImage;
-    private TextView userProfileName, userProfileLastname, userProfileEmail, userProfileCity, userProfileCountry, userProfileLinkedin;
+    private TextView userProfileName, userProfileLastname, userProfileEmail, userProfileCity, userProfileCountry;
+    TextView userProfileLinkedin;
     private TextView userProfileDescription;
     private Button SendMessageRequestButton, DeclineMessageRequestButton;
     private RatingBar RatingBarSpecialist;
@@ -83,9 +85,16 @@ public class PopupDetailUser extends AppCompatActivity {
         DeclineMessageRequestButton = (Button) findViewById(R.id.decline_message_request_button);
         Current_State = "new";
 
-
         RetrieveUserInfo();
 
+        userProfileLinkedin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(userProfileLinkedin.getText().toString());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -131,30 +140,43 @@ public class PopupDetailUser extends AppCompatActivity {
 
                     Picasso.get().load(userImage).placeholder(R.drawable.profile_image).into(userProfileImage);
                     userProfileName.setText(userName + " " + userLastname);
-                    //userProfileLastname.setText(userLastname);
-                    //userProfileEmail.setText(userEmail);
-                    userProfileDescription.setText(userDescription);
+
+                    if(userDescription.equals("")){
+                        userProfileDescription.setText("Por definir");
+                    }
+                    else{
+                        userProfileDescription.setText(userDescription);
+                    }
+
                     userProfileCity.setText(userCity);
                     userProfileCountry.setText(userCountry);
                     userProfileLinkedin.setText(userLinkedin);
-
                     ManageChatRequests();
+
                 } else {
-                    //String userImage = dataSnapshot.child("image").getValue().toString();
+
                     String userName = dataSnapshot.child("name").getValue().toString();
                     String userLastname = dataSnapshot.child("lastName").getValue().toString();
                     //String userEmail = dataSnapshot.child("email").getValue().toString();
-                    //String userCity = dataSnapshot.child("city").getValue().toString();
-                    //String userCountry = dataSnapshot.child("country").getValue().toString();
-                    //String userLinkedin = dataSnapshot.child("linkedin").getValue().toString();
+
+                    String userDescription = dataSnapshot.child("description").getValue().toString();
+
+                    String userCity = dataSnapshot.child("city").getValue().toString();
+                    String userCountry = dataSnapshot.child("country").getValue().toString();
+                    String userLinkedin = dataSnapshot.child("linkedin").getValue().toString();
 
                     userProfileName.setText(userName + " " + userLastname);
-                    //userProfileLastname.setText(userLastname);
-                    //userProfileEmail.setText(userEmail);
-                    //userProfileCity.setText(userCity);
-                    //userProfileCountry.setText(userCountry);
-                    //userProfileLinkedin.setText(userLinkedin);
 
+                    if(userDescription.equals("")){
+                        userProfileDescription.setText("Por definir");
+                    }
+                    else{
+                        userProfileDescription.setText(userDescription);
+                    }
+
+                    userProfileCity.setText(userCity);
+                    userProfileCountry.setText(userCountry);
+                    userProfileLinkedin.setText(userLinkedin);
                     ManageChatRequests();
                 }
 
