@@ -14,17 +14,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Articulos"
                 android:textSize="20sp"
-                android:paddingVertical="10dp"
+                android:fontFamily="@font/robotomedium"
+                android:paddingVertical="15dp"
                 android:textColor="@color/white"
                 android:background="@color/dark_blue"
-                android:gravity="center"/>
-
+                android:paddingHorizontal="20dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -43,15 +42,15 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/article_add_admin_new"
+        android:id="@+id/article_btn_admin_request_article"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="start|bottom"
         android:layout_margin="20dp"
-        android:src="@drawable/ic_add_24dp"
-        app:backgroundTint="@color/dark_blue"
+        android:src="@drawable/ic_done__24"
+        app:backgroundTint="@color/shadow_red"
         app:tint="@color/white" />
 
 </RelativeLayout>

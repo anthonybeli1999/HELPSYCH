@@ -8,209 +8,208 @@
     android:background="@color/white"
     android:gravity="center">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="20dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="CREAR NUEVO ARTICULO"
-                android:textColor="@color/black"
-                android:fontFamily="@font/robotoblack"
-                android:textSize="24sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="10dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="En este apartado podra crear un nuevo artículo"
-                android:textColor="@color/black"
-                android:fontFamily="@font/slaboregular"
-                android:textSize="18sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginVertical="10dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:src="@drawable/amigos"/>
-        </LinearLayout>
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginVertical="5dp"
-            android:layout_marginHorizontal="20dp">
+            android:layout_gravity="center">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:text="Título del artículo"
-                android:textColor="@color/black"
-                android:fontFamily="@font/robotolight"
-                android:textSize="16sp" />
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="20dp">
 
-            <EditText
-                android:id="@+id/article_add_title"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="CREAR NUEVO ARTICULO"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotoblack"
+                    android:textSize="24sp"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edt_background"
-                android:hint="Ingresa el título aqui..."
-                android:paddingVertical="8dp"
-                android:paddingHorizontal="10dp"
-                android:layout_marginBottom="10dp"
-                android:inputType="textMultiLine"
-                android:lines="1"
-                android:fontFamily="@font/robotoregular"
-                android:textSize="16sp"
-                android:gravity="start"
-                android:layout_marginVertical="5dp"/>
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="En este apartado podra crear un nuevo artículo"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:textSize="18sp"/>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="5dp"
-            android:layout_marginHorizontal="20dp">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:text="Cuerpo del artículo"
-                android:textColor="@color/black"
-                android:fontFamily="@font/robotolight"
-                android:textSize="16sp" />
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginVertical="10dp">
 
-            <EditText
-                android:id="@+id/article_add_body"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edt_background"
-                android:hint="Ingresa el cuerpo aqui..."
-                android:paddingVertical="8dp"
-                android:paddingHorizontal="10dp"
-                android:layout_marginBottom="10dp"
-                android:inputType="textMultiLine"
-                android:lines="5"
-                android:fontFamily="@font/robotoregular"
-                android:textSize="16sp"
-                android:gravity="start"
-                android:layout_marginVertical="5dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginVertical="5dp"
-            android:layout_marginHorizontal="20dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:src="@drawable/amigos"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_marginEnd="10dp">
+                android:layout_marginVertical="5dp"
+                android:layout_marginHorizontal="20dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="Enfoque"
+                    android:text="Título del artículo"
                     android:textColor="@color/black"
                     android:fontFamily="@font/robotolight"
                     android:textSize="16sp" />
 
-                <LinearLayout
+
+                <EditText
+                    android:id="@+id/article_add_title"
+                    android:hint="Ingresa el título aqui..."
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/edt_backgroundspinner"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="3dp">
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:inputType="text"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="start"/>
 
-                    <Spinner
-                        android:id="@+id/article_add_approach"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"/>
-
-                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_gravity="bottom">
+                android:layout_marginVertical="5dp"
+                android:layout_marginHorizontal="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="Cuerpo del artículo"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:textSize="16sp" />
+
+
+                <EditText
+                    android:id="@+id/article_add_body"
+                    android:hint="Ingresa el cuerpo aqui..."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:inputType="textMultiLine"
+                    android:maxLines="4"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="start"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginVertical="5dp"
+                android:layout_marginHorizontal="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="Enfoque"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="3dp">
+
+                        <Spinner
+                            android:id="@+id/article_add_approach"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_gravity="bottom">
+
+                    <Button
+                        android:id="@+id/article_add_upload_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="ADJUNTAR IMAGEN"
+                        android:backgroundTint="@color/shadow_red"
+                        android:textColor="@color/dark_blue"
+                        android:layout_marginLeft="5dp"
+                        android:paddingHorizontal="20dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/robotomedium"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp">
 
                 <Button
-                    android:id="@+id/article_add_upload_image"
+                    android:id="@+id/article_add_save"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="ADJUNTAR IMAGEN"
-                    android:backgroundTint="@color/dark_blue2"
+                    android:layout_height="wrap_content"
+                    android:text="GUARDAR CAMBIOS"
+                    android:backgroundTint="@color/dark_blue"
                     android:textColor="@color/white"
-                    android:layout_marginLeft="5dp"
-                    android:paddingHorizontal="20dp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/robotolight"
-                    android:textSize="12sp"
-                    android:drawableLeft="@drawable/report_box_rating"/>
+                    android:textSize="16sp"
+                    android:paddingVertical="15dp"
+                    android:fontFamily="@font/robotomedium"/>
             </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="10dp">
-
-            <Button
-                android:id="@+id/article_add_save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="GUARDAR CAMBIOS"
-                android:backgroundTint="@color/gray"
-                android:textColor="@color/dark_blue2"
-                android:textSize="16sp"
-                android:fontFamily="@font/robotomedium"
-                android:drawableStart="@drawable/ic_baseline_cloud_done_24"/>
-        </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Activity.MainSpecialistActivity">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/toolbar">
-    </include>
-
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pagerSpecialist"
         android:layout_width="match_parent"

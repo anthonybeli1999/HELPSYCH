@@ -15,11 +15,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.helpsych.Activity.ArticleDetails;
+import com.example.helpsych.Activity.PopupAddArticle;
 import com.example.helpsych.Model.Article;
 import com.example.helpsych.Model.User;
 import com.example.helpsych.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +46,8 @@ public class ArticleSpecialistFragment extends Fragment {
     private RecyclerView ArticlesRecyclerList;
     private DatabaseReference ArticlesRef;
     List<User> UserList;
+
+    private FloatingActionButton BtnNewArticle;
 
     private DatabaseReference RootRef;
     private ArrayList listaIdAarticles;
@@ -103,6 +107,16 @@ public class ArticleSpecialistFragment extends Fragment {
         TopArticleTitle = (TextView) rootView.findViewById(R.id.txt_article_top_title_specialist);
         TopArticleDate = (TextView) rootView.findViewById(R.id.txt_article_top_date_specialist);
         TopArticleImage = (ImageView) rootView.findViewById(R.id.img_article_top_image_specialist);
+
+        BtnNewArticle = (FloatingActionButton) rootView.findViewById(R.id.article_add_specialist_new);
+
+        BtnNewArticle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PopupAddArticle.class);
+                startActivity(intent);
+            }
+        });
 
         FirebaseRecyclerOptions<Article> options =
                 new FirebaseRecyclerOptions.Builder<Article>()

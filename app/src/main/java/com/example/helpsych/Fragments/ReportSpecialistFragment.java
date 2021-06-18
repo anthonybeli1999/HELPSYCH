@@ -32,6 +32,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ReportSpecialistFragment#newInstance} factory method to
@@ -39,14 +42,25 @@ import com.squareup.picasso.Picasso;
  */
 public class ReportSpecialistFragment extends Fragment {
 
-
-
     private DatabaseReference RootRef;
 
     private RecyclerView commentsList;
-    private DatabaseReference RatingRef;
+    private DatabaseReference RatingRef, ContactsRef, UsersRef;
     private String CurrentUserID;
     private String image;
+    private TextView txtAllChatsSpecialist, txtRatingSpecialist, txtCreationDateSpecialist;
+
+    private int countFriends;
+    private String currentUserID;
+
+    private double acumulador;
+    private double rating;
+
+    private String registrationDay;
+
+
+    ArrayList<String> ValuesArray = new ArrayList<String>();
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -93,12 +107,23 @@ public class ReportSpecialistFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View v = inflater.inflate(R.layout.fragment_report_specialist, container, false);
+
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         RootRef = FirebaseDatabase.getInstance().getReference();
         CurrentUserID = mAuth.getCurrentUser().getUid();
-        RatingRef = FirebaseDatabase.getInstance().getReference().child("Rating").child(CurrentUserID);
+        RatingRef = FirebaseDatabase.getInstance().getReference().child("Rating");
+        ContactsRef = FirebaseDatabase.getInstance().getReference();
+        currentUserID = mAuth.getCurrentUser().getUid();
+        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         commentsList = v.findViewById(R.id.rated_comments_spe);
+        txtAllChatsSpecialist = (TextView) v.findViewById(R.id.txt_all_chats_s);
+        txtRatingSpecialist = (TextView) v.findViewById(R.id.txt_ranking_s);
+        txtCreationDateSpecialist = (TextView) v.findViewById(R.id.txt_date_registration_s);
+
+        RetrieveInformationFriends();
+        RetrieveRatingSpecialistInfo();
+        RetrieveInformationRegistrationDate();
         return v;
     }
 
@@ -159,7 +184,80 @@ public class ReportSpecialistFragment extends Fragment {
         adapter.startListening();
     }
 
-    private String RetrieveUserImage(String userID) {
+    private void RetrieveInformationFriends() {
+        ContactsRef.child("Contacts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    countFriends = (int) snapshot.child(currentUserID).getChildrenCount();
+                    txtAllChatsSpecialist.setText(String.valueOf(countFriends));
+                }
+                else
+                {
+                    txtAllChatsSpecialist.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void RetrieveRatingSpecialistInfo() {
+
+        RatingRef.child(currentUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                DecimalFormat format = new DecimalFormat("#.00");
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String value = snapshot.child("valuation").getValue(String.class);
+                    ValuesArray.add(value);
+                }
+
+                acumulador = 0;
+                for(int i = 0; i<ValuesArray.size(); i++)
+                {
+                    acumulador += Double.parseDouble(ValuesArray.get(i).toString());
+                }
+                rating = acumulador / ValuesArray.size();
+                txtRatingSpecialist.setText(Double.toString(Double.parseDouble(format.format(rating))));
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    private void RetrieveInformationRegistrationDate() {
+        UsersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    registrationDay = snapshot.child("registrationDay").getValue().toString();
+                    txtCreationDateSpecialist.setText(registrationDay);
+                }
+                else
+                {
+                    txtCreationDateSpecialist.setText("20/05/2021");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    /*
+        private String RetrieveUserImage(String userID) {
 
         RootRef.child("Users").child(userID)
                 .addValueEventListener(new ValueEventListener() {
@@ -179,6 +277,7 @@ public class ReportSpecialistFragment extends Fragment {
                 });
         return  image;
     }
+     */
 
     public static class PsyCommentsRatingViewHolder extends RecyclerView.ViewHolder
     {

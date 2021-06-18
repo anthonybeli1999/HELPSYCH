@@ -2,7 +2,26 @@ package com.example.helpsych.Model;
 
 public class Article {
 
-    private String Id, title, subtitle, body, date, author, label, image, creationdate, approach;
+    private String Id;
+    private String title;
+    private String subtitle;
+    private String body;
+    private String date;
+    private String author;
+    private String label;
+    private String image;
+    private String creationdate;
+    private String approach;
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
 
     public String getApproach() {
         return approach;
@@ -17,7 +36,8 @@ public class Article {
 
     }
 
-    public Article(String article_Id, String article_title, String article_subtitle, String article_body, String article_date, String article_author, String article_label, String image, String article_creationdate, String approach) {
+    public Article(String article_Id, String article_title, String article_subtitle, String article_body, String article_date,
+                   String article_author, String article_label, String image, String article_creationdate, String approach, String state) {
 
         this.Id = article_Id;
         this.title = article_title;
@@ -29,7 +49,9 @@ public class Article {
         this.image = image;
         this.approach = approach;
         this.creationdate = article_creationdate;
+        this.state = state;
     }
+
 
     public String getId() {
         return Id;

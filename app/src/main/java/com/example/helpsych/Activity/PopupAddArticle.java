@@ -68,7 +68,7 @@ public class PopupAddArticle extends AppCompatActivity {
         int width = medidasVentana.widthPixels;
         int height = medidasVentana.heightPixels;
 
-        getWindow().setLayout((int)(width*0.9), (int)(height*0.9));
+        getWindow().setLayout((int)(width*0.9), (int)(height*0.8));
 
         RootRef = FirebaseDatabase.getInstance().getReference();
         ArticleRef = FirebaseDatabase.getInstance().getReference().child("Article");
@@ -132,7 +132,7 @@ public class PopupAddArticle extends AppCompatActivity {
         String ArticleApproach = CmbAddApproach.getSelectedItem().toString();
         String UID = UAID;
 
-        if (TextUtils.isEmpty(ArticleTitle) || TextUtils.isEmpty(ArticleBody) || TextUtils.isEmpty(ArticleApproach) || downloaedUrl == null) {
+        if (TextUtils.isEmpty(ArticleTitle) || TextUtils.isEmpty(ArticleBody) || TextUtils.isEmpty(ArticleApproach) || downloaedUrl.equals("")) {
             Toast.makeText(getApplicationContext(), "Por favor llene todos los campos...", Toast.LENGTH_SHORT).show();
         } else {
             Article ar = new Article();
@@ -144,6 +144,7 @@ public class PopupAddArticle extends AppCompatActivity {
             ar.setCreationdate(formattedDate);
             ar.setImage(downloaedUrl);
             ar.setAuthor(nameUser);
+            ar.setState("0");
             RootRef.child("Article").child(ar.getId()).setValue(ar);
             finish();
             Toast.makeText(getApplicationContext(), "Artículo creado satisfactoriamente...", Toast.LENGTH_SHORT).show();

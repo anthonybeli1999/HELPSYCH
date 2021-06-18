@@ -44,7 +44,7 @@ public class ArticleAdminFragment extends Fragment {
 
     ImageView ArticleImage;
     private Button AddNewImageArticle;
-    private FloatingActionButton AddNewArticle;
+    private FloatingActionButton RequestNewArticle;
     private DatabaseReference RootRef;
 
     private ProgressDialog loadingBar;
@@ -99,7 +99,7 @@ public class ArticleAdminFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         RootRef = FirebaseDatabase.getInstance().getReference();
         ArticleRef = FirebaseDatabase.getInstance().getReference().child("Article");
-        AddNewArticle = (FloatingActionButton) rootView.findViewById(R.id.article_add_admin_new);
+        RequestNewArticle = (FloatingActionButton) rootView.findViewById(R.id.article_btn_admin_request_article);
 
         ArticlesRef = FirebaseDatabase.getInstance().getReference().child("Article");
         ArticlesRecyclerList = rootView.findViewById(R.id.article_recycler_list);
@@ -149,11 +149,11 @@ public class ArticleAdminFragment extends Fragment {
         adapter.startListening();
 
 
-        AddNewArticle.setOnClickListener(new View.OnClickListener() {
+        RequestNewArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), PopupAddArticle.class);
-                startActivity(intent);
+
+
             }
         });
 

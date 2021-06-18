@@ -103,7 +103,7 @@ public class ArticleFragment extends Fragment {
 
         FirebaseRecyclerOptions<Article> options =
                 new FirebaseRecyclerOptions.Builder<Article>()
-                        .setQuery(ArticlesRef, Article.class)
+                        .setQuery(ArticlesRef.orderByChild("state").equalTo("1"), Article.class)
                         .build();
 
         FirebaseRecyclerAdapter<Article, ArticleFragment.ArticlesViewHolder> adapter =
@@ -152,7 +152,7 @@ public class ArticleFragment extends Fragment {
 
     private void getIdArticle()
     {
-        RootRef.child("Article").addValueEventListener(new ValueEventListener() {
+        RootRef.child("Article").orderByChild("state").equalTo("1").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

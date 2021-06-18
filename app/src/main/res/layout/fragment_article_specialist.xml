@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,80 +7,98 @@
     tools:context=".Fragments.ArticleSpecialistFragment"
     android:background="@color/white">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="220dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:filterTouchesWhenObscured="true"
-                android:background="@drawable/gradient_image"
-                android:elevation="1dp"
-                android:alpha="1"/>
-
-            <ImageView
-                android:id="@+id/img_article_top_image_specialist"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ejemplonoticia"
-                android:filterTouchesWhenObscured="true"
-                android:background="@color/black"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="bottom"
-                android:layout_marginHorizontal="15dp"
-                android:elevation="1dp"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:id="@+id/txt_article_top_title_specialist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginVertical="2dp"
-                    android:fontFamily="@font/robotomedium"
-                    android:lines="2"
-                    android:text="Miles de estudiantes estarán presentes en este evento 2016"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"/>
-                <TextView
-                    android:id="@+id/txt_article_top_date_specialist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:fontFamily="@font/robotolight"
-                    android:text="Viernes, 12 de marzo 2016"
-                    android:textColor="@color/gray"
-                    android:textSize="14sp"/>
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/article_recycler_list"
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="220dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:filterTouchesWhenObscured="true"
+                    android:background="@drawable/gradient_image"
+                    android:elevation="1dp"
+                    android:alpha="1"/>
+
+                <ImageView
+                    android:id="@+id/img_article_top_image_specialist"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ejemplonoticia"
+                    android:filterTouchesWhenObscured="true"
+                    android:background="@color/black"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="bottom"
+                    android:layout_marginHorizontal="15dp"
+                    android:elevation="1dp"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/txt_article_top_title_specialist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginVertical="2dp"
+                        android:fontFamily="@font/robotomedium"
+                        android:lines="2"
+                        android:text="Miles de estudiantes estarán presentes en este evento 2016"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"/>
+                    <TextView
+                        android:id="@+id/txt_article_top_date_specialist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:fontFamily="@font/robotolight"
+                        android:text="Viernes, 12 de marzo 2016"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentStart="true"/>
+                android:layout_marginTop="10dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/article_recycler_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/article_add_specialist_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="start|bottom"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_add_24dp"
+        app:backgroundTint="@color/dark_blue"
+        app:tint="@color/white" />
+
+</RelativeLayout>
