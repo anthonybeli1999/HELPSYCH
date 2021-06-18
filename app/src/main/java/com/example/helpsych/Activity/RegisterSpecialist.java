@@ -2,13 +2,20 @@ package com.example.helpsych.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +46,30 @@ public class RegisterSpecialist extends AppCompatActivity {
 
     private ProgressDialog loadingBar;
 
+    private ImageView ShowPass, HidePass;
+    private ImageView CalendarImg;
+
     String formattedDate ="";
+
+    private int nYearIni, nMonthIni, nDayIni, sYearIni, sMonthIni, sDayIni;
+    static final int DATE_ID = 0;
+    Calendar C = Calendar.getInstance();
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    nYearIni = year;
+                    nMonthIni = month;
+                    nDayIni = dayOfMonth;
+                    colocar_fecha();
+                }
+            };
+
+    private void colocar_fecha() {
+        UserBirthDate.setText(nDayIni + "/" + (nMonthIni + 1) + "/" + nYearIni);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +79,11 @@ public class RegisterSpecialist extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         RootRef = FirebaseDatabase.getInstance().getReference();
 
+        Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.robotolight);
 
+        sYearIni = C.get(Calendar.YEAR);
+        sMonthIni = C.get(Calendar.MONTH);
+        sDayIni = C.get(Calendar.DAY_OF_MONTH);
 
         //userNameP = (TextView) v.findViewById(R.id.txt_name_p);
         CreateAccountButton = (Button) findViewById(R.id.btnRegister_s);
@@ -68,6 +102,13 @@ public class RegisterSpecialist extends AppCompatActivity {
         UserCity = (EditText) findViewById(R.id.txt_city_rs);
         UserLinkedin = (EditText) findViewById(R.id.txt_linkedin_rs);
 
+        ShowPass = (ImageView) findViewById(R.id.img_show_register_s);
+        HidePass = (ImageView) findViewById(R.id.img_hide_register_s);
+
+        loadingBar = new ProgressDialog(this);
+
+        CalendarImg = (ImageView) findViewById(R.id.register_s_btn_img_calendar);
+
         CreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -83,10 +124,49 @@ public class RegisterSpecialist extends AppCompatActivity {
             }
         });
 
+        ShowPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserPassword.setInputType(InputType.TYPE_CLASS_TEXT);
+                ShowPass.setVisibility(View.GONE);
+                HidePass.setVisibility(View.VISIBLE);
+                UserPassword.setTypeface(typeface);
+            }
+        });
+
+        HidePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                HidePass.setVisibility(View.GONE);
+                ShowPass.setVisibility(View.VISIBLE);
+                UserPassword.setTypeface(typeface);
+            }
+        });
+
+        CalendarImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(DATE_ID);
+            }
+        });
+
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         formattedDate = df.format(c);
+
     }
+
+    @Override
+    protected Dialog onCreateDialog(int id){
+        switch (id){
+            case DATE_ID:
+                return new DatePickerDialog(this, mDateSetListener, sYearIni, sMonthIni, sDayIni);
+        }
+        return null;
+    }
+
+
     private void CreateNewAccount()
     {
         String email = UserEmail.getText().toString();
@@ -112,6 +192,10 @@ public class RegisterSpecialist extends AppCompatActivity {
         }
         else
         {
+            loadingBar.setTitle("Creando cuenta de especialista");
+            loadingBar.setMessage("Espera un momento, estamos creando la nueva cuenta...");
+            loadingBar.setCanceledOnTouchOutside(true);
+            loadingBar.show();
 
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -124,7 +208,6 @@ public class RegisterSpecialist extends AppCompatActivity {
 
                                 String currentUserID = mAuth.getCurrentUser().getUid();
                                 RootRef.child("Users").child(currentUserID).setValue("");
-
 
                                 RootRef.child("Users").child(currentUserID).child("device_token")
                                         .setValue(deviceToken);
@@ -147,6 +230,9 @@ public class RegisterSpecialist extends AppCompatActivity {
                                 RootRef.child("Users").child(currentUserID).child("country")
                                         .setValue(userCountry);
 
+                                RootRef.child("Users").child(currentUserID).child("description")
+                                        .setValue("");
+
                                 RootRef.child("Users").child(currentUserID).child("city")
                                         .setValue(userCity);
 
@@ -159,16 +245,15 @@ public class RegisterSpecialist extends AppCompatActivity {
                                 RootRef.child("Users").child(currentUserID).child("usertype")
                                         .setValue("1");
 
-                                Toast.makeText(getApplicationContext(), "El usuario se ha registrado correctamente...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "El usuario especialista se ha registrado correctamente...", Toast.LENGTH_SHORT).show();
                                 finish();
-                                //mAuth2.signOut();
-                                //loadingBar.dismiss();
+                                loadingBar.dismiss();
                             }
                             else
                             {
                                 String message = task.getException().toString();
                                 Toast.makeText(getApplicationContext(), "Error : " + message, Toast.LENGTH_SHORT).show();
-                                //loadingBar.dismiss();
+                                loadingBar.dismiss();
                             }
                         }
                     });

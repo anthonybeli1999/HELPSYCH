@@ -2,12 +2,15 @@ package com.example.helpsych.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -51,6 +54,8 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressDialog loadingBar;
     String formattedDate ="";
 
+    private ImageView ShowPass, HidePass;
+
     private LinearLayout LinearOtherGen;
     private EditText UserOtherGen;
 
@@ -59,7 +64,6 @@ public class RegisterActivity extends AppCompatActivity {
     private int nYearIni, nMonthIni, nDayIni, sYearIni, sMonthIni, sDayIni;
     static final int DATE_ID = 0;
     Calendar C = Calendar.getInstance();
-
 
     private DatePickerDialog.OnDateSetListener mDateSetListener = 
             new DatePickerDialog.OnDateSetListener() {
@@ -86,6 +90,8 @@ public class RegisterActivity extends AppCompatActivity {
         RootRef = FirebaseDatabase.getInstance().getReference();
 
         InitializeFields();
+
+        Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.robotolight);
 
         sYearIni = C.get(Calendar.YEAR);
         sMonthIni = C.get(Calendar.MONTH);
@@ -146,6 +152,25 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        ShowPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserPassword.setInputType(InputType.TYPE_CLASS_TEXT);
+                ShowPass.setVisibility(View.GONE);
+                HidePass.setVisibility(View.VISIBLE);
+                UserPassword.setTypeface(typeface);
+            }
+        });
+
+        HidePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                HidePass.setVisibility(View.GONE);
+                ShowPass.setVisibility(View.VISIBLE);
+                UserPassword.setTypeface(typeface);
+            }
+        });
 
     }
 
@@ -261,6 +286,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         LinearOtherGen = (LinearLayout) findViewById(R.id.linear_otherger_register) ;
         UserOtherGen = (EditText) findViewById(R.id.txtOtherGen);
+
+        ShowPass = (ImageView) findViewById(R.id.img_show_register_s);
+        HidePass = (ImageView) findViewById(R.id.img_hide_register_s);
 
         loadingBar = new ProgressDialog(this);
     }

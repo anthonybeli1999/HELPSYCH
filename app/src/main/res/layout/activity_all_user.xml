@@ -6,15 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".Activity.AllUserActivity">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/toolbar">
-    </include>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/find_friends_recycler_list"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbarspecialist"
-        android:layout_alignParentStart="true"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Todos los especialistas"
+                android:textSize="20sp"
+                android:fontFamily="@font/robotomedium"
+                android:paddingVertical="15dp"
+                android:textColor="@color/white"
+                android:background="@color/dark_blue"
+                android:paddingHorizontal="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/find_friends_recycler_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/toolbarspecialist"
+                android:layout_alignParentStart="true"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
