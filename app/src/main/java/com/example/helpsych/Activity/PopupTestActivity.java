@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.helpsych.Model.Psychological_approach;
 import com.example.helpsych.Model.Test;
+import com.example.helpsych.Model.TestResult;
 import com.example.helpsych.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,13 +48,14 @@ public class PopupTestActivity extends AppCompatActivity {
     RadioGroup Answers;
     double nota = 0;
     int NPregunta = 0;
+    String id_approachReceived;
 
     private DatabaseReference UsersRef;
     ArrayList listaUsuarios;
     private Random randomGenerator;
     private DatabaseReference ChatRequestRef, NotificationRef, ContactsRef, RootRef;
     private FirebaseAuth mAuth;
-    private String senderUserID, receiverUserID;
+    private String senderUserID, receiverUserID, currentUserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class PopupTestActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         RootRef = FirebaseDatabase.getInstance().getReference();
 
+        currentUserID = mAuth.getCurrentUser().getUid();
         DisplayMetrics medidasVentana = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(medidasVentana);
 
@@ -72,6 +76,7 @@ public class PopupTestActivity extends AppCompatActivity {
         getWindow().setLayout((int)(width*0.9), (int)(height*0.5));
 
         InitializeFields();
+        id_approachReceived = getIntent().getExtras().get("approach_id").toString();
 
         ChatRequestRef = FirebaseDatabase.getInstance().getReference().child("Chat Requests");
         senderUserID = mAuth.getCurrentUser().getUid();
@@ -100,7 +105,7 @@ public class PopupTestActivity extends AppCompatActivity {
     private void GetQuestions()
     {
         List<Test> questions= new ArrayList();
-        RootRef.child("Test").child("059cbffd-f796-4612-a166-0f34ea1085f7").addListenerForSingleValueEvent(new ValueEventListener() {
+        RootRef.child("Test").child(id_approachReceived).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists())
@@ -144,17 +149,22 @@ public class PopupTestActivity extends AppCompatActivity {
                         double intervalo2 = intervalo1 + intervalo; // 70
 
                         if(nota < mitad){
+                            SaveResults(nota, "0");
                             finish();
                             Toast.makeText(getApplicationContext(), "Limites normales - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
+
                         } else if (nota >= mitad && nota < intervalo1){
+                            SaveResults(nota, "1");
                             SendChatRequest();
                             finish();
                             Toast.makeText(getApplicationContext(), "Ansiedad leve moderada - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                         } else if (nota >= intervalo1 && nota < intervalo2){
+                            SaveResults(nota, "2");
                             SendChatRequest();
                             finish();
                             Toast.makeText(getApplicationContext(), "Ansiedad moderada a intensa - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                         } else if (nota >= intervalo2){
+                            SaveResults(nota, "3");
                             SendChatRequest();
                             finish();
                             Toast.makeText(getApplicationContext(), "Ansiedad intensa - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
@@ -195,6 +205,25 @@ public class PopupTestActivity extends AppCompatActivity {
 
     }
 
+    private void SaveResults(double resultado, String nivel)
+    {
+        String result = String.valueOf(resultado);
+        //String UID = UUID.randomUUID().toString();
+        DatabaseReference ResultKeyRef = RootRef.child("TestResults")
+                .child(currentUserID).child(id_approachReceived).push();
+
+        String ResultPushID = ResultKeyRef.getKey();
+
+        TestResult testResult = new TestResult();
+        testResult.setIdTestResult(id_approachReceived);
+        testResult.setResultValue(result);
+        testResult.setLevel(nivel);
+        testResult.setIdUser(currentUserID);
+        RootRef.child("TestResults").child(currentUserID).child(testResult.getIdTestResult()).setValue(testResult);
+        Toast.makeText(this, "Resultados guardados correctamente...", Toast.LENGTH_SHORT).show();
+
+
+    }
     public void Next (View v){
         //Ninguna opcion seleccionada
         if (!AnswerNever.isChecked() && !AnswerSometimes.isChecked() && !AnswerMedium.isChecked() && !AnswerEver.isChecked()){

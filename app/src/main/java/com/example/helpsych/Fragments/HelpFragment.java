@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.helpsych.Activity.AllUserActivity;
 import com.example.helpsych.Activity.EditProfileActivity;
+import com.example.helpsych.Activity.PopupSelectTestActivity;
 import com.example.helpsych.Activity.PopupTestActivity;
 import com.example.helpsych.R;
 
@@ -103,7 +104,7 @@ public class HelpFragment extends Fragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getContext(), PopupTestActivity.class);
+                        Intent intent = new Intent(getContext(), PopupSelectTestActivity.class);
                         startActivity(intent);
                     }
                 }).show();

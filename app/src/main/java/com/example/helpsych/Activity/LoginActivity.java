@@ -134,63 +134,73 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task)
                         {
-                            if (task.isSuccessful())
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            //if(!user.isEmailVerified())
                             {
-                                String currentUserId = mAuth.getCurrentUser().getUid();
-                                String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                                /*Toast.makeText(LoginActivity.this, "Verifique su correo electrónico antes de ingresar.", Toast.LENGTH_SHORT).show();
+                                loadingBar.dismiss();*/
+                            }
+                            //else
+                            {
+                                if (task.isSuccessful())
+                                {
+                                    String currentUserId = mAuth.getCurrentUser().getUid();
+                                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
 
-                                UsersRef.child(currentUserId).child("usertype")
-                                        .addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                currentUserType = snapshot.getValue().toString();
-                                            }
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
-
-                                UsersRef.child(currentUserId).child("device_token")
-                                        .setValue(deviceToken)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task)
-                                            {
-                                                if (task.isSuccessful())
-                                                {
-                                                    switch (currentUserType)
-                                                    {
-                                                        case "0":
-                                                            SendUserToMainActivity_a();
-                                                            Toast.makeText(LoginActivity.this, "Sesión iniciada correctamente...", Toast.LENGTH_SHORT).show();
-                                                            loadingBar.dismiss();
-                                                            break;
-                                                        case "1":
-                                                            SendUserToMainActivity_s();
-                                                            Toast.makeText(LoginActivity.this, "Sesión iniciada correctamente...", Toast.LENGTH_SHORT).show();
-                                                            loadingBar.dismiss();
-                                                            break;
-                                                        case "2":
-                                                            SendUserToMainActivity();
-                                                            Toast.makeText(LoginActivity.this, "Sesión iniciada correctamente...", Toast.LENGTH_SHORT).show();
-                                                            loadingBar.dismiss();
-                                                            break;
-                                                        default:
-                                                            break;
-
-                                                    }
+                                    UsersRef.child(currentUserId).child("usertype")
+                                            .addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    currentUserType = snapshot.getValue().toString();
+                                                }
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
 
                                                 }
-                                            }
-                                        });
+                                            });
+
+                                    UsersRef.child(currentUserId).child("device_token")
+                                            .setValue(deviceToken)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task)
+                                                {
+                                                    if (task.isSuccessful())
+                                                    {
+                                                        switch (currentUserType)
+                                                        {
+                                                            case "0":
+                                                                SendUserToMainActivity_a();
+                                                                Toast.makeText(LoginActivity.this, "Sesión iniciada correctamente...", Toast.LENGTH_SHORT).show();
+                                                                loadingBar.dismiss();
+                                                                break;
+                                                            case "1":
+                                                                SendUserToMainActivity_s();
+                                                                Toast.makeText(LoginActivity.this, "Sesión iniciada correctamente...", Toast.LENGTH_SHORT).show();
+                                                                loadingBar.dismiss();
+                                                                break;
+                                                            case "2":
+                                                                SendUserToMainActivity();
+                                                                Toast.makeText(LoginActivity.this, "Sesión iniciada correctamente...", Toast.LENGTH_SHORT).show();
+                                                                loadingBar.dismiss();
+                                                                break;
+                                                            default:
+                                                                break;
+
+                                                        }
+
+                                                    }
+                                                }
+                                            });
+                                }
+                                else
+                                {
+                                    String message = task.getException().toString();
+                                    Toast.makeText(LoginActivity.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                                    loadingBar.dismiss();
+                                }
                             }
-                            else
-                            {
-                                String message = task.getException().toString();
-                                Toast.makeText(LoginActivity.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
-                                loadingBar.dismiss();
-                            }
+
                         }
                     });
         }

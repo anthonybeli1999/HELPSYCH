@@ -60,6 +60,7 @@ public class ReportFragment extends Fragment {
     private DatabaseReference RootRef, ContactsRef,UsersRef;
     private int countFriends;
     private int countRatings;
+    public int countTests;
     private String registrationDay;
 
     private String currentUserID, currentUserType, currentEmal, messageSenderID;
@@ -67,7 +68,7 @@ public class ReportFragment extends Fragment {
     private FirebaseAuth mAuth;
 
     private Button UpdateAccountSettings;
-    private TextView userNameP, userLastNameP, userEmailP, userSexP, userBirthDateP, userDescriptionP;
+    private TextView userNameP, userLastNameP, userEmailP, userSexP, userBirthDateP, userDescriptionP, txtTestsQuantity;
     private ImageView userProfileImage;
 
     //ModTracker
@@ -147,9 +148,11 @@ public class ReportFragment extends Fragment {
         txtAllChats = (TextView) rootView.findViewById(R.id.txt_all_chats);
         txtRegistrationDay = (TextView) rootView.findViewById(R.id.txt_date_registration);
         txtRankingQuantity = (TextView) rootView.findViewById(R.id.txt_ranking_quantity);
+        txtTestsQuantity = (TextView) rootView.findViewById(R.id.txt_test_quantity);
 
         RetrieveInformationFriends();
         RetrieveInformationRating();
+        RetrieveInformationTests();
         SetInformation();
         RetrieveInformationRegistrationDate();
 
@@ -351,7 +354,30 @@ public class ReportFragment extends Fragment {
                 }
                 else
                 {
-                    txtAllChats.setText("0");
+                    txtRankingQuantity.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void RetrieveInformationTests()
+    {
+        ContactsRef.child("TestResults").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    countTests = (int) snapshot.child(currentUserID).getChildrenCount();
+                    txtTestsQuantity.setText(String.valueOf(countTests));
+                }
+                else
+                {
+                    txtTestsQuantity.setText("0");
                 }
             }
 
