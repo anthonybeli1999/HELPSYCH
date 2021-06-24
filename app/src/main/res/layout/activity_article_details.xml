@@ -73,12 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:gravity="right">
-                    <ImageView
-                        android:id="@+id/article_detail_unlike"
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:src="@drawable/ic_unlike"
-                        android:elevation="10dp"/>
+
                     <ImageView
                         android:id="@+id/article_detail_like"
                         android:layout_width="wrap_content"

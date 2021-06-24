@@ -198,7 +198,7 @@
                 android:id="@+id/txt_forgot_password_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Restablecela ahora"
+                android:text="Restablécela ahora"
                 android:textSize="18sp"
                 android:textColor="@color/shadow_red"
                 android:fontFamily="@font/robotomedium"

@@ -1,19 +1,30 @@
 package com.example.helpsych.Model;
 
 public class TestResult {
-    String idTestResult, resultValue, idUser, level;
+    String idTestResult, resultValue, idUser, level, nameApproach;
 
-    public TestResult(String idTestResult, String resultValue, String idUser, String level) {
+
+    public TestResult(String idTestResult, String resultValue, String idUser, String level, String nameApproach) {
         this.idTestResult = idTestResult;
         this.resultValue = resultValue;
         this.idUser = idUser;
         this.level = level;
+        this.nameApproach = nameApproach;
     }
     public TestResult() {
         this.idTestResult = idTestResult;
         this.resultValue = resultValue;
         this.idUser = idUser;
         this.level = level;
+        this.nameApproach = nameApproach;
+    }
+
+    public String getNameApproach() {
+        return nameApproach;
+    }
+
+    public void setNameApproach(String nameApproach) {
+        this.nameApproach = nameApproach;
     }
 
     public String getLevel() {

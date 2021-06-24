@@ -14,6 +14,19 @@ public class Article {
     private String approach;
     private String state;
 
+
+    public Article(String id, String title, String body, String date, String author, String image, String creationdate, String approach, String state) {
+        Id = id;
+        this.title = title;
+        this.body = body;
+        this.date = date;
+        this.author = author;
+        this.image = image;
+        this.creationdate = creationdate;
+        this.approach = approach;
+        this.state = state;
+    }
+
     public String getState() {
         return state;
     }

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.helpsych.Model.Article;
+import com.example.helpsych.Model.Psychological_approach;
 import com.example.helpsych.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,8 +35,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class PopupAddArticle extends AppCompatActivity {
@@ -78,9 +82,13 @@ public class PopupAddArticle extends AppCompatActivity {
 
         loadingBar = new ProgressDialog(this.getApplicationContext());
 
-        ArrayAdapter<CharSequence> adapterFormat = ArrayAdapter.createFromResource(this, R.array.article_add_approach_string, R.layout.support_simple_spinner_dropdown_item);
-        adapterFormat.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        CmbAddApproach.setAdapter(adapterFormat);
+        //ArrayAdapter<CharSequence> adapterFormat = ArrayAdapter.createFromResource(this, R.array.article_add_approach_string, R.layout.support_simple_spinner_dropdown_item);
+        //adapterFormat.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        //CmbAddApproach = findViewById(R.id.spinnerApproaches);
+
+        loadApproaches();
+
+
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -107,6 +115,34 @@ public class PopupAddArticle extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void loadApproaches()
+    {
+        List<Psychological_approach> approaches= new ArrayList();
+        RootRef.child("psyapproach").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    for(DataSnapshot ds: snapshot.getChildren())
+                    {
+                        String ApproachId = ds.child("p_approachId").getValue().toString();
+                        String ApproachName = ds.child("p_approachName").getValue().toString();
+                        approaches.add(new Psychological_approach(ApproachId,ApproachName));
+                    }
+
+                    ArrayAdapter arrayAdapter = new ArrayAdapter( getApplicationContext(), android.R.layout.simple_dropdown_item_1line,approaches);
+                    CmbAddApproach.setAdapter(arrayAdapter);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void RetrieveUserInfo()

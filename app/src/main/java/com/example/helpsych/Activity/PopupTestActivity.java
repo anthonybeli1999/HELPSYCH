@@ -20,6 +20,9 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.helpsych.Adapters.ArticleAdapter;
+import com.example.helpsych.Fragments.ArticleFragment;
+import com.example.helpsych.Model.Article;
 import com.example.helpsych.Model.Psychological_approach;
 import com.example.helpsych.Model.Test;
 import com.example.helpsych.Model.TestResult;
@@ -48,7 +51,7 @@ public class PopupTestActivity extends AppCompatActivity {
     RadioGroup Answers;
     double nota = 0;
     int NPregunta = 0;
-    String id_approachReceived;
+    String id_approachReceived, name_approachReceived;
 
     private DatabaseReference UsersRef;
     ArrayList listaUsuarios;
@@ -77,6 +80,7 @@ public class PopupTestActivity extends AppCompatActivity {
 
         InitializeFields();
         id_approachReceived = getIntent().getExtras().get("approach_id").toString();
+        name_approachReceived = getIntent().getExtras().get("approach_name").toString();
 
         ChatRequestRef = FirebaseDatabase.getInstance().getReference().child("Chat Requests");
         senderUserID = mAuth.getCurrentUser().getUid();
@@ -150,24 +154,28 @@ public class PopupTestActivity extends AppCompatActivity {
 
                         if(nota < mitad){
                             SaveResults(nota, "0");
+                            SetTestResultsonDescription();
                             finish();
                             Toast.makeText(getApplicationContext(), "Limites normales - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
 
                         } else if (nota >= mitad && nota < intervalo1){
                             SaveResults(nota, "1");
+                            SetTestResultsonDescription();
                             SendChatRequest();
                             finish();
-                            Toast.makeText(getApplicationContext(), "Ansiedad leve moderada - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Problema leve moderado - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                         } else if (nota >= intervalo1 && nota < intervalo2){
                             SaveResults(nota, "2");
+                            SetTestResultsonDescription();
                             SendChatRequest();
                             finish();
-                            Toast.makeText(getApplicationContext(), "Ansiedad moderada a intensa - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Problema moderado a intenso - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                         } else if (nota >= intervalo2){
                             SaveResults(nota, "3");
+                            SetTestResultsonDescription();
                             SendChatRequest();
                             finish();
-                            Toast.makeText(getApplicationContext(), "Ansiedad intensa - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Problema intenso - "+ NPregunta +"Nota: "+nota , Toast.LENGTH_SHORT).show();
                         }
                     }
                     else
@@ -192,9 +200,84 @@ public class PopupTestActivity extends AppCompatActivity {
 
                         BtnPrevious.setVisibility(View.GONE);
                         NPregunta = NPregunta + 1;
+
+                        //Poner resultados en descripción
+
                     }
 
                 }
+            }
+
+            private void SetTestResultsonDescription() {
+                List<TestResult> testResults= new ArrayList();
+                RootRef.child("TestResults").child(currentUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists())
+                        {
+                            for(DataSnapshot ds: snapshot.getChildren())
+                            {
+                                String idTestResult = ds.child("idTestResult").getValue().toString();
+                                String resultValue = ds.child("resultValue").getValue().toString();
+                                String idUser = ds.child("idUser").getValue().toString();
+                                String level = ds.child("level").getValue().toString();
+                                String nameApproach = ds.child("nameApproach").getValue().toString();
+                                testResults.add(new TestResult(idTestResult,resultValue,idUser,level,nameApproach));
+                            }
+
+
+                            //Armar el string
+                            String desc = "";
+                            for(int i=0; i< testResults.size();i++)
+                            {
+                                switch (testResults.get(i).getLevel())
+                                {
+                                    case "0":
+                                        desc += testResults.get(i).getNameApproach() + " en sus límites normales. \n ";
+                                        break;
+                                    case "1":
+                                        desc += testResults.get(i).getNameApproach() + ": problema leve moderado. \n ";
+                                        break;
+                                    case "2":
+                                        desc += testResults.get(i).getNameApproach() + ": problema moderado o intenso. \n ";
+                                        break;
+                                    case "3":
+                                        desc += testResults.get(i).getNameApproach() + ": problema intenso. \n ";
+                                        break;
+
+                                }
+                            }
+
+                            //Actualizar datos del usuario
+
+                            HashMap<String, Object> profileMap = new HashMap<>();
+                            profileMap.put("uid", currentUserID);
+                            profileMap.put("description", desc);
+                            RootRef.child("Users").child(currentUserID).updateChildren(profileMap)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task)
+                                        {
+                                            if (task.isSuccessful())
+                                            {
+                                                Toast.makeText(getApplicationContext(), "Profile Updated Successfully...", Toast.LENGTH_SHORT).show();
+                                            }
+                                            else
+                                            {
+                                                String message = task.getException().toString();
+                                                Toast.makeText(getApplicationContext(), "Error: " + message, Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+
+
             }
 
             @Override
@@ -218,6 +301,7 @@ public class PopupTestActivity extends AppCompatActivity {
         testResult.setIdTestResult(id_approachReceived);
         testResult.setResultValue(result);
         testResult.setLevel(nivel);
+        testResult.setNameApproach(name_approachReceived);
         testResult.setIdUser(currentUserID);
         RootRef.child("TestResults").child(currentUserID).child(testResult.getIdTestResult()).setValue(testResult);
         Toast.makeText(this, "Resultados guardados correctamente...", Toast.LENGTH_SHORT).show();

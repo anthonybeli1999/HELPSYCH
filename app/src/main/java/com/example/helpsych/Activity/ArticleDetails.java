@@ -54,18 +54,18 @@ public class ArticleDetails extends AppCompatActivity {
 
         //Toast.makeText(getApplicationContext(), uidArticle, Toast.LENGTH_SHORT).show();
 
-        like.setOnClickListener(new View.OnClickListener() {
+        /*like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dislike(unlike);
-                like.setVisibility(View.GONE);
-                unlike.setVisibility(View.VISIBLE);
+                //like.setVisibility(View.GONE);
+                //unlike.setVisibility(View.VISIBLE);
                 Toast.makeText(getApplicationContext(),"Dislike",Toast.LENGTH_SHORT).show();
                 state = 0;
             }
-        });
+        });*/
 
-        unlike.setOnClickListener(new View.OnClickListener() {
+        /*unlike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(state == 0){
@@ -76,7 +76,7 @@ public class ArticleDetails extends AppCompatActivity {
                     state = 1;
                 }
             }
-        });
+        });*/
 
         InitializeFields();
         RetrieveUserInfo();
@@ -158,8 +158,8 @@ public class ArticleDetails extends AppCompatActivity {
 
     private void InitializeFields()
     {
-        like = (ImageView) findViewById(R.id.article_detail_like);
-        unlike = (ImageView) findViewById(R.id.article_detail_unlike);
+        //like = (ImageView) findViewById(R.id.article_detail_like);
+        //unlike = (ImageView) findViewById(R.id.article_detail_unlike);
         imgArticle = (ImageView) findViewById(R.id.img_article_detail_image);
         TxttilteArticle = (TextView) findViewById(R.id.txt_detail_article_title);
         TxtdateArticle = (TextView) findViewById(R.id.txt_detail_article_date);

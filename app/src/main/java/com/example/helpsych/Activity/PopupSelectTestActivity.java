@@ -34,6 +34,7 @@ public class PopupSelectTestActivity extends AppCompatActivity {
 
     private RecyclerView psyapporachlist;
     private DatabaseReference ApproachRef;
+    Button BtnPrevious;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class PopupSelectTestActivity extends AppCompatActivity {
 
                                 CharSequence options[] = new CharSequence[]
                                         {
-                                                "Realizar este test.",
+                                                "Comenzar con el test...",
                                         };
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(PopupSelectTestActivity.this);
@@ -93,9 +94,10 @@ public class PopupSelectTestActivity extends AppCompatActivity {
                                     {
                                         if (i == 0)
                                         {
-                                            Intent chatIntent = new Intent(PopupSelectTestActivity.this, PopupTestActivity.class);
-                                            chatIntent.putExtra("approach_id", model.getP_approachId());
-                                            startActivity(chatIntent);
+                                            Intent testIntent = new Intent(PopupSelectTestActivity.this, PopupTestActivity.class);
+                                            testIntent.putExtra("approach_id", model.getP_approachId());
+                                            testIntent.putExtra("approach_name", model.getP_approachName());
+                                            startActivity(testIntent);
                                         }
                                     }
                                 });

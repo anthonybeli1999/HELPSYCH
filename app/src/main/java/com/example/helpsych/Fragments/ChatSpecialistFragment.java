@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.helpsych.Activity.ChatActivity;
 import com.example.helpsych.Activity.PopupDetailUser;
+import com.example.helpsych.Activity.PopupDetailUser_Sv;
 import com.example.helpsych.Model.User;
 import com.example.helpsych.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -198,6 +199,17 @@ public class ChatSpecialistFragment extends Fragment {
                                         }
 
                                     });
+
+                                    holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                                        @Override
+                                        public boolean onLongClick(View v) {
+                                            String visit_user_id = getRef(position).getKey();
+                                            Intent profileIntent = new Intent(getContext(), PopupDetailUser_Sv.class);
+                                            profileIntent.putExtra("visit_user_id", visit_user_id);
+                                            startActivity(profileIntent);
+                                            return false;
+                                        }
+                                    });
                                 }
                             }
 
@@ -353,6 +365,17 @@ public class ChatSpecialistFragment extends Fragment {
                                                             }
                                                         });
                                                         builder.show();
+                                                    }
+                                                });
+
+                                                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                                                    @Override
+                                                    public boolean onLongClick(View v) {
+                                                        String visit_user_id = getRef(position).getKey();
+                                                        Intent profileIntent = new Intent(getContext(), PopupDetailUser_Sv.class);
+                                                        profileIntent.putExtra("visit_user_id", visit_user_id);
+                                                        startActivity(profileIntent);
+                                                        return false;
                                                     }
                                                 });
 

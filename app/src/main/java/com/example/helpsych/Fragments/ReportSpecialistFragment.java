@@ -225,7 +225,8 @@ public class ReportSpecialistFragment extends Fragment {
                     acumulador += Double.parseDouble(ValuesArray.get(i).toString());
                 }
                 rating = acumulador / ValuesArray.size();
-                txtRatingSpecialist.setText(Double.toString(Double.parseDouble(format.format(rating))));
+                String rate = ((format.format(rating)));
+                txtRatingSpecialist.setText(rate);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

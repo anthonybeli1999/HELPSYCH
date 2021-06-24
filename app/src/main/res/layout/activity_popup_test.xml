@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="TEST ANSIEDAD"
+                android:text="TEST PSICOLÓGICO"
                 android:textColor="@color/dark_blue2"
                 android:fontFamily="@font/robotoblack"
                 android:textSize="24sp"/>

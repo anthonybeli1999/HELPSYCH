@@ -53,42 +53,13 @@ android:gravity="center">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="1">
-
-            <Button
-                android:id="@+id/test_btn_previous"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CANCELAR"
-                android:backgroundTint="@color/shadow_red"
-                android:textColor="@color/white"
-                android:layout_marginRight="5dp"
-                android:paddingHorizontal="20dp"
-                android:fontFamily="@font/robotolight"
-                android:textSize="18sp"
-                android:layout_gravity="start"/>
-
-        </LinearLayout>
+            android:layout_weight="1"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="1">
-
-            <Button
-                android:id="@+id/test_btn_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SIGUIENTE"
-                android:backgroundTint="@color/dark_blue"
-                android:textColor="@color/white"
-                android:layout_marginLeft="5dp"
-                android:paddingHorizontal="20dp"
-                android:fontFamily="@font/robotolight"
-                android:textSize="18sp"
-                android:layout_gravity="end"/>
-        </LinearLayout>
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
