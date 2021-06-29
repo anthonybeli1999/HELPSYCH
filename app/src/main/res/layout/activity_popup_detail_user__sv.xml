@@ -7,212 +7,226 @@ android:layout_height="match_parent"
 tools:context=".Activity.PopupDetailUser_Sv"
 android:gravity="center">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginHorizontal="20dp">
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="PACIENTE"
-            android:textSize="15sp"
-            android:textColor="@color/dark_blue"
-            android:fontFamily="@font/robotoblack"
-            android:autofillHints="true"
-            android:gravity="center"
-            android:textAllCaps="true"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/visit_profile_image_sv"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:src="@drawable/profile_image"
-            android:layout_marginVertical="10dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginVertical="10dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nombres y Apellidos"
-            android:textSize="15sp"
-            android:textColor="@color/dark_blue"
-            android:fontFamily="@font/robotobold"
-            android:autofillHints="true"
-            android:gravity="center"
-            android:textAllCaps="true"/>
-        <TextView
-            android:id="@+id/txt_pop_user_name_sv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Jhon"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/robotolight"
-            android:gravity="center"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Descripción"
-            android:textSize="15sp"
-            android:textColor="@color/dark_blue"
-            android:fontFamily="@font/robotobold"
-            android:autofillHints="true"
-            android:gravity="center"
-            android:textAllCaps="true"/>
-        <TextView
-            android:id="@+id/txt_pop_user_description_sv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/robotolight"
-            android:layout_marginHorizontal="20dp"
-            android:gravity="center"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_marginHorizontal="20dp">
 
-
-
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fecha de nacimiento"
-                android:textSize="15sp"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="@font/robotobold"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PACIENTE"
+                    android:textSize="15sp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="@font/robotoblack"
+                    android:autofillHints="true"
+                    android:gravity="center"
+                    android:textAllCaps="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/visit_profile_image_sv"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:src="@drawable/profile_image"
+                    android:layout_marginVertical="10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:gravity="center"
-                android:textAllCaps="true"/>
-            <TextView
-                android:id="@+id/txt_pop_user_birtthday_sv"
+                android:layout_marginVertical="10dp"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="07/07/2007"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/robotolight"
-                android:gravity="center"/>
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombres y Apellidos"
+                    android:textSize="15sp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="@font/robotobold"
+                    android:autofillHints="true"
+                    android:gravity="center"
+                    android:textAllCaps="true"/>
+                <TextView
+                    android:id="@+id/txt_pop_user_name_sv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Jhon"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción"
+                    android:textSize="15sp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="@font/robotobold"
+                    android:autofillHints="true"
+                    android:gravity="center"
+                    android:textAllCaps="true"/>
+                <TextView
+                    android:id="@+id/txt_pop_user_description_sv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:layout_marginHorizontal="20dp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha de nacimiento"
+                        android:textSize="15sp"
+                        android:textColor="@color/dark_blue"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:textAllCaps="true"/>
+                    <TextView
+                        android:id="@+id/txt_pop_user_birtthday_sv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="07/07/2007"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="género"
+                        android:textSize="15sp"
+                        android:textColor="@color/dark_blue"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center"
+                        android:textAllCaps="true"/>
+                    <TextView
+                        android:id="@+id/txt_pop_user_genre_sv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Masculino"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/robotolight"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/detail_user_p_btn_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="@font/robotomedium"
+                    android:textSize="16sp"
+                    android:text="REGISTRO DEL PACIENTE"
+                    android:backgroundTint="@color/shadow_red"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="20dp"/>
+
+                <Button
+                    android:id="@+id/ok_sv_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/robotomedium"
+                    android:textSize="16sp"
+                    android:text="ACEPTAR"
+                    android:backgroundTint="@color/dark_blue"
+                    android:textAllCaps="false"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="género"
-                android:textSize="15sp"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="@font/robotobold"
-                android:gravity="center"
-                android:textAllCaps="true"/>
-            <TextView
-                android:id="@+id/txt_pop_user_genre_sv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Masculino"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/robotolight"
-                android:gravity="center"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp">
-
-        <Button
-            android:id="@+id/ok_sv_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:fontFamily="@font/robotomedium"
-            android:textSize="16sp"
-            android:text="Aceptar"
-            android:backgroundTint="@color/dark_blue"
-            android:textAllCaps="false"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"/>
-
-    </LinearLayout>
-
-</LinearLayout>
-
-
+    </ScrollView>
 
 </RelativeLayout>

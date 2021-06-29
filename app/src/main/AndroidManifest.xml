@@ -13,8 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HelPsych">
-        <activity android:name=".Activity.PopupDetailUser_Sv"
-            android:theme="@style/Theme.AppCompat.PopupTheme" ></activity>
+        <activity android:name=".Activity.PopupAddTreatmentActivity"></activity>
+        <activity android:name=".Activity.PopupAddAttentionSheet" />
+        <activity android:name=".Activity.TreatmentActivity" />
+        <activity android:name=".Activity.AttentionSheetActivity" />
+        <activity
+            android:name=".Activity.PopupDetailUser_Sv"
+            android:theme="@style/Theme.AppCompat.PopupTheme" />
         <activity
             android:name=".Activity.PopupSelectTestActivity"
             android:theme="@style/Theme.AppCompat.PopupTheme" />

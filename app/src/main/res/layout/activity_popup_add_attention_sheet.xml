@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.PopupAddAttentionSheet"
+    android:gravity="center"
+    android:background="@color/dark_blue">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:paddingVertical="40dp"
+            android:paddingHorizontal="20dp"
+            android:background="@color/white"
+            android:elevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="FICHA PSICOLÓGICA"
+                    android:textSize="26sp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="@font/robotoblack"
+                    android:layout_marginVertical="10dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Complete los campos para crear la ficha del paciente"
+                    android:textSize="18sp"
+                    android:textColor="@color/dark_blue2"
+                    android:fontFamily="@font/robotolight"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginVertical="10dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="true"
+                    android:fontFamily="@font/robotomedium"
+                    android:text="MOTIVO DE CONSULTA"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/attention_sheet_reason_p"
+                    android:hint="Ingrese el motivo de la consulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:inputType="textMultiLine"
+                    android:maxLines="4"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginVertical="10dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="true"
+                    android:fontFamily="@font/robotomedium"
+                    android:text="ANTECEDENTES"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/attention_sheet_background_p"
+                    android:hint="Ingrese aqui los antecedentes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:inputType="textMultiLine"
+                    android:maxLines="4"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_create_sheet"
+                    android:layout_width="match_parent"
+                    android:paddingHorizontal="30dp"
+                    android:layout_height="wrap_content"
+                    android:text="CREAR FICHA PSICOLÓGICA"
+                    android:fontFamily="@font/robotoregular"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:backgroundTint="@color/dark_blue" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+
+                <TextView
+                    android:id="@+id/txtCancelar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancelar"
+                    android:textSize="18sp"
+                    android:textColor="@color/shadow_red"
+                    android:fontFamily="@font/robotomedium"
+                    android:layout_marginTop="5dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

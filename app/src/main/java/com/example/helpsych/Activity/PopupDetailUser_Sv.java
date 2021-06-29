@@ -32,6 +32,7 @@ public class PopupDetailUser_Sv extends AppCompatActivity {
     TextView userProfileBirthday, userProfileGenre;
     private TextView userProfileDescription;
     private Button OkButton;
+    private Button HistoryButton;
     ArrayList<String> ValuesArray = new ArrayList<String>();
 
     private double acumulador;
@@ -52,7 +53,7 @@ public class PopupDetailUser_Sv extends AppCompatActivity {
         int width = medidasVentana.widthPixels;
         int height = medidasVentana.heightPixels;
 
-        getWindow().setLayout((int) (width * 0.85), (int) (height * 0.65));
+        getWindow().setLayout((int) (width * 0.85), (int) (height * 0.7));
 
         mAuth = FirebaseAuth.getInstance();
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -72,6 +73,7 @@ public class PopupDetailUser_Sv extends AppCompatActivity {
         userProfileGenre = (TextView) findViewById(R.id.txt_pop_user_genre_sv);
 
         OkButton = (Button) findViewById(R.id.ok_sv_button);
+        HistoryButton = (Button) findViewById(R.id.detail_user_p_btn_history);
         Current_State = "new";
 
         RetrieveUserInfo();
@@ -80,6 +82,14 @@ public class PopupDetailUser_Sv extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        HistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PopupDetailUser_Sv.this, AttentionSheetActivity.class);
+                startActivity(intent);
             }
         });
     }
