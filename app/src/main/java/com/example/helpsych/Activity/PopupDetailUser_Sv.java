@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class PopupDetailUser_Sv extends AppCompatActivity {
 
-    private String receiverUserID, senderUserID, Current_State;
+    private String receiverUserID, senderUserID, Current_State, receiverPatientName;
 
     private ImageView userProfileImage;
     private TextView userProfileName, userProfileLastname, userProfileEmail, userProfileCity, userProfileCountry;
@@ -41,6 +41,8 @@ public class PopupDetailUser_Sv extends AppCompatActivity {
     private DatabaseReference UserRef, ChatRequestRef, ContactsRef, NotificationRef, RatingRef;
     private DatabaseReference MessagesRef;
     private FirebaseAuth mAuth;
+    private Button PatientHistory;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,9 @@ public class PopupDetailUser_Sv extends AppCompatActivity {
         MessagesRef = FirebaseDatabase.getInstance().getReference().child("Messages");
 
         receiverUserID = getIntent().getExtras().get("visit_user_id").toString();
+        //patient_name
+        receiverPatientName = getIntent().getExtras().get("patient_name").toString();
+
         senderUserID = mAuth.getCurrentUser().getUid();
 
         userProfileDescription = (TextView) findViewById(R.id.txt_pop_user_description_sv);
@@ -78,6 +83,8 @@ public class PopupDetailUser_Sv extends AppCompatActivity {
 
         RetrieveUserInfo();
 
+
+
         OkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +96,8 @@ public class PopupDetailUser_Sv extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PopupDetailUser_Sv.this, AttentionSheetActivity.class);
+                intent.putExtra("visit_user_id", receiverUserID);
+                intent.putExtra("patient_name", receiverPatientName);
                 startActivity(intent);
             }
         });

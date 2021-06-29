@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,7 @@ public class ChatSpecialistFragment extends Fragment {
     private DatabaseReference ChatsRef, UsersRef;
     private FirebaseAuth mAuth;
     private String currentUserID="";
+
 
 
     //REQUEST CHAT
@@ -117,6 +119,8 @@ public class ChatSpecialistFragment extends Fragment {
         chatsList.setLayoutManager(new LinearLayoutManager(getContext()));
         myRequestsList = (RecyclerView) PrivateChatsView.findViewById(R.id.chat_requests_list);
 
+
+
         return PrivateChatsView;
         //return inflater.inflate(R.layout.fragment_chat, container, false);
     }
@@ -160,7 +164,7 @@ public class ChatSpecialistFragment extends Fragment {
                                     }
 
                                     final String retName = dataSnapshot.child("name").getValue().toString();
-                                    final String retStatus = dataSnapshot.child("lastName").getValue().toString();
+                                    final String retlastName = dataSnapshot.child("lastName").getValue().toString();
 
                                     holder.userName.setText(retName);
                                     holder.userStatusChat.setText("Activo");
@@ -205,7 +209,11 @@ public class ChatSpecialistFragment extends Fragment {
                                         public boolean onLongClick(View v) {
                                             String visit_user_id = getRef(position).getKey();
                                             Intent profileIntent = new Intent(getContext(), PopupDetailUser_Sv.class);
+                                            // String idFichaAtencion, nombresApellidosPaciente, fechaEmperejamiento,
+                                            // motivoConsulta, antecedentes, especialista, idPaciente, idEspecialista;
                                             profileIntent.putExtra("visit_user_id", visit_user_id);
+                                            String nombreCompleto = retName + " " + retlastName;
+                                            profileIntent.putExtra("patient_name", nombreCompleto);
                                             startActivity(profileIntent);
                                             return false;
                                         }

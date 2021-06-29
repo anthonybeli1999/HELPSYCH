@@ -56,6 +56,8 @@ public class ReportAdminFragment extends Fragment {
     String selectedNameApproach = "";
     private DatabaseReference TestRef;
     private EditText questionTest;
+    private TextView allUsers, allpatients, allspecialists, allarticles,allapproaches, alltests;
+    private int countAllUsers, countAllPatientes, countAllSpecialists, countAllArticles, countAllApproaches, countAllTests;
 
     private RecyclerView questionlist;
 
@@ -111,6 +113,15 @@ public class ReportAdminFragment extends Fragment {
         TestRef = FirebaseDatabase.getInstance().getReference().child("Test");
         currentUserID = mAuth.getCurrentUser().getUid();
 
+        //Iniciar variables
+        allUsers = v.findViewById(R.id.txt_all_users_admin);
+        allpatients = v.findViewById(R.id.txt_all_users_p_admin);
+        allspecialists = v.findViewById(R.id.txt_all_users_s_admin);
+        allarticles = v.findViewById(R.id.txt_all_articles_admin);
+        allapproaches = v.findViewById(R.id.txt_all_approach_admin);
+        alltests = v.findViewById(R.id.txt_all_tests_admin);
+
+        RetrieveInformation();
 
         Button Signout = (Button)  v.findViewById(R.id.btn_Signout_admin);
         Signout.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +133,143 @@ public class ReportAdminFragment extends Fragment {
         });
 
         return v;
+    }
+
+
+    private void RetrieveInformation()
+    {
+        RootRef.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    /*for (DataSnapshot snap: snapshot.child(currentUserID).getChildren()) {
+                        Log.e(snap.getKey(),snap.getChildrenCount() + "");
+                    }*/
+                    countAllUsers = (int) snapshot.getChildrenCount();
+                    allUsers.setText(String.valueOf(countAllUsers));
+                }
+                else
+                {
+                    allUsers.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        RootRef.child("Users").orderByChild("usertype").equalTo("1").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    /*for (DataSnapshot snap: snapshot.child(currentUserID).getChildren()) {
+                        Log.e(snap.getKey(),snap.getChildrenCount() + "");
+                    }*/
+                    countAllSpecialists = (int) snapshot.getChildrenCount();
+                    allspecialists.setText(String.valueOf(countAllSpecialists));
+                }
+                else
+                {
+                    allspecialists.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        RootRef.child("Users").orderByChild("usertype").equalTo("2").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    /*for (DataSnapshot snap: snapshot.child(currentUserID).getChildren()) {
+                        Log.e(snap.getKey(),snap.getChildrenCount() + "");
+                    }*/
+                    countAllPatientes = (int) snapshot.getChildrenCount();
+                    allpatients.setText(String.valueOf(countAllPatientes));
+                }
+                else
+                {
+                    allpatients.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        RootRef.child("Article").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    /*for (DataSnapshot snap: snapshot.child(currentUserID).getChildren()) {
+                        Log.e(snap.getKey(),snap.getChildrenCount() + "");
+                    }*/
+                    countAllArticles = (int) snapshot.getChildrenCount();
+                    allarticles.setText(String.valueOf(countAllArticles));
+                }
+                else
+                {
+                    allarticles.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        RootRef.child("psyapproach").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    countAllApproaches = (int) snapshot.getChildrenCount();
+                    allapproaches.setText(String.valueOf(countAllApproaches));
+                }
+                else
+                {
+                    allapproaches.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        RootRef.child("Test").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    countAllTests = (int) snapshot.getChildrenCount();
+                    alltests.setText(String.valueOf(countAllTests));
+                }
+                else
+                {
+                    alltests.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void SendUserToLoginActivity()
