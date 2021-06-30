@@ -1,76 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F3F3F3">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginBottom="1dp"
-        android:background="@color/white">
+        app:cardElevation="5dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginBottom="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="3"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_gravity="center">
+            android:layout_marginBottom="1dp"
+            android:paddingHorizontal="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_marginHorizontal="10dp">
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Motivo de consulta:"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotomedium"/>
 
                 <TextView
                     android:id="@+id/as_reason_display"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Motivo de consulta: "
+                    android:text="Motivo"
                     android:textAlignment="textStart"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/as_specialist_display"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Especialista:"
-                    android:layout_margin="2dp"
-                    android:textAlignment="textStart"
-                    android:maxLines="1"
-                    android:textSize="16sp"/>
+                    android:fontFamily="@font/robotolight"
+                    android:layout_marginLeft="5dp"/>
 
             </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_gravity="center">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_marginHorizontal="10dp">
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha:"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotomedium"/>
+
+                <TextView
+                    android:id="@+id/as_date_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha"
+                    android:textAlignment="textStart"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Antecedentes:"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotomedium"/>
 
                 <TextView
                     android:id="@+id/as_background_display"
@@ -78,25 +99,43 @@
                     android:layout_height="wrap_content"
                     android:text="Antecedentes"
                     android:textAlignment="textStart"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"/>
-
-                <TextView
-                    android:id="@+id/as_date_display"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fecha"
-                    android:layout_margin="2dp"
-                    android:textAlignment="textStart"
-                    android:maxLines="1"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:layout_marginLeft="5dp"/>
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Especialista:"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotomedium"/>
+
+                <TextView
+                    android:id="@+id/as_specialist_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Especialista"
+                    android:textAlignment="textStart"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

@@ -43,6 +43,7 @@ public class TreatmentActivity extends AppCompatActivity {
         RootRef = FirebaseDatabase.getInstance().getReference();
         receiverAttentionSheetId = getIntent().getExtras().get("attention_sheet_id").toString();
         receiverPatientId= getIntent().getExtras().get("patient_id").toString();
+
         receiverSpecialistId = getIntent().getExtras().get("specialist_id").toString();
 
         treatmentList = (RecyclerView) findViewById(R.id.treatment_list);
@@ -58,6 +59,13 @@ public class TreatmentActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        if(receiverSpecialistId.equals(currentUserID)){
+            ImgAddTreatment.setVisibility(View.VISIBLE);
+        }
+        else{
+            ImgAddTreatment.setVisibility(View.GONE);
+        }
     }
 
     public void LlenarTreatmentList()

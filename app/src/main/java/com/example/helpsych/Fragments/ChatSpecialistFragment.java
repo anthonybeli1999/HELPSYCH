@@ -376,18 +376,6 @@ public class ChatSpecialistFragment extends Fragment {
                                                     }
                                                 });
 
-                                                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                                                    @Override
-                                                    public boolean onLongClick(View v) {
-                                                        String visit_user_id = getRef(position).getKey();
-                                                        Intent profileIntent = new Intent(getContext(), PopupDetailUser_Sv.class);
-                                                        profileIntent.putExtra("visit_user_id", visit_user_id);
-                                                        String nombreCompleto = requestUserName + " " + requestUserLastName;
-                                                        profileIntent.putExtra("patient_name", nombreCompleto);
-                                                        startActivity(profileIntent);
-                                                        return false;
-                                                    }
-                                                });
 
                                             }
 

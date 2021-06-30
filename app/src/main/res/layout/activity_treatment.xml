@@ -42,6 +42,168 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="FICHA DE ATENCIÓN"
+                android:textColor="@color/shadow_red"
+                android:fontFamily="@font/robotobold"
+                android:textSize="20sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="1dp"
+            android:paddingHorizontal="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Motivo de consulta:"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotomedium"/>
+
+                <TextView
+                    android:id="@+id/as_reason_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Motivo"
+                    android:textAlignment="textStart"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha:"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotomedium"/>
+
+                <TextView
+                    android:id="@+id/as_date_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha"
+                    android:textAlignment="textStart"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Antecedentes:"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotomedium"/>
+
+                <TextView
+                    android:id="@+id/as_background_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Antecedentes"
+                    android:textAlignment="textStart"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Especialista:"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotomedium"/>
+
+                <TextView
+                    android:id="@+id/as_specialist_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Especialista"
+                    android:textAlignment="textStart"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/robotolight"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HISTORIAL DE SESIONES"
+                android:textColor="@color/shadow_red"
+                android:fontFamily="@font/robotobold"
+                android:textSize="20sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="2dp">
 
             <androidx.recyclerview.widget.RecyclerView
