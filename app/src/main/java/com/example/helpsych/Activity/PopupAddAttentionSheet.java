@@ -109,7 +109,7 @@ public class PopupAddAttentionSheet extends AppCompatActivity {
                             fa.setEspecialista(fullname);
                             fa.setIdPaciente(idPaciente);
                             fa.setIdEspecialista(idEspecialista);
-                            RootRef.child("AttentionSheet").child(fa.getIdFichaAtencion()).setValue(fa);
+                            RootRef.child("AttentionSheet").child(idPaciente).child(fa.getIdFichaAtencion()).setValue(fa);
                             Toast.makeText(PopupAddAttentionSheet.this, "Ficha de atención generada correctamente", Toast.LENGTH_SHORT).show();
                         }
                     }

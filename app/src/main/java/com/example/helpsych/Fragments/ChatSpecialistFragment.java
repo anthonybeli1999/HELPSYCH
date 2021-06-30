@@ -272,7 +272,7 @@ public class ChatSpecialistFragment extends Fragment {
                                                 }
 
                                                 final String requestUserName = dataSnapshot.child("name").getValue().toString();
-                                                final String requestUserStatus = dataSnapshot.child("lastName").getValue().toString();
+                                                final String requestUserLastName = dataSnapshot.child("lastName").getValue().toString();
 
                                                 holder.userName.setText(requestUserName);
                                                 holder.userStatus.setText("Solicitud recibida");
@@ -382,6 +382,8 @@ public class ChatSpecialistFragment extends Fragment {
                                                         String visit_user_id = getRef(position).getKey();
                                                         Intent profileIntent = new Intent(getContext(), PopupDetailUser_Sv.class);
                                                         profileIntent.putExtra("visit_user_id", visit_user_id);
+                                                        String nombreCompleto = requestUserName + " " + requestUserLastName;
+                                                        profileIntent.putExtra("patient_name", nombreCompleto);
                                                         startActivity(profileIntent);
                                                         return false;
                                                     }

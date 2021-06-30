@@ -80,7 +80,7 @@ public class AttentionSheetActivity extends AppCompatActivity {
         //attention_sheet_list
         FirebaseRecyclerOptions<AttentionSheet> options =
                 new FirebaseRecyclerOptions.Builder<AttentionSheet>()
-                        .setQuery(RootRef.child("AttentionSheet"), AttentionSheet.class)
+                        .setQuery(RootRef.child("AttentionSheet").child(receiverUserID), AttentionSheet.class)
                         .build();
 
         FirebaseRecyclerAdapter<AttentionSheet, AttentionSheetViewHolder> adapter =
