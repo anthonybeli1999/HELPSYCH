@@ -102,6 +102,11 @@ public class AttentionSheetActivity extends AppCompatActivity {
                                 chatIntent.putExtra("attention_sheet_id", model.getIdFichaAtencion());
                                 chatIntent.putExtra("patient_id", model.getIdPaciente());
                                 chatIntent.putExtra("specialist_id", model.getIdEspecialista());
+
+                                chatIntent.putExtra("motivo_consulta", model.getMotivoConsulta());
+                                chatIntent.putExtra("fecha", model.getFechaEmperejamiento());
+                                chatIntent.putExtra("antecedentes", model.getAntecedentes());
+                                chatIntent.putExtra("especialista", model.getEspecialista());
                                 startActivity(chatIntent);
                             }
                         });

@@ -20,29 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Número de sesión:"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/robotomedium"/>
-
-            <TextView
-                android:id="@+id/tr_number_display"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="N°"
-                android:textAlignment="textStart"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/robotolight"
-                android:layout_marginStart="5dp"/>
-
-
-        </LinearLayout>
+            android:layout_marginTop="5dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

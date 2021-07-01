@@ -82,7 +82,7 @@
                     android:fontFamily="@font/robotomedium"/>
 
                 <TextView
-                    android:id="@+id/as_reason_display"
+                    android:id="@+id/tr_reason_display"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Motivo"
@@ -110,7 +110,7 @@
                     android:fontFamily="@font/robotomedium"/>
 
                 <TextView
-                    android:id="@+id/as_date_display"
+                    android:id="@+id/tr_date_display"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fecha"
@@ -138,7 +138,7 @@
                     android:fontFamily="@font/robotomedium"/>
 
                 <TextView
-                    android:id="@+id/as_background_display"
+                    android:id="@+id/tr_background_display"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Antecedentes"
@@ -166,7 +166,7 @@
                     android:fontFamily="@font/robotomedium"/>
 
                 <TextView
-                    android:id="@+id/as_specialist_display"
+                    android:id="@+id/tr_specialist_display"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Especialista"

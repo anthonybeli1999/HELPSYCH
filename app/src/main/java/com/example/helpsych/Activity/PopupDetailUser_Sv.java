@@ -55,7 +55,7 @@ public class PopupDetailUser_Sv extends AppCompatActivity {
         int width = medidasVentana.widthPixels;
         int height = medidasVentana.heightPixels;
 
-        getWindow().setLayout((int) (width * 0.85), (int) (height * 0.7));
+        getWindow().setLayout((int) (width * 0.85), (int) (height * 0.8));
 
         mAuth = FirebaseAuth.getInstance();
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");

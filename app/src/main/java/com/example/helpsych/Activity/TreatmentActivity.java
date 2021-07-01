@@ -32,6 +32,10 @@ public class TreatmentActivity extends AppCompatActivity {
     private DatabaseReference RootRef;
     private RecyclerView treatmentList;
     String receiverAttentionSheetId, receiverPatientId, receiverSpecialistId;
+    String MotivoConsultaR, FechaR, AntecedentesR, EspecialistaR;
+    private TextView tr_reason_display, tr_date_display, tr_background_display, tr_specialist_display;
+
+    private int cont = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +47,24 @@ public class TreatmentActivity extends AppCompatActivity {
         RootRef = FirebaseDatabase.getInstance().getReference();
         receiverAttentionSheetId = getIntent().getExtras().get("attention_sheet_id").toString();
         receiverPatientId= getIntent().getExtras().get("patient_id").toString();
-
         receiverSpecialistId = getIntent().getExtras().get("specialist_id").toString();
+
+        MotivoConsultaR = getIntent().getExtras().get("motivo_consulta").toString();
+        FechaR = getIntent().getExtras().get("fecha").toString();
+        AntecedentesR = getIntent().getExtras().get("antecedentes").toString();
+        EspecialistaR = getIntent().getExtras().get("especialista").toString();
+
+
+        tr_reason_display = (TextView) findViewById(R.id.tr_reason_display);
+        tr_date_display = (TextView) findViewById(R.id.tr_date_display);
+        tr_background_display =  (TextView) findViewById(R.id.tr_background_display);
+        tr_specialist_display =  (TextView) findViewById(R.id.tr_specialist_display);
+
+        //Llenar datos
+        tr_reason_display.setText(MotivoConsultaR);
+        tr_date_display.setText(FechaR);
+        tr_background_display.setText(AntecedentesR);
+        tr_specialist_display.setText(EspecialistaR);
 
         treatmentList = (RecyclerView) findViewById(R.id.treatment_list);
         ImgAddTreatment = (findViewById(R.id.img_btn_add_treatment));
