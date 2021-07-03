@@ -1,0 +1,288 @@
+﻿
+@{
+    ViewBag.Title = "Prueba3";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/agenda.css" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.13.1/css/all.css"
+          integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q"
+          crossorigin="anonymous" />
+
+    <title>Meeting Room CRUD Tutorial</title>
+</head>
+
+<body class="bg-light">
+    <!-- Start container -->
+    <div class="container">
+        <!-- Start content -->
+        <div class="row bg-white border rounded p-4 mt-5">
+            <!-- Start agenda content -->
+            <div id="agenda" class="col-12 col-lg-9">
+                <!-- Start Header Agenda Table -->
+                <div class="text-center">
+                    <img src="./images/Logo-02.png"
+                         alt="network-logo"
+                         width="72"
+                         height="72" />
+                    <h2>Meeting Room Agenda.</h2>
+                    <p>This agenda viewer will let you see events.</p>
+                </div>
+                <!-- End header agenda table -->
+                <!-- Start data agenda table -->
+                <div id="agenda-table" class="table-responsive-md">
+                    <!-- Start table content -->
+                    <table class="table table-striped table-bordered">
+                        <!-- Start header table -->
+                        <thead>
+                            <tr>
+                                <th class="agenda-date">Date</th>
+                                <th class="agenda-time">Time</th>
+                                <th class="agenda-room">Room</th>
+                                <th>Event</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <!-- End header Ttable -->
+                        <!-- Start body table -->
+                        <tbody id="agenda-table-rows">
+                            <!-- Start row table -->
+                            <!-- Add row tabel with javascript -->
+                        </tbody>
+                        <!-- End body table -->
+                    </table>
+                    <!-- End table content -->
+                </div>
+                <!-- End data agenda table -->
+            </div>
+            <!-- End agenda content-->
+            <!-- Start form content -->
+            <div class="col-12 col-lg-3">
+                <!-- Start header form -->
+                <div class="text-center">
+                    <img src="./images/Logo.png"
+                         alt="network-logo"
+                         width="72"
+                         height="72" />
+                    <h2>Booking Form</h2>
+                    <p>
+                        Choose date & time for meeting.
+                    </p>
+                </div>
+                <!-- End header form -->
+                <!-- Start form -->
+                <div id="form">
+                    <!-- Start form content -->
+                    <form id="myForm"
+                          action="#agenda"
+                          method=""
+                          autocomplete="on"
+                          validate>
+                        <!-- Start input date -->
+                        <div class="form-group">
+                            <label for="inputDate">Date</label>
+                            <input type="date"
+                                   class="form-control"
+                                   id="inputDate"
+                                   name="date"
+                                   required />
+                        </div>
+                        <!-- End input date -->
+                        <!-- Start input start time -->
+                        <div class="form-group">
+                            <label>Start Time</label>
+                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                <select class="form-control mr-1"
+                                        id="inputStartTimeHour"
+                                        name="startHour"
+                                        required>
+                                    <option value="" disabled selected>Hour</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                </select>
+                                <div class="pl-1 pr-2">:</div>
+                                <select class="form-control"
+                                        id="inputStartTimeMinute"
+                                        name="startMinute"
+                                        required>
+                                    <option value="" disabled selected>Min</option>
+                                    <option value="00">00</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- End input start time -->
+                        <!-- Start input end time -->
+                        <div class="form-group">
+                            <label>End Time</label>
+                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                <select class="form-control mr-1"
+                                        id="inputEndTimeHour"
+                                        name="endHour"
+                                        required>
+                                    <option value="" disabled selected>Hour</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                </select>
+                                <div class="pl-1 pr-2">:</div>
+                                <select class="form-control"
+                                        id="inputEndTimeMinute"
+                                        name="endMinute"
+                                        required>
+                                    <option value="" disabled selected>Min</option>
+                                    <option value="00">00</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- End input end time -->
+                        <!-- Start check room type -->
+                        <div class="form-group">
+                            <legend class="col-form-label pt-0">Choose a Room</legend>
+                            <div class="form-check form-check-inline">
+                                <input type="radio"
+                                       class="form-check-input"
+                                       id="inlineRadioType1"
+                                       name="roomType"
+                                       value="Room 1"
+                                       required />
+                                <label class="form-check-label" for="inlineRadioType1">Room 1 (10 People)</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio"
+                                       class="form-check-input"
+                                       id="inlineRadioType2"
+                                       name="roomType"
+                                       value="Room 2"
+                                       required />
+                                <label class="form-check-label" for="inlineRadioType2">Room 2 (20 People)</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio"
+                                       class="form-check-input"
+                                       id="inlineRadioType3"
+                                       name="roomType"
+                                       value="Room 3"
+                                       required />
+                                <label class="form-check-label" for="inlineRadioType3">Room 3 (30 People)</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio"
+                                       class="form-check-input"
+                                       id="inlineRadioType4"
+                                       name="roomType"
+                                       value="Room 4"
+                                       required />
+                                <label class="form-check-label" for="inlineRadioType4">Room 4 (40 People)</label>
+                            </div>
+                        </div>
+                        <!-- End check room type -->
+                        <!-- Start input event -->
+                        <div class="form-group">
+                            <label for="textAreaEvent">Event</label>
+                            <textarea class="form-control"
+                                      name="event"
+                                      id="textAreaEvent"
+                                      rows="2"
+                                      placeholder="Tell us your event name..."></textarea>
+                        </div>
+                        <!-- End input event -->
+                        <!-- Start submit button -->
+                        <button class="btn btn-primary btn-block"
+                                type="submit"
+                                id="btnSubmit">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit
+                        </button>
+                        <!-- End submit button -->
+                    </form>
+                    <!-- End form content -->
+                </div>
+                <!-- End form -->
+            </div>
+            <!-- End form content -->
+        </div>
+        <!-- End content -->
+    </div>
+    <!-- End container -->
+    <!-- Start footer -->
+    <div id="footer">
+        <div class="my-4 text-muted text-center">
+            <p>© adamblog.co</p>
+        </div>
+    </div>
+
+
+    <!-- Firebase Javascript -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <!-- Add Firebase products want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
+
+
+
+    <!-- End footer -->
+    <!-- Boostrap Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+
+    <!-- Firebase Javascript -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <!-- Add Firebase products want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
+    <script>let firebaseConfig = {
+            apiKey: "AIzaSyCCilUA5-Pu1LafwsvbyD3HBchsKE1oqTY",
+            authDomain: "helpsych-66739.firebaseapp.com",
+            databaseURL: "https://helpsych-66739-default-rtdb.firebaseio.com",
+            projectId: "helpsych-66739",
+            storageBucket: "helpsych-66739.appspot.com",
+            messagingSenderId: "529615864029",
+            appId: "1:529615864029:web:58f450812847a0a7a3db34",
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);</script>
+
+    <!-- Form Javascript -->
+    <script src="~/form.js"></script>
+</body>
+</html>

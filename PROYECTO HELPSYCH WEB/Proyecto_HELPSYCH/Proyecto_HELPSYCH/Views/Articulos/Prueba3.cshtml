@@ -1,0 +1,256 @@
+﻿
+@{
+    ViewBag.Title = "VerGraficoNuevo";
+    String data2 = "";
+}
+
+<!DOCTYPE html>
+<html>
+<body>
+
+    <p id="demo" onclick="myFunction()">eeeeeedddddddddsssssssssssssssssssss</p>
+
+    <div id="entries" class="row">
+
+    </div>
+
+    <head>
+
+        <style>
+            #container {
+                height: 400px;
+            }
+
+            .highcharts-figure, .highcharts-data-table table {
+                min-width: 310px;
+                max-width: 800px;
+                margin: 1em auto;
+            }
+
+            .highcharts-data-table table {
+                font-family: Verdana, sans-serif;
+                border-collapse: collapse;
+                border: 1px solid #EBEBEB;
+                margin: 10px auto;
+                text-align: center;
+                width: 100%;
+                max-width: 500px;
+            }
+
+            .highcharts-data-table caption {
+                padding: 1em 0;
+                font-size: 1.2em;
+                color: #555;
+            }
+
+            .highcharts-data-table th {
+                font-weight: 600;
+                padding: 0.5em;
+            }
+
+            .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+                padding: 0.5em;
+            }
+
+            .highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+                background: #f8f8f8;
+            }
+
+            .highcharts-data-table tr:hover {
+                background: #f1f7ff;
+            }
+        </style>
+
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+
+
+
+
+    </head>
+
+
+
+
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+        <p class="highcharts-description">
+            Chart showing use of rotated axis labels and data labels. This can be a
+            way to include more labels in the chart, but note that more labels can
+            sometimes make charts harder to read.
+        </p>
+    </figure>
+
+
+
+    <script>
+        var datos = '';
+        // firebase config
+        var config = {
+            apiKey: "AIzaSyCCilUA5-Pu1LafwsvbyD3HBchsKE1oqTY",
+            authDomain: "helpsych-66739.firebaseapp.com",
+            databaseURL: "https://helpsych-66739-default-rtdb.firebaseio.com",
+            storageBucket: "",
+        };
+        firebase.initializeApp(config);
+
+        /////////////////////////////////////
+
+        var Blog = firebase.database().ref('Article').orderByChild('updatedAt');
+
+        Blog.on('value', function (r) {
+
+            $('#entries').html('Loading...');
+            var html = '';
+
+
+            r.forEach(function (item) {
+                entry = item.val()
+                html = '<div class="col-lg-3 col-md-6 col-sm-12 mb-4">' +
+                    '<a href="/Articulos/entry?id=' + item.getKey() + '" style="text-decoration:none!important;">' +
+                    '<div class="card card-small card-post card-post--1">' +
+                    '<div class="card-title">' +
+                    '</br><center><h3 class="card-title">' + excerpt(entry.approach, 140) + '</h3></center>' +
+                    '</div>' +
+                    '<div class="card-body">' +
+                    '<small>By ' + entry.author + ' | ' + datetimeFormat(entry.updatedAt) + ' | ' + entry.views + ' views</small>' +
+                    '<hr><p>' + excerpt(entry.body, 250) + '</p>' +
+                    '<hr>' + '<img src="' + entry.image + '"width="190" height = "190"/>' +
+                    '</div>' +
+                    '</div>' +
+                    '</a>' +
+                    '</div>' + html; // prepend the entry because we need to display it in reverse order
+                datos = datos + "['" + entry.title + "', " + entry.views + "],"
+
+
+
+            });
+
+
+
+            $('#entries').html(html);
+
+
+            const prueba = new String(datos);
+
+            document.write(prueba)
+
+            
+
+
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'World\'s largest cities per 2017'
+                },
+                subtitle: {
+                    text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+                },
+                xAxis: {
+                    type: 'category',
+                    labels: {
+                        rotation: -45,
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Population (millions)'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: 'Population in 2017: <b>{point.y:.1f} millions</b>'
+                },
+                series: [{
+                    name: 'Population',
+                    data: [
+                        @ViewBag.Mensaje
+                    ],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: -90,
+                        color: '#FFFFFF',
+                        align: 'right',
+                        format: '{point.y:.1f}', // one decimal
+                        y: 10, // 10 pixels down from the top
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                }]
+            });
+
+
+
+
+
+        });
+
+
+        var variable = 2
+
+
+        /*************\
+         * Utilities *
+        \*************/
+
+        function strip(html) {
+            var tmp = document.createElement("DIV");
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || "";
+        }
+
+        function excerpt(text, length) {
+            text = strip(text);
+            text = $.trim(text); //trim whitespace
+            if (text.length > length) {
+                text = text.substring(0, length - 3) + '...';
+            }
+            return text;
+        }
+
+        function pad2Digit(num) {
+            return ('0' + num.toString()).slice(-2);
+        }
+
+        function datetimeFormat(timestamp) {
+            var dateObj = new Date(timestamp);
+            var en_month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return dateObj.getDate() + ' ' + en_month[dateObj.getMonth()] + ' ' + pad2Digit(dateObj.getFullYear()) + ' ' + pad2Digit(dateObj.getHours()) + ':' + pad2Digit(dateObj.getMinutes());
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>
+
+
